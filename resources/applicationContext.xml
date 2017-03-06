@@ -29,7 +29,7 @@
     <!-- 扫描包 -->
     <context:component-scan base-package="moka.**.controller"/>
     <context:component-scan base-package="moka.**.service"/>
-    <context:component-scan base-package="moka.**.dao"/>
+    <!--<context:component-scan base-package="moka.**.dao"/>-->
     <!--<aop:aspectj-autoproxy/>-->
 
 </beans>

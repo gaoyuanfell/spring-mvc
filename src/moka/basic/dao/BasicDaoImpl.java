@@ -7,4 +7,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("BasicDao")
 public class BasicDaoImpl<T> implements BasicDao<T> {
+    @Override
+    public T findById(int id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public int save(T t) throws Exception {
+        return 0;
+    }
 }
