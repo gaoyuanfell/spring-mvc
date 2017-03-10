@@ -40,7 +40,7 @@
 
 
     <!--开启注解处理器-->
-    <context:annotation-config/>
+    <!--<context:annotation-config/>-->
     <!-- 扫描包 -->
     <context:component-scan base-package="moka.**.controller"/>
     <context:component-scan base-package="moka.**.service"/>
