@@ -1,9 +1,11 @@
 package moka.user.bo;
 
+import java.io.Serializable;
+
 /**
  * Created by moka on 2017/3/5 0005.
  */
-public class UserEntity {
+public class UserEntity implements Serializable{
     private int id;
     private String user;
     private String password;

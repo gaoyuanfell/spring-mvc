@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("BasicService")
 public class BasicServiceImpl implements BasicService {
+
     @Override
     public <T> T convertBusinessValue(Object resource, Class<T> target, String... ignoreProperties) {
         try {

@@ -1,15 +1,16 @@
 package moka.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import moka.user.bo.UserEntity;
 import moka.user.service.UserService;
 import moka.user.vo.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by moka on 2017/3/5 0005.
@@ -58,21 +59,53 @@ public class UserController {
         return json;
     }
 
-    @Autowired
+    @Resource
     private UserService userService;
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
+    /**
+     * 增
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "insert")
     @ResponseBody
-    public Object insert(User user) {
+    public Object insert(@RequestBody User user) {
         int a = userService.insert(user);
         System.out.println(a);
         JSONObject json = new JSONObject();
         json.put("a",user);
         json.put("b",a);
+        return json;
+    }
+
+    /**
+     * 查
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "findOne")
+    @ResponseBody
+    public Object findOne(int id) {
+        User user = userService.findOne(id);
+        JSONObject json = new JSONObject();
+        json.put("code",200);
+        json.put("msg","success");
+        json.put("data",user);
+        return json;
+    }
+
+    /**
+     * 查 列表
+     * @return
+     */
+    @RequestMapping(value = "findList")
+    @ResponseBody
+    public Object findList() {
+        List<UserEntity> list = userService.findList();
+        JSONObject json = new JSONObject();
+        json.put("code",200);
+        json.put("msg","success");
+        json.put("data",list);
         return json;
     }
 }

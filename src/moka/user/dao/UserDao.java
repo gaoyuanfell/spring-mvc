@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("userDao")
 public interface UserDao extends BasicDao<UserEntity> {
-    int insert(UserEntity user);
+
 }

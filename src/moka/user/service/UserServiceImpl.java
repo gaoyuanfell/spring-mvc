@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by moka on 2017/3/6 0006.
@@ -15,16 +16,22 @@ import javax.annotation.Resource;
 @Service("userService")
 public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private UserDao userDao;
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     @Override
     public int insert(User user) {
-        System.out.println(userDao);
         return userDao.insert(this.convertBusinessValue(user,UserEntity.class));
+    }
+
+    @Override
+    public User findOne(Integer id) {
+        UserEntity userEntity = userDao.findOne(id);
+        return this.convertBusinessValue(userEntity,User.class);
+    }
+
+    @Override
+    public List<UserEntity> findList() {
+        return userDao.findList();
     }
 }
