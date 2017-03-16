@@ -5,13 +5,14 @@ import java.io.Serializable;
 /**
  * Created by moka on 2017/3/5 0005.
  */
-public class UserEntity implements Serializable{
+public class UserEntity implements Serializable {
     private int id;
     private String user;
     private String password;
     private String email;
     private String address;
     private String phone;
+    private String nickName;
 
     public int getId() {
         return id;
@@ -61,15 +62,11 @@ public class UserEntity implements Serializable{
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", user='" + user + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

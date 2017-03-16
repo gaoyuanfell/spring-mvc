@@ -7,12 +7,14 @@ import java.util.List;
 /**
  * Created by moka on 2017/3/6 0006.
  */
-public interface BasicDao<T> {
+public interface BasicDao<T,P> {
     int insert(T t);
 
     T findOne(Integer id);
 
     List<T> findList();
 
-    Page<T> findPage(Page<T> page);
+    List<P> findPage(Page<P> page);
+
+    int findCount();
 }

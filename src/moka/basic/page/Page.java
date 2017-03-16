@@ -7,9 +7,10 @@ import java.util.List;
  * 分页
  * Created by moka on 2017/3/11.
  */
-public class Page<T> implements Serializable{
-    int pageIndex;
-    int pageSize;
+public class Page<T> implements Serializable {
+    int pageIndex = 0;
+    int pageStart;
+    int pageSize = 0;
     int totalPage;
     int totalCount;
     List<T> list;
@@ -19,6 +20,10 @@ public class Page<T> implements Serializable{
     }
 
     public void setPageIndex(int pageIndex) {
+        int pageSize = this.getPageSize();
+        if(pageSize != 0 && pageIndex != 0){
+            this.setPageStart( pageSize *  (pageIndex - 1) );
+        }
         this.pageIndex = pageIndex;
     }
 
@@ -27,7 +32,19 @@ public class Page<T> implements Serializable{
     }
 
     public void setPageSize(int pageSize) {
+        int pageIndex = this.getPageIndex();
+        if(pageSize != 0 && pageIndex != 0){
+            this.setPageStart( pageSize *  (pageIndex - 1) );
+        }
         this.pageSize = pageSize;
+    }
+
+    public int getPageStart() {
+        return pageStart;
+    }
+
+    public void setPageStart(int pageStart) {
+        this.pageStart = pageStart;
     }
 
     public int getTotalPage() {
@@ -43,6 +60,14 @@ public class Page<T> implements Serializable{
     }
 
     public void setTotalCount(int totalCount) {
+        int pageSize = this.getPageSize();
+        if(totalCount != 0 && pageSize != 0){
+            int totalPage = totalCount / pageSize;
+            if(totalCount % pageSize != 0){
+                ++totalPage;
+            }
+            this.setTotalPage(totalPage);
+        }
         this.totalCount = totalCount;
     }
 

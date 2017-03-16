@@ -1,5 +1,6 @@
 package moka.user.service;
 
+import moka.basic.page.Page;
 import moka.basic.service.BasicService;
 import moka.user.bo.UserEntity;
 import moka.user.vo.User;
@@ -16,4 +17,6 @@ public interface UserService extends BasicService {
     User findOne(Integer id);
 
     List<UserEntity> findList();
+
+    Page<User> findPage(Page<User> page);
 }

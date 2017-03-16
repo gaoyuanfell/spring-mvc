@@ -1,6 +1,7 @@
 package moka.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import moka.basic.page.Page;
 import moka.user.bo.UserEntity;
 import moka.user.service.UserService;
 import moka.user.vo.User;
@@ -31,7 +32,7 @@ public class UserController {
     @ResponseBody
     public String login(@RequestBody User user) {
         System.out.println(user.toString());
-        return "{method:"+ user.toString() +"}";
+        return "{method:" + user.toString() + "}";
     }
 
     //多动作控制器
@@ -46,7 +47,7 @@ public class UserController {
     @ResponseBody
     public Object getPath() {
         JSONObject json = new JSONObject();
-        json.put("a",1);
+        json.put("a", 1);
         return json;
     }
 
@@ -55,7 +56,7 @@ public class UserController {
     @ResponseBody
     public Object getUser(User user) {
         JSONObject json = new JSONObject();
-        json.put("a",user);
+        json.put("a", user);
         return json;
     }
 
@@ -64,6 +65,7 @@ public class UserController {
 
     /**
      * 增
+     *
      * @param user
      * @return
      */
@@ -73,13 +75,14 @@ public class UserController {
         int a = userService.insert(user);
         System.out.println(a);
         JSONObject json = new JSONObject();
-        json.put("a",user);
-        json.put("b",a);
+        json.put("a", user);
+        json.put("b", a);
         return json;
     }
 
     /**
      * 查
+     *
      * @param id
      * @return
      */
@@ -88,14 +91,15 @@ public class UserController {
     public Object findOne(int id) {
         User user = userService.findOne(id);
         JSONObject json = new JSONObject();
-        json.put("code",200);
-        json.put("msg","success");
-        json.put("data",user);
+        json.put("code", 200);
+        json.put("msg", "success");
+        json.put("data", user);
         return json;
     }
 
     /**
      * 查 列表
+     *
      * @return
      */
     @RequestMapping(value = "findList")
@@ -103,9 +107,25 @@ public class UserController {
     public Object findList() {
         List<UserEntity> list = userService.findList();
         JSONObject json = new JSONObject();
-        json.put("code",200);
-        json.put("msg","success");
-        json.put("data",list);
+        json.put("code", 200);
+        json.put("msg", "success");
+        json.put("data", list);
+        return json;
+    }
+
+    /**
+     * 查 分页
+     *
+     * @return
+     */
+    @RequestMapping(value = "findPage")
+    @ResponseBody
+    public Object findPage(Page<User> page) {
+        Page<User> list = userService.findPage(page);
+        JSONObject json = new JSONObject();
+        json.put("code", 200);
+        json.put("msg", "success");
+        json.put("data", list);
         return json;
     }
 }

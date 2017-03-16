@@ -14,6 +14,9 @@ public class User extends Page<User> implements Serializable {
     private String email;
     private String address;
     private String phone;
+    private String nickName;
+
+
 
     public int getId() {
         return id;
@@ -61,5 +64,26 @@ public class User extends Page<User> implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", user='" + user + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", nickName='" + nickName + '\'' +
+                '}';
     }
 }
