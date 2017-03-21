@@ -17,4 +17,31 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--告诉Spring检查上下文中所有bean并检查使用到@Transactional注解的bean-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 事务通知属性 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!-- 事务传播属性 -->
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="del*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="modify*" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="NOT_SUPPORTED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--　事务切面 -->
+    <aop:config>
+        <aop:pointcut id="serviceOperation" expression="execution(* moka..service.*.*(..))"/>
+        <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
+    </aop:config>
 </beans>

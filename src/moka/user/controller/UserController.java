@@ -73,7 +73,6 @@ public class UserController {
     @ResponseBody
     public Object insert(@RequestBody User user) {
         int a = userService.insert(user);
-        System.out.println(a);
         JSONObject json = new JSONObject();
         json.put("a", user);
         json.put("b", a);
