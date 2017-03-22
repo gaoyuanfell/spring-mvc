@@ -19,7 +19,12 @@
 
     <!--引入配置文件 properties-->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties"/>
+        <!--<property name="location" value="classpath:jdbc.properties"/>-->
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
     </bean>
 
     <!--引入配置文件 properties 有问题-->
@@ -43,27 +48,5 @@
         <!-- 指定连接数据库连接池的连接的最大空闲时间 -->
         <property name="maxIdleTime" value="${maxIdleTime}"/>
     </bean>
-
-    <!--jdbc sql模板-->
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:mapping/*/*.xml"/>
-    </bean>
-
-    <!--mybatis sql模板-->
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
-    </bean>
-
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="moka.*.dao"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-    </bean>
-
 
 </beans>

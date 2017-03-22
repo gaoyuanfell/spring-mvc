@@ -1,12 +1,21 @@
 package moka.user.bo;
 
+import moka.basic.bo.IdEntity;
+
 import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * Created by moka on 2017/3/5 0005.
  */
-public class UserEntity implements Serializable {
-    private int id;
+@Entity
+@Table( name = "user" )
+public class UserEntity extends IdEntity implements Serializable {
+    private UserDetailEntity userDetailEntity;
     private String user;
     private String password;
     private String email;
@@ -14,12 +23,14 @@ public class UserEntity implements Serializable {
     private String phone;
     private String nickName;
 
-    public int getId() {
-        return id;
+    @OneToOne
+    @JoinColumn( name = "userDetailId" )
+    public UserDetailEntity getUserDetailEntity() {
+        return userDetailEntity;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserDetailEntity(UserDetailEntity userDetailEntity) {
+        this.userDetailEntity = userDetailEntity;
     }
 
     public String getUser() {

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by moka on 2017/3/6 0006.
  */
-public interface BasicDao<T,P> {
+public interface BasicDao<T, P> {
     int insert(T t);
 
     T findOne(Integer id);
@@ -17,4 +17,6 @@ public interface BasicDao<T,P> {
     List<P> findPage(Page<P> page);
 
     int findCount();
+
+    int save(T t);
 }

@@ -45,4 +45,10 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         page.setTotalCount(totalCount);
         return page;
     }
+
+    @Override
+    public int save(User user) {
+        int a = userDao.save(this.convertBusinessValue(user, UserEntity.class));
+        return a;
+    }
 }

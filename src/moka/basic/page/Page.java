@@ -8,9 +8,9 @@ import java.util.List;
  * Created by moka on 2017/3/11.
  */
 public class Page<T> implements Serializable {
-    int pageIndex = 0;
+    int pageIndex = 1;
     int pageStart;
-    int pageSize = 0;
+    int pageSize = 5;
     int totalPage;
     int totalCount;
     List<T> list;

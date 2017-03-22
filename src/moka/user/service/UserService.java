@@ -19,4 +19,6 @@ public interface UserService extends BasicService {
     List<UserEntity> findList();
 
     Page<User> findPage(Page<User> page);
+
+    int save(User user);
 }

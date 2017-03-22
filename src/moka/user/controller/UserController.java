@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/user")
 public class UserController {
     //test
-    @RequestMapping(value = "hello")
+    @RequestMapping(value = "hello.htm")
     @ResponseBody
     public String hello() {
         return "{message:hello world 你好！}";
@@ -69,7 +69,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "insert")
+    @RequestMapping(value = "insert.htm")
     @ResponseBody
     public Object insert(@RequestBody User user) {
         int a = userService.insert(user);
@@ -80,12 +80,27 @@ public class UserController {
     }
 
     /**
+     * 增
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "save.htm")
+    @ResponseBody
+    public Object save(@RequestBody User user) {
+        int a = userService.insert(user);
+        JSONObject json = new JSONObject();
+        json.put("b", a);
+        return json;
+    }
+
+    /**
      * 查
      *
      * @param id
      * @return
      */
-    @RequestMapping(value = "findOne")
+    @RequestMapping(value = "findOne.htm")
     @ResponseBody
     public Object findOne(int id) {
         User user = userService.findOne(id);
@@ -101,7 +116,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "findList")
+    @RequestMapping(value = "findList.htm")
     @ResponseBody
     public Object findList() {
         List<UserEntity> list = userService.findList();
@@ -117,7 +132,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "findPage")
+    @RequestMapping(value = "findPage.htm")
     @ResponseBody
     public Object findPage(Page<User> page) {
         Page<User> list = userService.findPage(page);
