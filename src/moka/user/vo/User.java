@@ -1,6 +1,7 @@
 package moka.user.vo;
 
 import moka.basic.page.Page;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ public class User extends Page<User> implements Serializable {
     private String email;
     private String address;
     private String phone;
+    @Value("#{jdbcProperties['password']}")
     private String nickName;
 
 
