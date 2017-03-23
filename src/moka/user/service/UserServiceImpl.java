@@ -5,9 +5,7 @@ import moka.basic.service.BasicServiceImpl;
 import moka.user.dao.UserDao;
 import moka.user.vo.User;
 import moka.user.bo.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,13 +21,14 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Override
     public int insert(User user) {
-        return userDao.insert(this.convertBusinessValue(user, UserEntity.class));
+        UserEntity userEntity = this.convertBusinessValue(user, UserEntity.class);
+        userDao.insert(userEntity);
+        return userEntity.getId();
     }
 
     @Override
     public User findOne(Integer id) {
-        UserEntity userEntity = userDao.findOne(id);
-        return this.convertBusinessValue(userEntity, User.class);
+        return userDao.findOne(id);
     }
 
     @Override
@@ -48,7 +47,6 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Override
     public int save(User user) {
-        int a = userDao.save(this.convertBusinessValue(user, UserEntity.class));
-        return a;
+        return userDao.save(this.convertBusinessValue(user, UserEntity.class));
     }
 }

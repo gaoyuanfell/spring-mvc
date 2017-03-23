@@ -17,7 +17,15 @@ public class User extends Page<User> implements Serializable {
     private String phone;
     private String nickName;
 
+    private UserDetail userDetail;
 
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
+    }
 
     public int getId() {
         return id;

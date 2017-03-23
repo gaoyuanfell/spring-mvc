@@ -8,13 +8,18 @@
         user,password,email,address,phone,nickName
     </sql>
 
-    <insert id="insert" parameterType="moka.user.bo.UserEntity">
+    <insert id="insert" parameterType="moka.user.bo.UserEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO USER(
         <include refid="User"/>
         ) VALUES (#{user}, #{password}, #{email}, #{address}, #{phone}, #{nickName});
     </insert>
-    
-    <select id="findOne" parameterType="Integer" resultType="moka.user.bo.UserEntity">
+
+    <resultMap id="userMap" type="moka.user.vo.User">
+        <id property="id" column="id"/>
+        <association property="userDetail" javaType="moka.user.vo.UserDetail" column="userDetailId" select="moka.user.dao.UserDetailDao.findOne"/>
+    </resultMap>
+
+    <select id="findOne" parameterType="Integer" resultMap="userMap">
         SELECT * FROM USER WHERE id = #{id};
     </select>
 

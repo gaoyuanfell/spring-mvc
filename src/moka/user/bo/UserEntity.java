@@ -23,8 +23,6 @@ public class UserEntity extends IdEntity implements Serializable {
     private String phone;
     private String nickName;
 
-    @OneToOne
-    @JoinColumn( name = "userDetailId" )
     public UserDetailEntity getUserDetailEntity() {
         return userDetailEntity;
     }

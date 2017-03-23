@@ -32,21 +32,21 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <!-- 指定连接数据库的驱动 -->
-        <property name="driverClass" value="${driverClass}"/>
+        <property name="driverClass" value="${jdbc.driverClass}"/>
         <!-- 指定连接数据库的URL -->
-        <property name="jdbcUrl" value="${jdbcUrl}"/>
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
         <!-- 指定连接数据库的用户名 -->
-        <property name="user" value="${user}"/>
+        <property name="user" value="${jdbc.user}"/>
         <!-- 指定连接数据库的密码 -->
-        <property name="password" value="${password}"/>
+        <property name="password" value="${jdbc.password}"/>
         <!-- 指定连接数据库连接池的最大连接数 -->
-        <property name="maxPoolSize" value="${maxPoolSize}"/>
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
         <!-- 指定连接数据库连接池的最小连接数 -->
-        <property name="minPoolSize" value="${minPoolSize}"/>
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"/>
         <!-- 指定连接数据库连接池的初始化连接数 -->
-        <property name="initialPoolSize" value="${initialPoolSize}"/>
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
         <!-- 指定连接数据库连接池的连接的最大空闲时间 -->
-        <property name="maxIdleTime" value="${maxIdleTime}"/>
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>
     </bean>
 
 </beans>

@@ -72,10 +72,11 @@ public class UserController {
     @RequestMapping(value = "insert.htm")
     @ResponseBody
     public Object insert(@RequestBody User user) {
-        int a = userService.insert(user);
+        int i = userService.insert(user);
         JSONObject json = new JSONObject();
-        json.put("a", user);
-        json.put("b", a);
+        json.put("msg", "success");
+        json.put("code", 200);
+        json.put("data", i);
         return json;
     }
 

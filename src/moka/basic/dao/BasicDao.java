@@ -10,7 +10,7 @@ import java.util.List;
 public interface BasicDao<T, P> {
     int insert(T t);
 
-    T findOne(Integer id);
+    P findOne(Integer id);
 
     List<T> findList();
 
