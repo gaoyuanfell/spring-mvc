@@ -2,9 +2,12 @@ package moka.user.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
+import moka.user.bo.UserDetailEntity;
 import moka.user.dao.UserDao;
-import moka.user.vo.User;
+import moka.user.dao.UserDetailDao;
+import moka.user.to.UserTo;
 import moka.user.bo.UserEntity;
+import moka.user.vo.UserVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,34 +22,31 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+    @Resource
+    private UserDetailDao userDetailDao;
+
     @Override
-    public int insert(User user) {
-        UserEntity userEntity = this.convertBusinessValue(user, UserEntity.class);
+    public int insert(UserVo userVo) {
+
+        UserDetailEntity userDetailEntity = new UserDetailEntity();
+        userDetailDao.insert(userDetailEntity);
+        UserEntity userEntity = this.convertBusinessValue(userVo, UserEntity.class);
+        userEntity.setUserDetailId(userDetailEntity.getId());
         userDao.insert(userEntity);
         return userEntity.getId();
     }
 
     @Override
-    public User findOne(Integer id) {
+    public UserTo findOne(Integer id) {
         return userDao.findOne(id);
     }
 
     @Override
-    public List<UserEntity> findList() {
-        return userDao.findList();
-    }
-
-    @Override
-    public Page<User> findPage(Page<User> page) {
-        List<User> list = userDao.findPage(page);
+    public Page findPage(Page page) {
+        List list = userDao.findPage(page);
         int totalCount = userDao.findCount();
         page.setList(list);
         page.setTotalCount(totalCount);
         return page;
-    }
-
-    @Override
-    public int save(User user) {
-        return userDao.save(this.convertBusinessValue(user, UserEntity.class));
     }
 }

@@ -10,11 +10,11 @@ import java.io.Serializable;
  * Created by moka on 2017/3/22.
  */
 @MappedSuperclass
-public class IdEntity implements Serializable{
+public class IdEntity implements Serializable {
     protected int id;
 
     @Id
-    @GeneratedValue( strategy = GenerationType.SEQUENCE )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public int getId() {
         return id;
     }

@@ -2,22 +2,16 @@ package moka.user.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicService;
-import moka.user.bo.UserEntity;
-import moka.user.vo.User;
-
-import java.util.List;
+import moka.user.to.UserTo;
+import moka.user.vo.UserVo;
 
 /**
  * Created by moka on 2017/3/5 0005.
  */
 public interface UserService extends BasicService {
-    int insert(User user);
+    int insert(UserVo user);
 
-    User findOne(Integer id);
+    UserTo findOne(Integer id);
 
-    List<UserEntity> findList();
-
-    Page<User> findPage(Page<User> page);
-
-    int save(User user);
+    Page findPage(Page page);
 }

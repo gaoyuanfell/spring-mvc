@@ -1,14 +1,11 @@
-package moka.user.vo;
-
-import moka.basic.page.Page;
-import org.springframework.beans.factory.annotation.Value;
+package moka.user.to;
 
 import java.io.Serializable;
 
-/**
+/** 返回数据
  * Created by moka on 2017/3/5 0005.
  */
-public class User extends Page<User> implements Serializable {
+public class UserTo implements Serializable {
     private int id;
     private String user;
     private String password;
@@ -16,14 +13,13 @@ public class User extends Page<User> implements Serializable {
     private String address;
     private String phone;
     private String nickName;
+    private UserDetailTo userDetail;
 
-    private UserDetail userDetail;
-
-    public UserDetail getUserDetail() {
+    public UserDetailTo getUserDetail() {
         return userDetail;
     }
 
-    public void setUserDetail(UserDetail userDetail) {
+    public void setUserDetail(UserDetailTo userDetail) {
         this.userDetail = userDetail;
     }
 
@@ -85,7 +81,7 @@ public class User extends Page<User> implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserVo{" +
                 "id=" + id +
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +

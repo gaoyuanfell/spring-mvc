@@ -17,7 +17,6 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--<mvc:annotation-driven />-->
     <!-- 注解驱动 -->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">

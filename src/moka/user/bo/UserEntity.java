@@ -13,22 +13,21 @@ import javax.persistence.Table;
  * Created by moka on 2017/3/5 0005.
  */
 @Entity
-@Table( name = "user" )
+@Table(name = "user")
 public class UserEntity extends IdEntity implements Serializable {
-    private UserDetailEntity userDetailEntity;
+    private int userDetailId;
     private String user;
     private String password;
     private String email;
-    private String address;
     private String phone;
     private String nickName;
 
-    public UserDetailEntity getUserDetailEntity() {
-        return userDetailEntity;
+    public int getUserDetailId() {
+        return userDetailId;
     }
 
-    public void setUserDetailEntity(UserDetailEntity userDetailEntity) {
-        this.userDetailEntity = userDetailEntity;
+    public void setUserDetailId(int userDetailId) {
+        this.userDetailId = userDetailId;
     }
 
     public String getUser() {
@@ -53,14 +52,6 @@ public class UserEntity extends IdEntity implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPhone() {

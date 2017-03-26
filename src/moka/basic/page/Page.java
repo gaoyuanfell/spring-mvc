@@ -7,13 +7,13 @@ import java.util.List;
  * 分页
  * Created by moka on 2017/3/11.
  */
-public class Page<T> implements Serializable {
-    int pageIndex = 1;
-    int pageStart;
-    int pageSize = 5;
-    int totalPage;
-    int totalCount;
-    List<T> list;
+public class Page implements Serializable {
+    private int pageIndex = 1;
+    private int pageStart;
+    private int pageSize = 5;
+    private int totalPage;
+    private int totalCount;
+    private List list;
 
     public int getPageIndex() {
         return pageIndex;
@@ -21,8 +21,8 @@ public class Page<T> implements Serializable {
 
     public void setPageIndex(int pageIndex) {
         int pageSize = this.getPageSize();
-        if(pageSize != 0 && pageIndex != 0){
-            this.setPageStart( pageSize *  (pageIndex - 1) );
+        if (pageSize != 0 && pageIndex != 0) {
+            this.setPageStart(pageSize * (pageIndex - 1));
         }
         this.pageIndex = pageIndex;
     }
@@ -33,8 +33,8 @@ public class Page<T> implements Serializable {
 
     public void setPageSize(int pageSize) {
         int pageIndex = this.getPageIndex();
-        if(pageSize != 0 && pageIndex != 0){
-            this.setPageStart( pageSize *  (pageIndex - 1) );
+        if (pageSize != 0 && pageIndex != 0) {
+            this.setPageStart(pageSize * (pageIndex - 1));
         }
         this.pageSize = pageSize;
     }
@@ -61,9 +61,9 @@ public class Page<T> implements Serializable {
 
     public void setTotalCount(int totalCount) {
         int pageSize = this.getPageSize();
-        if(totalCount != 0 && pageSize != 0){
+        if (totalCount != 0 && pageSize != 0) {
             int totalPage = totalCount / pageSize;
-            if(totalCount % pageSize != 0){
+            if (totalCount % pageSize != 0) {
                 ++totalPage;
             }
             this.setTotalPage(totalPage);
@@ -71,11 +71,11 @@ public class Page<T> implements Serializable {
         this.totalCount = totalCount;
     }
 
-    public List<T> getList() {
+    public List getList() {
         return list;
     }
 
-    public void setList(List<T> list) {
+    public void setList(List list) {
         this.list = list;
     }
 }

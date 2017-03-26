@@ -2,16 +2,15 @@ package moka.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import moka.basic.page.Page;
-import moka.user.bo.UserEntity;
 import moka.user.service.UserService;
-import moka.user.vo.User;
+import moka.user.to.UserTo;
+import moka.user.vo.UserVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by moka on 2017/3/5 0005.
@@ -19,6 +18,10 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+
+    @Resource
+    private UserService userService;
+
     //test
     @RequestMapping(value = "hello.htm")
     @ResponseBody
@@ -30,7 +33,7 @@ public class UserController {
     // @RequestBody application/json 接收参数
     @RequestMapping(params = "method=login")
     @ResponseBody
-    public String login(@RequestBody User user) {
+    public String login(@RequestBody UserVo user) {
         System.out.println(user.toString());
         return "{method:" + user.toString() + "}";
     }
@@ -54,14 +57,12 @@ public class UserController {
     //application/x-www-form-urlencoded 接收参数
     @RequestMapping(value = "user.htm")
     @ResponseBody
-    public Object getUser(User user) {
+    public Object getUser(UserVo user) {
         JSONObject json = new JSONObject();
         json.put("a", user);
         return json;
     }
 
-    @Resource
-    private UserService userService;
 
     /**
      * 增
@@ -71,7 +72,7 @@ public class UserController {
      */
     @RequestMapping(value = "insert.htm")
     @ResponseBody
-    public Object insert(@RequestBody User user) {
+    public Object insert(@RequestBody UserVo user) {
         int i = userService.insert(user);
         JSONObject json = new JSONObject();
         json.put("msg", "success");
@@ -88,7 +89,7 @@ public class UserController {
      */
     @RequestMapping(value = "save.htm")
     @ResponseBody
-    public Object save(@RequestBody User user) {
+    public Object save(@RequestBody UserVo user) {
         int a = userService.insert(user);
         JSONObject json = new JSONObject();
         json.put("b", a);
@@ -104,27 +105,11 @@ public class UserController {
     @RequestMapping(value = "findOne.htm")
     @ResponseBody
     public Object findOne(int id) {
-        User user = userService.findOne(id);
+        UserTo user = userService.findOne(id);
         JSONObject json = new JSONObject();
         json.put("code", 200);
         json.put("msg", "success");
         json.put("data", user);
-        return json;
-    }
-
-    /**
-     * 查 列表
-     *
-     * @return
-     */
-    @RequestMapping(value = "findList.htm")
-    @ResponseBody
-    public Object findList() {
-        List<UserEntity> list = userService.findList();
-        JSONObject json = new JSONObject();
-        json.put("code", 200);
-        json.put("msg", "success");
-        json.put("data", list);
         return json;
     }
 
@@ -135,8 +120,8 @@ public class UserController {
      */
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
-    public Object findPage(Page<User> page) {
-        Page<User> list = userService.findPage(page);
+    public Object findPage(Page page) {
+        Page list = userService.findPage(page);
         JSONObject json = new JSONObject();
         json.put("code", 200);
         json.put("msg", "success");

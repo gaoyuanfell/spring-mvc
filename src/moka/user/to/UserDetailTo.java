@@ -1,17 +1,12 @@
-package moka.user.bo;
+package moka.user.to;
 
-import moka.basic.bo.IdEntity;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 
-/**
+/** 数据传输层
  * Created by moka on 2017/3/22.
  */
-@Entity
-@Table(name = "userDetail")
-public class UserDetailEntity extends IdEntity implements Serializable {
+public class UserDetailTo implements Serializable {
+    private int id;
     private String school;
     private String hobby;
     private String diploma;
@@ -24,6 +19,14 @@ public class UserDetailEntity extends IdEntity implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSchool() {
@@ -56,5 +59,16 @@ public class UserDetailEntity extends IdEntity implements Serializable {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDetailVo{" +
+                "id=" + id +
+                ", school='" + school + '\'' +
+                ", hobby='" + hobby + '\'' +
+                ", diploma='" + diploma + '\'' +
+                ", idCard='" + idCard + '\'' +
+                '}';
     }
 }

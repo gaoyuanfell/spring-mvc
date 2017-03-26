@@ -1,20 +1,27 @@
 package moka.user.vo;
 
-import moka.basic.bo.IdEntity;
+import moka.basic.page.Page;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * Created by moka on 2017/3/22.
  */
-public class UserDetail implements Serializable{
+public class UserDetailVo extends Page implements Serializable {
     private int id;
     private String school;
     private String hobby;
     private String diploma;
     private String idCard;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public int getId() {
         return id;
@@ -58,7 +65,7 @@ public class UserDetail implements Serializable{
 
     @Override
     public String toString() {
-        return "UserDetail{" +
+        return "UserDetailVo{" +
                 "id=" + id +
                 ", school='" + school + '\'' +
                 ", hobby='" + hobby + '\'' +

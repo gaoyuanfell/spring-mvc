@@ -14,7 +14,7 @@
         ) VALUES (#{school}, #{hobby}, #{diploma}, #{idCard});
     </insert>
 
-    <select id="findOne" parameterType="Integer" resultType="moka.user.vo.UserDetail">
+    <select id="findOne" parameterType="Integer" resultType="moka.user.to.UserDetailTo">
         SELECT * FROM userdetail WHERE id = #{id};
     </select>
 

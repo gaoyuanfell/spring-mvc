@@ -12,11 +12,8 @@ public interface BasicDao<T, P> {
 
     P findOne(Integer id);
 
-    List<T> findList();
-
-    List<P> findPage(Page<P> page);
+    List findPage(Page page);
 
     int findCount();
 
-    int save(T t);
 }

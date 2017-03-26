@@ -5,33 +5,29 @@
 <mapper namespace="moka.user.dao.UserDao">
 
     <sql id="User">
-        user,password,email,address,phone,nickName
+        userDetailId,user,password,email,phone,nickName
     </sql>
 
     <insert id="insert" parameterType="moka.user.bo.UserEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO USER(
         <include refid="User"/>
-        ) VALUES (#{user}, #{password}, #{email}, #{address}, #{phone}, #{nickName});
+        ) VALUES (#{userDetailId}, #{user}, #{password}, #{email}, #{phone}, #{nickName});
     </insert>
 
-    <resultMap id="userMap" type="moka.user.vo.User">
+    <resultMap id="userMap" type="moka.user.to.UserTo">
         <id property="id" column="id"/>
-        <association property="userDetail" javaType="moka.user.vo.UserDetail" column="userDetailId" select="moka.user.dao.UserDetailDao.findOne"/>
+        <association property="userDetail" javaType="moka.user.to.UserDetailTo" column="userDetailId" select="moka.user.dao.UserDetailDao.findOne"/>
     </resultMap>
 
     <select id="findOne" parameterType="Integer" resultMap="userMap">
         SELECT * FROM USER WHERE id = #{id};
-    </select>
-
-    <select id="findList" resultType="hashMap">
-        SELECT * FROM USER;
     </select>
     
     <select id="findCount" resultType="Integer">
         SELECT COUNT(id) FROM USER;
     </select>
 
-    <select id="findPage" parameterType="moka.basic.page.Page" resultType="hashMap">
+    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="userMap">
         SELECT * FROM USER LIMIT #{pageStart} , #{pageSize};
     </select>
 
