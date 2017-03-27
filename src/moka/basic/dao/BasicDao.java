@@ -15,5 +15,4 @@ public interface BasicDao<T, P> {
     List findPage(Page page);
 
     int findCount();
-
 }

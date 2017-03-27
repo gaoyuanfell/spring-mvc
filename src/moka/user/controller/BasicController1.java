@@ -1,6 +1,7 @@
 package moka.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import moka.basic.controller.BasicController;
 import moka.basic.page.Page;
 import moka.user.service.UserService;
 import moka.user.to.UserTo;
@@ -17,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping(value = "/user")
-public class UserController {
+public class BasicController1 extends BasicController {
 
     @Resource
     private UserService userService;
@@ -50,6 +51,7 @@ public class UserController {
     @ResponseBody
     public Object getPath() {
         JSONObject json = new JSONObject();
+        json.putAll(SUCCESS);
         json.put("a", 1);
         return json;
     }
@@ -59,6 +61,7 @@ public class UserController {
     @ResponseBody
     public Object getUser(UserVo user) {
         JSONObject json = new JSONObject();
+        json.putAll(SUCCESS);
         json.put("a", user);
         return json;
     }
@@ -75,8 +78,7 @@ public class UserController {
     public Object insert(@RequestBody UserVo user) {
         int i = userService.insert(user);
         JSONObject json = new JSONObject();
-        json.put("msg", "success");
-        json.put("code", 200);
+        json.putAll(SUCCESS);
         json.put("data", i);
         return json;
     }
@@ -92,6 +94,7 @@ public class UserController {
     public Object save(@RequestBody UserVo user) {
         int a = userService.insert(user);
         JSONObject json = new JSONObject();
+        json.putAll(SUCCESS);
         json.put("b", a);
         return json;
     }
@@ -107,8 +110,7 @@ public class UserController {
     public Object findOne(int id) {
         UserTo user = userService.findOne(id);
         JSONObject json = new JSONObject();
-        json.put("code", 200);
-        json.put("msg", "success");
+        json.putAll(SUCCESS);
         json.put("data", user);
         return json;
     }
@@ -123,8 +125,7 @@ public class UserController {
     public Object findPage(Page page) {
         Page list = userService.findPage(page);
         JSONObject json = new JSONObject();
-        json.put("code", 200);
-        json.put("msg", "success");
+        json.putAll(SUCCESS);
         json.put("data", list);
         return json;
     }
