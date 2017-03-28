@@ -1,3 +1,5 @@
 spring-mvc.iml
 .idea
 target
+/web/
+!/web/WEB-INF/

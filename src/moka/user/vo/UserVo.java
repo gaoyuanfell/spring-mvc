@@ -16,13 +16,13 @@ public class UserVo extends Page implements Serializable {
     private String address;
     private String phone;
     private String nickName;
-    private UserDetailTo userDetail;
+    private UserDetailVo userDetail;
 
-    public UserDetailTo getUserDetail() {
+    public UserDetailVo getUserDetail() {
         return userDetail;
     }
 
-    public void setUserDetail(UserDetailTo userDetail) {
+    public void setUserDetail(UserDetailVo userDetail) {
         this.userDetail = userDetail;
     }
 

@@ -19,6 +19,6 @@
 
     <!--防止跨域-->
     <mvc:cors>
-        <mvc:mapping path="/**/*.htm" allowed-methods="GET,POST" max-age="3628800"/>
+        <mvc:mapping path="/**/*.htm" allowed-methods="GET,POST"/>
     </mvc:cors>
 </beans>

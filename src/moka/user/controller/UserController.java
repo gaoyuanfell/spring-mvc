@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by moka on 2017/3/5 0005.
  */
 @Controller
 @RequestMapping(value = "/user")
-public class BasicController1 extends BasicController {
+public class UserController extends BasicController {
 
     @Resource
     private UserService userService;
@@ -122,7 +123,8 @@ public class BasicController1 extends BasicController {
      */
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
-    public Object findPage(Page page) {
+    public Object findPage(Page page, HttpServletResponse response) {
+        response.addHeader("token","123123");
         Page list = userService.findPage(page);
         JSONObject json = new JSONObject();
         json.putAll(SUCCESS);

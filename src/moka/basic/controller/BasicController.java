@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by moka on 2017/3/27 0027.
  */
-class BasicController {
+public class BasicController {
 
     public static final Map<String, Object> SUCCESS = new HashMap<String, Object>() {{
         put("msg", "success");

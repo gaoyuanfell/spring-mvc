@@ -27,8 +27,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Override
     public int insert(UserVo userVo) {
-
-        UserDetailEntity userDetailEntity = new UserDetailEntity();
+        UserDetailEntity userDetailEntity = this.convertBusinessValue(userVo.getUserDetail(), UserDetailEntity.class);
         userDetailDao.insert(userDetailEntity);
         UserEntity userEntity = this.convertBusinessValue(userVo, UserEntity.class);
         userEntity.setUserDetailId(userDetailEntity.getId());
@@ -47,6 +46,13 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         int totalCount = userDao.findCount();
         page.setList(list);
         page.setTotalCount(totalCount);
+        System.out.println(this.redisTemplate.hasKey("test"));
+        if(this.redisTemplate.hasKey("test")){
+            this.redisTemplate.delete("test");
+        }
+        this.redisTemplate.opsForSet().add("test","test");
+        System.out.println(this.redisTemplate.opsForValue().get("test"));
+        System.out.println(this.redisTemplate);
         return page;
     }
 }
