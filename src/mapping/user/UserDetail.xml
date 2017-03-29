@@ -5,13 +5,13 @@
 <mapper namespace="moka.user.dao.UserDetailDao">
 
     <sql id="userDetail">
-        school,hobby,diploma,idCard
+        school,hobby,diploma,idCard,address
     </sql>
 
     <insert id="insert" parameterType="moka.user.bo.UserDetailEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO userdetail(
         <include refid="userDetail"/>
-        ) VALUES (#{school}, #{hobby}, #{diploma}, #{idCard});
+        ) VALUES (#{school}, #{hobby}, #{diploma}, #{idCard}, #{address});
     </insert>
 
     <select id="findOne" parameterType="Integer" resultType="moka.user.to.UserDetailTo">

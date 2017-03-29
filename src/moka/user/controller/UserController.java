@@ -6,6 +6,7 @@ import moka.basic.page.Page;
 import moka.user.service.UserService;
 import moka.user.to.UserTo;
 import moka.user.vo.UserVo;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,6 @@ public class UserController extends BasicController {
 
     @Resource
     private UserService userService;
-
     //test
     @RequestMapping(value = "hello.htm")
     @ResponseBody
@@ -124,7 +124,7 @@ public class UserController extends BasicController {
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
     public Object findPage(Page page, HttpServletResponse response) {
-        response.addHeader("token","123123");
+        response.setHeader("X-Token","123123");
         Page list = userService.findPage(page);
         JSONObject json = new JSONObject();
         json.putAll(SUCCESS);

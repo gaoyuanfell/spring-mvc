@@ -17,8 +17,16 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--CORS-->
-    <mvc:cors>
-        <mvc:mapping path="/**/*.htm" exposed-headers="Content-Type, X-Token" allowed-origins="*" allowed-methods="GET, POST, PUT, DELETE" allowed-headers="Content-Type, X-Token" allow-credentials="true"/>
-    </mvc:cors>
+
+    <!--<aop:aspectj-autoproxy/>-->
+
+    <bean id="securityAspect" class="moka.basic.aspect.SecurityAspect">
+        <property name="tokenName" value="X-Token"/>
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="securityAspect">
+            <aop:around method="execute" pointcut="@annotation(org.springframework.web.bind.annotation.RequestMapping)"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
