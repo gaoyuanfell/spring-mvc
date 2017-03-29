@@ -1,19 +1,20 @@
 package moka.user.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import moka.basic.controller.BasicController;
+import moka.basic.log4j.LoggerService;
 import moka.basic.page.Page;
 import moka.user.service.UserService;
 import moka.user.to.UserTo;
 import moka.user.vo.UserVo;
-import org.aspectj.lang.annotation.Aspect;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by moka on 2017/3/5 0005.
@@ -24,6 +25,8 @@ public class UserController extends BasicController {
 
     @Resource
     private UserService userService;
+    private Logger logger = LoggerService.getLogger(this.getClass());
+
     //test
     @RequestMapping(value = "hello.htm")
     @ResponseBody
@@ -123,9 +126,9 @@ public class UserController extends BasicController {
      */
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
-    public Object findPage(Page page, HttpServletResponse response) {
-        response.setHeader("X-Token","123123");
+    public Object findPage(Page page) {
         Page list = userService.findPage(page);
+        logger.info(JSON.toJSONString(list));
         JSONObject json = new JSONObject();
         json.putAll(SUCCESS);
         json.put("data", list);

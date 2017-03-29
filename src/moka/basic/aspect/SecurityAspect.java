@@ -38,11 +38,9 @@ public class SecurityAspect {
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
         Method method = methodSignature.getMethod();
         Object[] args = pjp.getArgs();
-        System.out.println(args);
-        HttpServletResponse response1 = (HttpServletResponse)args[1];
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
-        System.out.println(response == response1);
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest request = servletRequestAttributes.getRequest();
+        HttpServletResponse response = servletRequestAttributes.getResponse();
         response.setHeader("X-Token1","123123123");
         String token = request.getHeader(tokenName);
 //        method.isAnnotationPresent()
@@ -52,10 +50,6 @@ public class SecurityAspect {
 //        }
         // 从 request header 中获取当前 token
 //        String token = WebContext.getRequest().getHeader(tokenName);
-
-        System.out.println(token);
-        System.out.println(request);
-        System.out.println(pjp);
         return pjp.proceed();
     }
 }
