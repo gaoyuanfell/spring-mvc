@@ -54,20 +54,14 @@ public class UserController extends BasicController {
     @RequestMapping(value = "path.htm")
     @ResponseBody
     public Object getPath() {
-        JSONObject json = new JSONObject();
-        json.putAll(SUCCESS);
-        json.put("a", 1);
-        return json;
+        return result();
     }
 
     //application/x-www-form-urlencoded 接收参数
     @RequestMapping(value = "user.htm")
     @ResponseBody
     public Object getUser(UserVo user) {
-        JSONObject json = new JSONObject();
-        json.putAll(SUCCESS);
-        json.put("a", user);
-        return json;
+        return result();
     }
 
 
@@ -81,10 +75,7 @@ public class UserController extends BasicController {
     @ResponseBody
     public Object insert(@RequestBody UserVo user) {
         int i = userService.insert(user);
-        JSONObject json = new JSONObject();
-        json.putAll(SUCCESS);
-        json.put("data", i);
-        return json;
+        return result(i);
     }
 
     /**
@@ -97,10 +88,7 @@ public class UserController extends BasicController {
     @ResponseBody
     public Object save(@RequestBody UserVo user) {
         int a = userService.insert(user);
-        JSONObject json = new JSONObject();
-        json.putAll(SUCCESS);
-        json.put("b", a);
-        return json;
+        return result(a);
     }
 
     /**
@@ -113,10 +101,7 @@ public class UserController extends BasicController {
     @ResponseBody
     public Object findOne(int id) {
         UserTo user = userService.findOne(id);
-        JSONObject json = new JSONObject();
-        json.putAll(SUCCESS);
-        json.put("data", user);
-        return json;
+        return result(user);
     }
 
     /**
@@ -129,9 +114,6 @@ public class UserController extends BasicController {
     public Object findPage(Page page) {
         Page list = userService.findPage(page);
         logger.info(JSON.toJSONString(list));
-        JSONObject json = new JSONObject();
-        json.putAll(SUCCESS);
-        json.put("data", list);
-        return json;
+        return result(list);
     }
 }
