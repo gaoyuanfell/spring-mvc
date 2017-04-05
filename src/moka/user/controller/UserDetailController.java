@@ -1,6 +1,6 @@
 package moka.user.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import moka.basic.controller.BasicController;
 import moka.user.service.UserDetailService;
 import moka.user.vo.UserDetailVo;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping(value = "/userDetail")
-public class UserDetailController {
+public class UserDetailController extends BasicController{
     @Resource
     private UserDetailService userDetailService;
 
@@ -29,11 +29,7 @@ public class UserDetailController {
     @ResponseBody
     public Object insert(@RequestBody UserDetailVo userDetail) {
         int a = userDetailService.insert(userDetail);
-        JSONObject json = new JSONObject();
-        json.put("code", 200);
-        json.put("msg", "success");
-        json.put("data", userDetail);
-        return json;
+        return result(a);
     }
 
 }
