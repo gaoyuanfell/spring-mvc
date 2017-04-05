@@ -1,5 +1,7 @@
 package moka.basic.aspect;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.lang.reflect.Method;
 
 /**
@@ -38,11 +42,27 @@ public class SecurityAspect {
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
         Method method = methodSignature.getMethod();
         Object[] args = pjp.getArgs();
+
+
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         HttpServletResponse response = servletRequestAttributes.getResponse();
-        response.setHeader("X-Token1","123123123");
+
+        response.setHeader("X-Token","123123123");
         String token = request.getHeader(tokenName);
+
+        if(StringUtils.isEmpty(token)){
+            response.reset();
+            response.setHeader("X-Token","123123123");
+            PrintWriter out = response.getWriter();
+            JSONObject json = new JSONObject();
+            json.put("asd","asd");
+            out.print(JSON.toJSONString(json));
+            out.flush();
+            out.close();
+            return false;
+        }
+
 //        method.isAnnotationPresent()
         // 若目标方法忽略了安全性检查，则直接调用目标方法
 //        if (method.isAnnotationPresent(IgnoreSecurity.class)) {
