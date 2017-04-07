@@ -51,8 +51,6 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-
-
     <!--开启注解处理器-->
     <!--<context:annotation-config/>-->
     <!-- 扫描包 -->
