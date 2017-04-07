@@ -2,11 +2,11 @@ package moka.user.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
-import moka.user.bo.UserDetailEntity;
+import moka.user.bo.UserDetail;
 import moka.user.dao.UserDao;
 import moka.user.dao.UserDetailDao;
 import moka.user.to.UserTo;
-import moka.user.bo.UserEntity;
+import moka.user.bo.User;
 import moka.user.vo.UserVo;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +27,12 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Override
     public int insert(UserVo userVo) {
-        UserDetailEntity userDetailEntity = this.convertBusinessValue(userVo.getUserDetail(), UserDetailEntity.class);
-        userDetailDao.insert(userDetailEntity);
-        UserEntity userEntity = this.convertBusinessValue(userVo, UserEntity.class);
-        userEntity.setUserDetailId(userDetailEntity.getId());
-        userDao.insert(userEntity);
-        return userEntity.getId();
+        UserDetail userDetail = this.convertBusinessValue(userVo.getUserDetail(), UserDetail.class);
+        userDetailDao.insert(userDetail);
+        User user = this.convertBusinessValue(userVo, User.class);
+        user.setUserDetailId(userDetail.getId());
+        userDao.insert(user);
+        return user.getId();
     }
 
     @Override
@@ -41,18 +41,9 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     @Override
-    public Page findPage(Page page) {
-        List list = userDao.findPage(page);
+    public Page findPage(UserVo userVo) {
+        List list = userDao.findPage(userVo);
         int totalCount = userDao.findCount();
-        page.setList(list);
-        page.setTotalCount(totalCount);
-//        System.out.println(this.redisTemplate.hasKey("test"));
-//        if(this.redisTemplate.hasKey("test")){
-//            this.redisTemplate.delete("test");
-//        }
-//        this.redisTemplate.opsForSet().add("test","test");
-//        System.out.println(this.redisTemplate.opsForValue().get("test"));
-//        System.out.println(this.redisTemplate);
-        return page;
+        return new Page(totalCount,list);
     }
 }

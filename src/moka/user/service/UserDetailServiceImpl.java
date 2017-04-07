@@ -1,7 +1,7 @@
 package moka.user.service;
 
 import moka.basic.service.BasicServiceImpl;
-import moka.user.bo.UserDetailEntity;
+import moka.user.bo.UserDetail;
 import moka.user.dao.UserDetailDao;
 import moka.user.vo.UserDetailVo;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,9 @@ public class UserDetailServiceImpl extends BasicServiceImpl implements UserDetai
     private UserDetailDao userDetailDao;
 
     @Override
-    public int insert(UserDetailVo userDetail) {
-        UserDetailEntity userDetailEntity = this.convertBusinessValue(userDetail, UserDetailEntity.class);
-        userDetailDao.insert(userDetailEntity);
-        return userDetailEntity.getId();
+    public int insert(UserDetailVo userDetailVo) {
+        UserDetail userDetail = this.convertBusinessValue(userDetailVo, UserDetail.class);
+        userDetailDao.insert(userDetail);
+        return userDetail.getId();
     }
 }

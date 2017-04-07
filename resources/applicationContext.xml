@@ -30,11 +30,17 @@
     <!--引入配置文件 properties 有问题-->
     <!--<context:property-placeholder location="classpath:log4j.properties"/>-->
 
+    <!--fastjson json 配置-->
+    <bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+        <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+    </bean>
+
     <!-- 注解驱动 -->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
             <!-- json的解析-->
             <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="fastJsonConfig" ref="fastJsonConfig"/>
                 <property name="supportedMediaTypes">
                     <list>
                         <value>application/json;charset=UTF-8</value>
@@ -45,10 +51,12 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+
+
     <!--开启注解处理器-->
     <!--<context:annotation-config/>-->
     <!-- 扫描包 -->
-    <context:component-scan base-package="moka.**.controller"/>
+    <context:component-scan base-package="moka.**.ctrl"/>
     <context:component-scan base-package="moka.**.service"/>
     <context:component-scan base-package="moka.**.dao"/>
 

@@ -8,14 +8,14 @@
         school,hobby,diploma,idCard,address
     </sql>
 
-    <insert id="insert" parameterType="moka.user.bo.UserDetailEntity" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO userdetail(
+    <insert id="insert" parameterType="moka.user.bo.UserDetail" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.userdetail(
         <include refid="userDetail"/>
         ) VALUES (#{school}, #{hobby}, #{diploma}, #{idCard}, #{address});
     </insert>
 
     <select id="findOne" parameterType="Integer" resultType="moka.user.to.UserDetailTo">
-        SELECT * FROM userdetail WHERE id = #{id};
+        SELECT * FROM moka.userdetail WHERE id = #{id};
     </select>
 
 </mapper>

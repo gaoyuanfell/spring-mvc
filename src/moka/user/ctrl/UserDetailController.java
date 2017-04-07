@@ -1,4 +1,4 @@
-package moka.user.controller;
+package moka.user.ctrl;
 
 import moka.basic.controller.BasicController;
 import moka.user.service.UserDetailService;

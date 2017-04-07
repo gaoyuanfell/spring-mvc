@@ -8,8 +8,8 @@
         userDetailId,user,password,email,phone,nickName
     </sql>
 
-    <insert id="insert" parameterType="moka.user.bo.UserEntity" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO USER(
+    <insert id="insert" parameterType="moka.user.bo.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.user(
         <include refid="User"/>
         ) VALUES (#{userDetailId}, #{user}, #{password}, #{email}, #{phone}, #{nickName});
     </insert>
@@ -20,15 +20,15 @@
     </resultMap>
 
     <select id="findOne" parameterType="Integer" resultMap="userMap">
-        SELECT * FROM USER WHERE id = #{id};
+        SELECT * FROM moka.user WHERE id = #{id};
     </select>
     
     <select id="findCount" resultType="Integer">
-        SELECT COUNT(id) FROM USER;
+        SELECT COUNT(id) FROM moka.user;
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="userMap">
-        SELECT * FROM USER LIMIT #{pageStart} , #{pageSize};
+        SELECT * FROM moka.user LIMIT #{pageStart} , #{pageSize};
     </select>
 
 </mapper>

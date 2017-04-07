@@ -1,4 +1,4 @@
-package moka.user.controller;
+package moka.user.ctrl;
 
 import com.alibaba.fastjson.JSON;
 import moka.basic.controller.BasicController;
@@ -110,8 +110,8 @@ public class UserController extends BasicController {
      */
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
-    public Object findPage(Page page) {
-        Page list = userService.findPage(page);
+    public Object findPage(@RequestBody UserVo user) {
+        Page list = userService.findPage(user);
         logger.info(JSON.toJSONString(list));
         return result(list);
     }

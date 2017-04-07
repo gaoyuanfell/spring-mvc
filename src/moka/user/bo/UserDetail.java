@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "userDetail")
-public class UserDetailEntity extends IdEntity implements Serializable {
+public class UserDetail extends IdEntity implements Serializable {
     private String school;
     private String hobby;
     private String diploma;

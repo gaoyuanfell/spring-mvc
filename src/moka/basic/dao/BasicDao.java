@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * Created by moka on 2017/3/6 0006.
  */
-public interface BasicDao<T, P> {
-    int insert(T t);
+public interface BasicDao<E, T> {
+    int insert(E e);
 
-    P findOne(Integer id);
+    T findOne(Integer id);
 
     List findPage(Page page);
 

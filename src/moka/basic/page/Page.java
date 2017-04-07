@@ -15,6 +15,13 @@ public class Page implements Serializable {
     private int totalCount;
     private List list;
 
+    public Page(){}
+
+    public Page(int totalCount,List list){
+        this.setList(list);
+        this.setTotalCount(totalCount);
+    }
+
     public int getPageIndex() {
         return pageIndex;
     }

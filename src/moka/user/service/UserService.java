@@ -13,5 +13,5 @@ public interface UserService extends BasicService {
 
     UserTo findOne(Integer id);
 
-    Page findPage(Page page);
+    Page findPage(UserVo userVo);
 }
