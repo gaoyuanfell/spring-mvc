@@ -1,6 +1,7 @@
 package moka.line.ctrl;
 
 import moka.basic.controller.BasicController;
+import moka.basic.page.Page;
 import moka.line.service.LineService;
 import moka.line.to.LineTo;
 import moka.line.vo.LineVo;
@@ -42,5 +43,19 @@ public class LineCtrl extends BasicController{
     public Object findOne(int id) {
         LineTo lineTo = lineService.findOne(id);
         return result(lineTo);
+    }
+
+    /**
+     * 查 分页
+     *
+     * @return
+     */
+    @RequestMapping(value = "findPage.htm")
+    @ResponseBody
+    public Object findPage(@RequestBody LineVo lineVo) {
+        Page list = lineService.findPage(lineVo);
+        String[] s = {"1","2","3","4","5"};
+        System.out.println(s[5]);
+        return result(list);
     }
 }

@@ -20,7 +20,6 @@ public class BasicServiceImpl implements BasicService {
     @Resource(name = "shardedJedisPool")
     public ShardedJedisPool shardedJedisPool;
 
-
     @Override
     public <T> T convertBusinessValue(Object resource, Class<T> target, String... ignoreProperties) {
         try {

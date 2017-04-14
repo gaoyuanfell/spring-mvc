@@ -14,12 +14,12 @@
         ) VALUES (#{userDetailId}, #{user}, #{password}, #{email}, #{phone}, #{nickName});
     </insert>
 
-    <resultMap id="userMap" type="moka.user.to.UserTo">
+    <resultMap id="map" type="moka.user.to.UserTo">
         <id property="id" column="id"/>
         <association property="userDetail" javaType="moka.user.to.UserDetailTo" column="userDetailId" select="moka.user.dao.UserDetailDao.findOne"/>
     </resultMap>
 
-    <select id="findOne" parameterType="Integer" resultMap="userMap">
+    <select id="findOne" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.user WHERE id = #{id};
     </select>
     
@@ -27,7 +27,7 @@
         SELECT COUNT(id) FROM moka.user;
     </select>
 
-    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="userMap">
+    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
         SELECT * FROM moka.user LIMIT #{pageStart} , #{pageSize};
     </select>
 

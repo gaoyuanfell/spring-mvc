@@ -23,12 +23,6 @@ public class SecurityAspect {
 
     private String tokenName;
 
-    /**
-     * 拿不到
-     */
-    @Autowired()
-    private HttpServletRequest requests;
-
     public void setTokenName(String tokenName) {
         if(StringUtils.isEmpty(tokenName)){
             tokenName = DEFAULT_TOKEN_NAME;
@@ -42,12 +36,11 @@ public class SecurityAspect {
         Method method = methodSignature.getMethod();
         Object[] args = pjp.getArgs();
 
-
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         HttpServletResponse response = servletRequestAttributes.getResponse();
 
-        response.setHeader("X-Token","123123123");
+        /*response.setHeader("X-Token","123123123");
         String token = request.getHeader(tokenName);
 
         if(StringUtils.isEmpty(token)){
@@ -60,7 +53,7 @@ public class SecurityAspect {
             out.flush();
             out.close();
             return false;
-        }
+        }*/
 
 //        method.isAnnotationPresent()
         // 若目标方法忽略了安全性检查，则直接调用目标方法
