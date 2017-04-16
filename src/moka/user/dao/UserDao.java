@@ -3,6 +3,7 @@ package moka.user.dao;
 import moka.basic.dao.BasicDao;
 import moka.user.bo.User;
 import moka.user.to.UserTo;
+import moka.user.vo.UserVo;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("userDao")
 public interface UserDao extends BasicDao<User, UserTo> {
-
+    UserTo login(UserVo userVo);
 }

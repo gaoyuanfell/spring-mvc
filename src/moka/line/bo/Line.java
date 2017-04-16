@@ -15,6 +15,7 @@ public class Line extends IdEntity{
     private int userId;
     private String title;
     private String introduce;
+    private int privacy;
     private Date createDate;
 
     public int getUserId() {
@@ -49,12 +50,21 @@ public class Line extends IdEntity{
         this.createDate = createDate;
     }
 
+    public int getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
+    }
+
     @Override
     public String toString() {
         return "Line{" +
                 "userId=" + userId +
                 ", title='" + title + '\'' +
                 ", introduce='" + introduce + '\'' +
+                ", privacy=" + privacy +
                 ", createDate=" + createDate +
                 '}';
     }

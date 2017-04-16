@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by moka on 2017/3/6 0006.
@@ -45,5 +46,10 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         List list = userDao.findPage(userVo);
         int totalCount = userDao.findCount();
         return new Page(totalCount,list);
+    }
+
+    @Override
+    public UserTo login(UserVo userVo) {
+        return userDao.login(userVo);
     }
 }

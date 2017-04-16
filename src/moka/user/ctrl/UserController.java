@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import moka.basic.controller.BasicController;
 import moka.basic.log4j.LoggerService;
 import moka.basic.page.Page;
+import moka.user.bo.User;
 import moka.user.service.UserService;
 import moka.user.to.UserTo;
 import moka.user.vo.UserVo;
@@ -35,12 +36,7 @@ public class UserController extends BasicController {
 
     //多动作控制器
     // @RequestBody application/json 接收参数
-    @RequestMapping(params = "method=login")
-    @ResponseBody
-    public String login(@RequestBody UserVo user) {
-        System.out.println(user.toString());
-        return "{method:" + user.toString() + "}";
-    }
+
 
     //多动作控制器
     @RequestMapping(params = "method=logout")
@@ -78,19 +74,6 @@ public class UserController extends BasicController {
     }
 
     /**
-     * 增
-     *
-     * @param user
-     * @return
-     */
-    @RequestMapping(value = "save.htm")
-    @ResponseBody
-    public Object save(@RequestBody UserVo user) {
-        int a = userService.insert(user);
-        return result(a);
-    }
-
-    /**
      * 查
      *
      * @param id
@@ -112,7 +95,25 @@ public class UserController extends BasicController {
     @ResponseBody
     public Object findPage(@RequestBody UserVo user) {
         Page list = userService.findPage(user);
-        logger.info(JSON.toJSONString(list));
         return result(list);
+    }
+
+    /**
+     * 登录
+     * @param userVo
+     * @return
+     */
+    @RequestMapping(value = "login.htm")
+    @ResponseBody
+    public Object login(@RequestBody UserVo userVo) {
+        UserTo u = userService.login(userVo);
+        boolean b = addUserSession(u);
+        UserTo o = getUserSession();
+        System.out.println(o);
+        if(u != null && b){
+            return result();
+        }else{
+            return result(NO_LOGIN,"登录失败");
+        }
     }
 }

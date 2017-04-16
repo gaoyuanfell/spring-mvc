@@ -61,6 +61,6 @@
     <context:component-scan base-package="moka.**.service"/>
     <context:component-scan base-package="moka.**.dao"/>
 
-    <context:component-scan base-package="moka.**.aspect"/>
+    <!--<context:component-scan base-package="moka.**.aspect"/>-->
 
 </beans>

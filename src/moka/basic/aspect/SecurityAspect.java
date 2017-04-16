@@ -1,17 +1,15 @@
 package moka.basic.aspect;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import moka.basic.service.RedisService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 /**
@@ -30,6 +28,9 @@ public class SecurityAspect {
         this.tokenName = tokenName;
     }
 
+    @Resource
+    private RedisService redisService;
+
     public Object execute(ProceedingJoinPoint pjp) throws Throwable{
         // 从切点上获取目标方法
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
@@ -39,6 +40,8 @@ public class SecurityAspect {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         HttpServletResponse response = servletRequestAttributes.getResponse();
+
+        redisService.flashLoginSession();
 
         /*response.setHeader("X-Token","123123123");
         String token = request.getHeader(tokenName);
@@ -56,12 +59,11 @@ public class SecurityAspect {
         }*/
 
 //        method.isAnnotationPresent()
-        // 若目标方法忽略了安全性检查，则直接调用目标方法
+//         若目标方法忽略了安全性检查，则直接调用目标方法
 //        if (method.isAnnotationPresent(IgnoreSecurity.class)) {
 //            return pjp.proceed();
 //        }
-        // 从 request header 中获取当前 token
-//        String token = WebContext.getRequest().getHeader(tokenName);
+
         return pjp.proceed();
     }
 }
