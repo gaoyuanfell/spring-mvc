@@ -67,7 +67,7 @@ public class LineVo extends Page implements Serializable {
 
     @Override
     public String toString() {
-        return "LineVo{" +
+        return "CommentVo{" +
                 "id=" + id +
                 ", user=" + user +
                 ", userId=" + userId +

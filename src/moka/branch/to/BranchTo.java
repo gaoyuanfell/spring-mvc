@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public class BranchTo implements Serializable{
+public class BranchTo implements Serializable {
     private int id;
     private LineTo line;
     private String title;

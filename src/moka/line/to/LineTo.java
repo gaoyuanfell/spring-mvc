@@ -57,7 +57,7 @@ public class LineTo implements Serializable {
 
     @Override
     public String toString() {
-        return "LineTo{" +
+        return "CommentTo{" +
                 "id=" + id +
                 ", user=" + user +
                 ", title='" + title + '\'' +

@@ -15,6 +15,6 @@ public interface RedisService {
 
     UserTo getUserSession();
 
-    Boolean flashLoginSession();
+    boolean flashLoginSession();
 
 }

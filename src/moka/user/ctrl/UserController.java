@@ -100,6 +100,7 @@ public class UserController extends BasicController {
 
     /**
      * 登录
+     *
      * @param userVo
      * @return
      */
@@ -110,10 +111,10 @@ public class UserController extends BasicController {
         boolean b = addUserSession(u);
         UserTo o = getUserSession();
         System.out.println(o);
-        if(u != null && b){
+        if (u != null && b) {
             return result();
-        }else{
-            return result(NO_LOGIN,"登录失败");
+        } else {
+            return result(NO_LOGIN, "登录失败");
         }
     }
 }

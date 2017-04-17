@@ -8,7 +8,7 @@ import moka.line.vo.LineVo;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public interface LineService extends BasicService{
+public interface LineService extends BasicService {
     int insert(LineVo lineVo);
 
     LineTo findOne(Integer id);

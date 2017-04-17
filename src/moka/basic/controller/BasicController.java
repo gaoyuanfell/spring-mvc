@@ -23,6 +23,7 @@ public class BasicController {
         json.put("doc", obj);
         return json;
     }
+
     public static JSONObject result(Object obj, int code, String msg) {
         JSONObject json = new JSONObject();
         json.put("msg", msg);
@@ -30,12 +31,14 @@ public class BasicController {
         json.put("doc", obj);
         return json;
     }
+
     public static JSONObject result(int code, String msg) {
         JSONObject json = new JSONObject();
         json.put("msg", msg);
         json.put("code", code);
         return json;
     }
+
     public static JSONObject result() {
         JSONObject json = new JSONObject();
         json.put("msg", "success");
@@ -43,15 +46,15 @@ public class BasicController {
         return json;
     }
 
-    public boolean addUserSession(Object o){
+    public boolean addUserSession(Object o) {
         return redisService.addUserSession(o);
     }
 
-    public UserTo getUserSession(){
+    public UserTo getUserSession() {
         return redisService.getUserSession();
     }
 
-    public boolean flashLoginSession(){
+    public boolean flashLoginSession() {
         return redisService.flashLoginSession();
     }
 }

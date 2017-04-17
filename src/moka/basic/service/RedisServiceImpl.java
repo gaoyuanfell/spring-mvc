@@ -60,18 +60,18 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public UserTo getUserSession() {
         return redisTemplate.execute(new RedisCallback<UserTo>() {
-            public UserTo doInRedis(RedisConnection connection) throws DataAccessException{
+            public UserTo doInRedis(RedisConnection connection) throws DataAccessException {
                 RedisSerializer<String> serializer = getRedisSerializer();
                 byte[] key = serializer.serialize(USER_LOGIN_SESSION);
                 byte[] _user = connection.get(key);
                 String u = serializer.deserialize(_user);
-                return JSON.parseObject(u,UserTo.class);
+                return JSON.parseObject(u, UserTo.class);
             }
         });
     }
 
     @Override
-    public Boolean flashLoginSession() {
-        return redisTemplate.expire(USER_LOGIN_SESSION,12,TimeUnit.HOURS);
+    public boolean flashLoginSession() {
+        return redisTemplate.hasKey(USER_LOGIN_SESSION) && redisTemplate.expire(USER_LOGIN_SESSION, 12, TimeUnit.HOURS);
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
  * Created by moka on 2017/4/6 0006.
  */
 @Service("lineService")
-public class LineServiceImpl extends BasicServiceImpl implements LineService  {
+public class LineServiceImpl extends BasicServiceImpl implements LineService {
     @Resource
     private LineDao lineDao;
 
@@ -35,6 +35,6 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService  {
     public Page findPage(LineVo lineVo) {
         List list = lineDao.findPage(lineVo);
         int totalCount = lineDao.findCount();
-        return new Page(totalCount,list);
+        return new Page(totalCount, list);
     }
 }

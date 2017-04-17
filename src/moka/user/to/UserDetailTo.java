@@ -2,7 +2,8 @@ package moka.user.to;
 
 import java.io.Serializable;
 
-/** 数据传输层
+/**
+ * 数据传输层
  * Created by moka on 2017/3/22.
  */
 public class UserDetailTo implements Serializable {

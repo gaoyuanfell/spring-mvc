@@ -5,7 +5,8 @@ import moka.user.to.UserDetailTo;
 
 import java.io.Serializable;
 
-/** 接收应用层的数据
+/**
+ * 接收应用层的数据
  * Created by moka on 2017/3/5 0005.
  */
 public class UserVo extends Page implements Serializable {

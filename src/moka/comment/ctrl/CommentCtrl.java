@@ -1,10 +1,10 @@
-package moka.line.ctrl;
+package moka.comment.ctrl;
 
 import moka.basic.controller.BasicController;
 import moka.basic.page.Page;
-import moka.line.service.LineService;
-import moka.line.to.LineTo;
-import moka.line.vo.LineVo;
+import moka.comment.service.CommentService;
+import moka.comment.to.CommentTo;
+import moka.comment.vo.CommentVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,21 +16,21 @@ import javax.annotation.Resource;
  * Created by moka on 2017/4/6 0006.
  */
 @Controller
-@RequestMapping(value = "/line")
-public class LineCtrl extends BasicController {
+@RequestMapping(value = "/comment")
+public class CommentCtrl extends BasicController {
     @Resource
-    private LineService lineService;
+    private CommentService commentService;
 
     /**
      * 增
      *
-     * @param lineVo
+     * @param commentVo
      * @return
      */
     @RequestMapping(value = "insert.htm")
     @ResponseBody
-    public Object insert(@RequestBody LineVo lineVo) {
-        int i = lineService.insert(lineVo);
+    public Object insert(@RequestBody CommentVo commentVo) {
+        int i = commentService.insert(commentVo);
         return result(i);
     }
 
@@ -43,8 +43,8 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "findOne.htm")
     @ResponseBody
     public Object findOne(int id) {
-        LineTo lineTo = lineService.findOne(id);
-        return result(lineTo);
+        CommentTo commentTo = commentService.findOne(id);
+        return result(commentTo);
     }
 
     /**
@@ -54,10 +54,10 @@ public class LineCtrl extends BasicController {
      */
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
-    public Object findPage(@RequestBody LineVo lineVo) {
-        Page list = lineService.findPage(lineVo);
+    public Object findPage(@RequestBody CommentVo commentVo) {
+        Page list = commentService.findPage(commentVo);
         String[] s = {"1", "2", "3", "4", "5"};
-        System.out.println(s);
+        System.out.println(s[5]);
         return result(list);
     }
 }

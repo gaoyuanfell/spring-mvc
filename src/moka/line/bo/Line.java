@@ -11,10 +11,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "line")
-public class Line extends IdEntity{
+public class Line extends IdEntity {
     private int userId;
     private String title;
     private String introduce;
+    private int praised;
+    private int repeat;
+    private int forward;
     private int privacy;
     private Date createDate;
 
@@ -58,6 +61,30 @@ public class Line extends IdEntity{
         this.privacy = privacy;
     }
 
+    public int getPraised() {
+        return praised;
+    }
+
+    public void setPraised(int praised) {
+        this.praised = praised;
+    }
+
+    public int getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(int repeat) {
+        this.repeat = repeat;
+    }
+
+    public int getForward() {
+        return forward;
+    }
+
+    public void setForward(int forward) {
+        this.forward = forward;
+    }
+
     @Override
     public String toString() {
         return "Line{" +
@@ -65,6 +92,9 @@ public class Line extends IdEntity{
                 ", title='" + title + '\'' +
                 ", introduce='" + introduce + '\'' +
                 ", privacy=" + privacy +
+                ", praised=" + praised +
+                ", repeat=" + repeat +
+                ", forward=" + forward +
                 ", createDate=" + createDate +
                 '}';
     }

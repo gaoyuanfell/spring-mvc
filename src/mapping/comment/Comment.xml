@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moka.comment.dao.CommentDao">
+
+    <sql id="Comment">
+        branchId,lineId,userId,praised,repeat,forward,createDate
+    </sql>
+
+    <insert id="insert" parameterType="moka.comment.bo.Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.comment(
+        <include refid="Comment"/>
+        ) VALUES (#{branchId}, #{lineId}, #{userId}, #{praised}, #{repeat}, #{forward}, #{createDate});
+    </insert>
+
+    <resultMap id="map" type="moka.comment.to.CommentTo">
+        <id property="id" column="id"/>
+        <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
+        <association property="line" javaType="moka.line.to.LineTo" column="lineId" select="moka.line.dao.LineDao.findOne"/>
+        <association property="branch" javaType="moka.branch.to.BranchTo" column="branchId" select="moka.branch.dao.BranchDao.findOne"/>
+    </resultMap>
+
+    <select id="findOne" parameterType="Integer" resultMap="map">
+        SELECT * FROM moka.comment WHERE id = #{id};
+    </select>
+
+    <select id="findCount" resultType="Integer">
+        SELECT COUNT(id) FROM moka.comment;
+    </select>
+
+    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
+        SELECT * FROM moka.comment LIMIT #{pageStart} , #{pageSize};
+    </select>
+
+</mapper>

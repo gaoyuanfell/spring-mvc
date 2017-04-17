@@ -17,12 +17,13 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping(value = "/branch")
-public class BranchCtrl extends BasicController{
+public class BranchCtrl extends BasicController {
     @Resource
     private BranchService branchService;
 
     /**
      * 增
+     *
      * @param branchVo
      * @return
      */
@@ -35,6 +36,7 @@ public class BranchCtrl extends BasicController{
 
     /**
      * 查
+     *
      * @param id
      * @return
      */

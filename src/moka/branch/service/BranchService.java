@@ -8,7 +8,7 @@ import moka.branch.vo.BranchVo;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public interface BranchService extends BasicService{
+public interface BranchService extends BasicService {
     int insert(BranchVo branchVo);
 
     BranchTo findOne(Integer id);

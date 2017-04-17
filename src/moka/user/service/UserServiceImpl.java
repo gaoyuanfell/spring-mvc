@@ -45,7 +45,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     public Page findPage(UserVo userVo) {
         List list = userDao.findPage(userVo);
         int totalCount = userDao.findCount();
-        return new Page(totalCount,list);
+        return new Page(totalCount, list);
     }
 
     @Override

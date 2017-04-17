@@ -22,7 +22,7 @@ public class SecurityAspect {
     private String tokenName;
 
     public void setTokenName(String tokenName) {
-        if(StringUtils.isEmpty(tokenName)){
+        if (StringUtils.isEmpty(tokenName)) {
             tokenName = DEFAULT_TOKEN_NAME;
         }
         this.tokenName = tokenName;
@@ -31,7 +31,7 @@ public class SecurityAspect {
     @Resource
     private RedisService redisService;
 
-    public Object execute(ProceedingJoinPoint pjp) throws Throwable{
+    public Object execute(ProceedingJoinPoint pjp) throws Throwable {
         // 从切点上获取目标方法
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
         Method method = methodSignature.getMethod();

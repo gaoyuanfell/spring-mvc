@@ -2,7 +2,8 @@ package moka.user.to;
 
 import java.io.Serializable;
 
-/** 返回数据
+/**
+ * 返回数据
  * Created by moka on 2017/3/5 0005.
  */
 public class UserTo implements Serializable {

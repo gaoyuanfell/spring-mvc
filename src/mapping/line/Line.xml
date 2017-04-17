@@ -5,13 +5,13 @@
 <mapper namespace="moka.line.dao.LineDao">
 
     <sql id="Line">
-        userId,title,introduce,createDate
+        userId,title,introduce,praised,repeat,forward,privacy,createDate
     </sql>
 
     <insert id="insert" parameterType="moka.line.bo.Line" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.line(
         <include refid="Line"/>
-        ) VALUES (#{userId}, #{title}, #{introduce}, #{createDate});
+        ) VALUES (#{userId}, #{title}, #{introduce}, #{praised}, #{repeat}, #{forward}, #{privacy}, #{createDate});
     </insert>
 
     <resultMap id="map" type="moka.line.to.LineTo">
