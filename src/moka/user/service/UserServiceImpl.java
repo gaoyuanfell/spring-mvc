@@ -52,4 +52,9 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     public UserTo login(UserVo userVo) {
         return userDao.login(userVo);
     }
+
+    @Override
+    public int findRepeatUser(String user) {
+        return userDao.findRepeatUser(user);
+    }
 }

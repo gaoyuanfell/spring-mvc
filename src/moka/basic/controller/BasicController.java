@@ -1,6 +1,7 @@
 package moka.basic.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import moka.basic.bo.Token;
 import moka.basic.service.RedisService;
 import moka.user.to.UserTo;
 
@@ -14,9 +15,10 @@ public class BasicController {
     @Resource
     private RedisService redisService;
 
-    public static final int NO_LOGIN = 201;
+    protected static final int CODE_NO_LOGIN = 201;
+    protected static final int CODE_PROMPT = 202;//提示
 
-    public static JSONObject result(Object obj) {
+    protected static JSONObject result(Object obj) {
         JSONObject json = new JSONObject();
         json.put("msg", "success");
         json.put("code", 200);
@@ -24,7 +26,7 @@ public class BasicController {
         return json;
     }
 
-    public static JSONObject result(Object obj, int code, String msg) {
+    protected static JSONObject result(Object obj, int code, String msg) {
         JSONObject json = new JSONObject();
         json.put("msg", msg);
         json.put("code", code);
@@ -32,29 +34,33 @@ public class BasicController {
         return json;
     }
 
-    public static JSONObject result(int code, String msg) {
+    protected static JSONObject result(int code, String msg) {
         JSONObject json = new JSONObject();
         json.put("msg", msg);
         json.put("code", code);
         return json;
     }
 
-    public static JSONObject result() {
+    protected static JSONObject result() {
         JSONObject json = new JSONObject();
         json.put("msg", "success");
         json.put("code", 200);
         return json;
     }
 
-    public boolean addUserSession(Object o) {
-        return redisService.addUserSession(o);
+    protected boolean addUserSession(Token t) {
+        return redisService.addUserSession(t);
     }
 
-    public UserTo getUserSession() {
-        return redisService.getUserSession();
+    protected UserTo getUserSession(Token t) {
+        return redisService.getUserSession(t);
     }
 
-    public boolean flashLoginSession() {
-        return redisService.flashLoginSession();
+    protected boolean flashLoginSession(Token t) {
+        return redisService.flashLoginSession(t);
+    }
+
+    protected boolean deleteLoginSession(Token t){
+        return redisService.deleteLoginSession(t);
     }
 }

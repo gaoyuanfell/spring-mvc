@@ -1,5 +1,6 @@
 package moka.basic.service;
 
+import moka.basic.bo.Token;
 import moka.user.to.UserTo;
 
 /**
@@ -7,14 +8,18 @@ import moka.user.to.UserTo;
  */
 public interface RedisService {
 
-    boolean addUserSession(Object o);
+    boolean addUserSession(Token t);
 
     boolean hasKey(String key);
 
+    <T> T get(String key,Class c);
+
     void delete(String key);
 
-    UserTo getUserSession();
+    UserTo getUserSession(Token t);
 
-    boolean flashLoginSession();
+    boolean flashLoginSession(Token t);
+
+    boolean deleteLoginSession(Token t);
 
 }

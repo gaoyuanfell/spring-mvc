@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository("userDao")
 public interface UserDao extends BasicDao<User, UserTo> {
     UserTo login(UserVo userVo);
+
+    int findRepeatUser(String user);
 }

@@ -17,4 +17,6 @@ public interface UserService extends BasicService {
     Page findPage(UserVo userVo);
 
     UserTo login(UserVo userVo);
+
+    int findRepeatUser(String name);
 }

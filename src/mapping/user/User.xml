@@ -35,4 +35,8 @@
         SELECT * FROM moka.user as u WHERE 1 = 1 AND u.user = #{user} AND u.password = #{password}
     </select>
 
+    <select id="findRepeatUser" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) FROM moka.user as u WHERE 1 = 1 AND u.user = #{user}
+    </select>
+
 </mapper>
