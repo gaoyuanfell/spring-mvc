@@ -71,7 +71,7 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "addPraised.htm")
     @ResponseBody
     public Object addPraised(@RequestBody LineVo lineVo){
-        if(!StringUtils.isEmpty(lineVo.getId())){
+        if(lineVo.getId() != 0){
             int i = lineService.addPraised(lineVo.getId());
             return result();
         }else{
@@ -85,7 +85,7 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "addRepeat.htm")
     @ResponseBody
     public Object addRepeat(@RequestBody LineVo lineVo){
-        if(!StringUtils.isEmpty(lineVo.getId())){
+        if(lineVo.getId() != 0){
             int i = lineService.addRepeat(lineVo.getId());
             return result();
         }else{
@@ -99,7 +99,7 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "addForward.htm")
     @ResponseBody
     public Object addForward(@RequestBody LineVo lineVo){
-        if(!StringUtils.isEmpty(lineVo.getId())){
+        if(lineVo.getId() != 0){
             int i = lineService.addForward(lineVo.getId());
             return result();
         }else{

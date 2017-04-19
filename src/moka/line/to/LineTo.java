@@ -13,6 +13,10 @@ public class LineTo implements Serializable {
     private UserTo user;
     private String title;
     private String introduce;
+    private int praised;
+    private int repeat;
+    private int forward;
+    private int privacy;
     private Date createDate;
     private Date updateDate;
     private int state;
@@ -73,6 +77,39 @@ public class LineTo implements Serializable {
         this.state = state;
     }
 
+
+    public int getPraised() {
+        return praised;
+    }
+
+    public void setPraised(int praised) {
+        this.praised = praised;
+    }
+
+    public int getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(int repeat) {
+        this.repeat = repeat;
+    }
+
+    public int getForward() {
+        return forward;
+    }
+
+    public void setForward(int forward) {
+        this.forward = forward;
+    }
+
+    public int getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
+    }
+
     @Override
     public String toString() {
         return "LineTo{" +
@@ -80,6 +117,10 @@ public class LineTo implements Serializable {
                 ", user=" + user +
                 ", title='" + title + '\'' +
                 ", introduce='" + introduce + '\'' +
+                ", praised=" + praised +
+                ", repeat=" + repeat +
+                ", forward=" + forward +
+                ", privacy=" + privacy +
                 ", createDate=" + createDate +
                 ", updateDate=" + updateDate +
                 ", state=" + state +
