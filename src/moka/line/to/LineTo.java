@@ -14,6 +14,8 @@ public class LineTo implements Serializable {
     private String title;
     private String introduce;
     private Date createDate;
+    private Date updateDate;
+    private int state;
 
     public int getId() {
         return id;
@@ -55,14 +57,32 @@ public class LineTo implements Serializable {
         this.createDate = createDate;
     }
 
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
-        return "CommentTo{" +
+        return "LineTo{" +
                 "id=" + id +
                 ", user=" + user +
                 ", title='" + title + '\'' +
                 ", introduce='" + introduce + '\'' +
                 ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", state=" + state +
                 '}';
     }
 }

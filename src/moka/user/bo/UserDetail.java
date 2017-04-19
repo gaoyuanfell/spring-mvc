@@ -57,4 +57,15 @@ public class UserDetail extends IdEntity implements Serializable {
     public void setIdCard(String idCard) {
         this.idCard = idCard;
     }
+
+    @Override
+    public String toString() {
+        return "UserDetail{" +
+                "school='" + school + '\'' +
+                ", hobby='" + hobby + '\'' +
+                ", diploma='" + diploma + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

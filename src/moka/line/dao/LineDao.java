@@ -10,5 +10,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("lineDao")
 public interface LineDao extends BasicDao<Line, LineTo> {
+    int addPraised(int id);
 
+    int addRepeat(int id);
+
+    int addForward(int id);
 }

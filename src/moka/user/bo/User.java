@@ -69,4 +69,16 @@ public class User extends IdEntity implements Serializable {
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userDetailId=" + userDetailId +
+                ", user='" + user + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", nickName='" + nickName + '\'' +
+                '}';
+    }
 }

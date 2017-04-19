@@ -19,7 +19,6 @@ public class Comment extends IdEntity {
     private int praised;
     private int repeat;
     private int forward;
-    private Date createDate;
 
     public int getBranchId() {
         return branchId;
@@ -75,14 +74,6 @@ public class Comment extends IdEntity {
 
     public void setForward(int forward) {
         this.forward = forward;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     @Override

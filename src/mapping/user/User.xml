@@ -31,6 +31,10 @@
         SELECT * FROM moka.user LIMIT #{pageStart} , #{pageSize};
     </select>
 
+    <select id="findList" parameterType="moka.basic.page.Page" resultType="moka.user.to.UserTo">
+        SELECT * FROM moka.user;
+    </select>
+
     <select id="login" parameterType="moka.user.vo.UserVo" resultMap="map">
         SELECT * FROM moka.user as u WHERE 1 = 1 AND u.user = #{user} AND u.password = #{password}
     </select>

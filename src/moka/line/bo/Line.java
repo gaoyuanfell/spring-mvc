@@ -19,7 +19,6 @@ public class Line extends IdEntity {
     private int repeat;
     private int forward;
     private int privacy;
-    private Date createDate;
 
     public int getUserId() {
         return userId;
@@ -43,14 +42,6 @@ public class Line extends IdEntity {
 
     public void setIntroduce(String introduce) {
         this.introduce = introduce;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public int getPrivacy() {

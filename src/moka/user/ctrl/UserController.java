@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by moka on 2017/3/5 0005.
@@ -92,6 +93,18 @@ public class UserController extends BasicController {
     }
 
     /**
+     * 查 所有
+     *
+     * @return
+     */
+    @RequestMapping(value = "findList.htm")
+    @ResponseBody
+    public Object findList(@RequestBody UserVo user) {
+        List list = userService.findList(user);
+        return result(list);
+    }
+
+    /**
      * 查 分页
      *
      * @return
@@ -119,8 +132,6 @@ public class UserController extends BasicController {
         if (u != null) {
             t = new Token(u, Integer.toString(u.getId()));
             b = addUserSession(t);
-//            UserTo userTo = getUserSession(t);
-//            System.out.println(userTo);
         }
         if (b) {
             response.setHeader("X-Token", t.getToken());

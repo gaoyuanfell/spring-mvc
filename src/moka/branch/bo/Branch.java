@@ -19,7 +19,6 @@ public class Branch extends IdEntity {
     private String lng;
     private String lat;
     private String scope;
-    private Date CreateDate;
 
     public int getLineId() {
         return lineId;
@@ -77,14 +76,6 @@ public class Branch extends IdEntity {
         this.scope = scope;
     }
 
-    public Date getCreateDate() {
-        return CreateDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        CreateDate = createDate;
-    }
-
     @Override
     public String toString() {
         return "Branch{" +
@@ -95,7 +86,7 @@ public class Branch extends IdEntity {
                 ", lng='" + lng + '\'' +
                 ", lat='" + lat + '\'' +
                 ", scope='" + scope + '\'' +
-                ", CreateDate=" + CreateDate +
+                ", createDate=" + createDate +
                 '}';
     }
 }

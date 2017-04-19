@@ -16,6 +16,8 @@ public class LineVo extends Page implements Serializable {
     private String title;
     private String introduce;
     private Date createDate;
+    private Date updateDate;
+    private int state;
 
     public int getId() {
         return id;
@@ -65,15 +67,33 @@ public class LineVo extends Page implements Serializable {
         this.createDate = createDate;
     }
 
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
-        return "CommentVo{" +
+        return "LineVo{" +
                 "id=" + id +
                 ", user=" + user +
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", introduce='" + introduce + '\'' +
                 ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", state=" + state +
                 '}';
     }
 }

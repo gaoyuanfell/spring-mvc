@@ -6,6 +6,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -17,18 +18,24 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <!--<bean id="redisHttpSessionConfiguration" class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>-->
+<!--<bean id="redisHttpSessionConfiguration" class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>-->
 
     <!--<bean id="lettuceConnectionFactory" class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"/>-->
 
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxIdle" value="${redis.maxIdle}"/>
+        <!--<property name="maxIdle" value="#{propertyConfigurer['redis.maxIdle']}"/>-->
         <property name="maxTotal" value="${redis.maxActive}"/>
+        <!--<property name="maxTotal" value="#{propertyConfigurer['redis.maxActive']}"/>-->
         <property name="maxWaitMillis" value="${redis.maxWait}"/>
+        <!--<property name="maxWaitMillis" value="#{propertyConfigurer['redis.maxWait']}"/>-->
         <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <!--<property name="testOnBorrow" value="#{propertyConfigurer['redis.testOnBorrow']}"/>-->
     </bean>
 
     <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"  scope="singleton">
@@ -37,6 +44,7 @@
             <list>
                 <bean class="redis.clients.jedis.JedisShardInfo">
                     <constructor-arg name="host" value="${redis.url}" />
+                    <!--<constructor-arg name="host" value="#{propertyConfigurer['redis.url']}" />-->
                 </bean>
             </list>
         </constructor-arg>

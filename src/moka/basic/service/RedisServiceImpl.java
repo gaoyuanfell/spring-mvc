@@ -2,8 +2,8 @@ package moka.basic.service;
 
 import com.alibaba.fastjson.JSON;
 import moka.basic.bo.Token;
-import moka.user.bo.User;
 import moka.user.to.UserTo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands;
@@ -13,7 +13,6 @@ import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import redis.clients.jedis.ShardedJedisPool;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +22,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Service("redisService")
 public class RedisServiceImpl implements RedisService {
+    @Value("#{propertyConfigurer['data_session_expire']}")
+    private long data_session_expire = 1;
 
     @Resource(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate;
@@ -67,7 +68,7 @@ public class RedisServiceImpl implements RedisService {
                 byte[] key = serializer.serialize(t.getKey());
                 byte[] token = serializer.serialize(t.getToken());
                 byte[] value = serializer.serialize(JSON.toJSONString(t.getT()));
-                Expiration expiration = Expiration.from(12, TimeUnit.HOURS);
+                Expiration expiration = Expiration.from(data_session_expire, TimeUnit.MINUTES);
                 connection.set(key, token, expiration, RedisStringCommands.SetOption.UPSERT);
                 connection.set(token, value, expiration, RedisStringCommands.SetOption.UPSERT);
                 return true;
@@ -79,10 +80,11 @@ public class RedisServiceImpl implements RedisService {
     public UserTo getUserSession(Token t) {
         if(StringUtils.isEmpty(t.getKey()) && !StringUtils.isEmpty(t.getToken())){
             return get(t.getToken(),UserTo.class);
-        }else{
+        }else if(!StringUtils.isEmpty(t.getKey())){
             String token = get(t.getKey(),String.class);
             return get(token,UserTo.class);
         }
+        return null;
     }
 
     @Override
@@ -90,7 +92,7 @@ public class RedisServiceImpl implements RedisService {
         UserTo u = get(t.getToken(),UserTo.class);
         if (u == null) return false;
         String key = Integer.toString(u.getId());
-        return redisTemplate.expire(key, 12, TimeUnit.HOURS) && redisTemplate.expire(t.getToken(), 12, TimeUnit.HOURS);
+        return redisTemplate.expire(key, data_session_expire, TimeUnit.MINUTES) && redisTemplate.expire(t.getToken(), data_session_expire, TimeUnit.MINUTES);
     }
 
     @Override

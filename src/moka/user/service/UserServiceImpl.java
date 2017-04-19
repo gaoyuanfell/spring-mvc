@@ -49,6 +49,11 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     @Override
+    public List findList(UserVo userVo) {
+        return userDao.findList(userVo);
+    }
+
+    @Override
     public UserTo login(UserVo userVo) {
         return userDao.login(userVo);
     }

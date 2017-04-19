@@ -23,6 +23,8 @@ public class CommentVo extends Page implements Serializable {
     private int repeat;
     private int forward;
     private Date createDate;
+    private Date updateDate;
+    private int state;
 
     public int getId() {
         return id;
@@ -112,6 +114,22 @@ public class CommentVo extends Page implements Serializable {
         this.createDate = createDate;
     }
 
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "CommentVo{" +
@@ -126,6 +144,8 @@ public class CommentVo extends Page implements Serializable {
                 ", repeat=" + repeat +
                 ", forward=" + forward +
                 ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", state=" + state +
                 '}';
     }
 }

@@ -9,6 +9,7 @@ import moka.comment.vo.CommentVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
     @Override
     public int insert(CommentVo commentVo) {
         Comment comment = this.convertBusinessValue(commentVo, Comment.class);
+        comment.setCreateDate(new Date());
         commentDao.insert(comment);
         return comment.getId();
     }

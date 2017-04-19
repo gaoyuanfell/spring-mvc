@@ -5,7 +5,7 @@
 <mapper namespace="moka.line.dao.LineDao">
 
     <sql id="Line">
-        userId,title,introduce,praised,repeat,forward,privacy,createDate
+        userId,title,introduce,praised,`repeat`,forward,privacy,createDate
     </sql>
 
     <insert id="insert" parameterType="moka.line.bo.Line" useGeneratedKeys="true" keyProperty="id">
@@ -30,5 +30,17 @@
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
         SELECT * FROM moka.line LIMIT #{pageStart} , #{pageSize};
     </select>
+
+    <update id="addPraised">
+        UPDATE moka.line SET line.praised = line.praised + 1 WHERE line.id = #{id};
+    </update>
+
+    <update id="addRepeat">
+        UPDATE moka.line SET line.repeat = line.repeat + 1 WHERE line.id = #{id};
+    </update>
+
+    <update id="addForward" parameterType="Integer">
+        UPDATE moka.line SET line.forward = line.forward + 1 WHERE line.id = #{id};
+    </update>
 
 </mapper>

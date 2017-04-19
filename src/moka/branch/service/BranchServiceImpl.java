@@ -9,6 +9,7 @@ import moka.branch.vo.BranchVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,9 +22,10 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
 
     @Override
     public int insert(BranchVo branchVo) {
-        Branch Branch = this.convertBusinessValue(branchVo, Branch.class);
-        branchDao.insert(Branch);
-        return Branch.getId();
+        Branch branch = this.convertBusinessValue(branchVo, Branch.class);
+        branch.setCreateDate(new Date());
+        branchDao.insert(branch);
+        return branch.getId();
     }
 
     @Override

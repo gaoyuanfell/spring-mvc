@@ -1,6 +1,7 @@
 package moka.user.to;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 数据传输层
@@ -13,6 +14,9 @@ public class UserDetailTo implements Serializable {
     private String diploma;
     private String idCard;
     private String address;
+    private Date createDate;
+    private Date updateDate;
+    private int state;
 
     public String getAddress() {
         return address;
@@ -62,14 +66,42 @@ public class UserDetailTo implements Serializable {
         this.idCard = idCard;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
-        return "UserDetailVo{" +
+        return "UserDetailTo{" +
                 "id=" + id +
                 ", school='" + school + '\'' +
                 ", hobby='" + hobby + '\'' +
                 ", diploma='" + diploma + '\'' +
                 ", idCard='" + idCard + '\'' +
+                ", address='" + address + '\'' +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", state=" + state +
                 '}';
     }
 }

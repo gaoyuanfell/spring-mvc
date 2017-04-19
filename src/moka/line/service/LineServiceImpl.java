@@ -9,6 +9,7 @@ import moka.line.vo.LineVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     @Override
     public int insert(LineVo lineVo) {
         Line line = this.convertBusinessValue(lineVo, Line.class);
+        line.setCreateDate(new Date());
         lineDao.insert(line);
         return line.getId();
     }
@@ -36,5 +38,20 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
         List list = lineDao.findPage(lineVo);
         int totalCount = lineDao.findCount();
         return new Page(totalCount, list);
+    }
+
+    @Override
+    public int addPraised(int id) {
+        return lineDao.addPraised(id);
+    }
+
+    @Override
+    public int addRepeat(int id) {
+        return lineDao.addRepeat(id);
+    }
+
+    @Override
+    public int addForward(int id) {
+        return lineDao.addForward(id);
     }
 }

@@ -6,6 +6,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -17,26 +18,36 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <!-- 指定连接数据库的驱动 -->
         <property name="driverClass" value="${jdbc.driverClass}"/>
+        <!--<property name="driverClass" value="#{propertyConfigurer['jdbc.driverClass']}"/>-->
         <!-- 指定连接数据库的URL -->
         <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+        <!--<property name="jdbcUrl" value="#{propertyConfigurer['jdbc.jdbcUrl']}"/>-->
         <!-- 指定连接数据库的用户名 -->
         <property name="user" value="${jdbc.user}"/>
+        <!--<property name="user" value="#{propertyConfigurer['jdbc.user']}"/>-->
         <!-- 指定连接数据库的密码 -->
         <property name="password" value="${jdbc.password}"/>
+        <!--<property name="password" value="#{propertyConfigurer['jdbc.password']}"/>-->
         <!-- 指定连接数据库连接池的最大连接数 -->
         <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+        <!--<property name="maxPoolSize" value="#{propertyConfigurer['jdbc.maxPoolSize']}"/>-->
         <!-- 指定连接数据库连接池的最小连接数 -->
         <property name="minPoolSize" value="${jdbc.minPoolSize}"/>
+        <!--<property name="minPoolSize" value="#{propertyConfigurer['jdbc.minPoolSize']}"/>-->
         <!-- 指定连接数据库连接池的初始化连接数 -->
         <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
+        <!--<property name="initialPoolSize" value="#{propertyConfigurer['jdbc.initialPoolSize']}"/>-->
         <!-- 指定连接数据库连接池的连接的最大空闲时间 -->
         <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>
+        <!--<property name="maxIdleTime" value="#{propertyConfigurer['jdbc.maxIdleTime']}"/>-->
     </bean>
 
 </beans>

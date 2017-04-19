@@ -17,7 +17,9 @@ public class BranchVo extends Page implements Serializable {
     private String url;
     private String lng;
     private String lat;
-    private Date CreateDate;
+    private Date createDate;
+    private Date updateDate;
+    private int state;
 
     public int getId() {
         return id;
@@ -76,11 +78,27 @@ public class BranchVo extends Page implements Serializable {
     }
 
     public Date getCreateDate() {
-        return CreateDate;
+        return createDate;
     }
 
     public void setCreateDate(Date createDate) {
-        CreateDate = createDate;
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     @Override
@@ -93,7 +111,9 @@ public class BranchVo extends Page implements Serializable {
                 ", url='" + url + '\'' +
                 ", lng='" + lng + '\'' +
                 ", lat='" + lat + '\'' +
-                ", CreateDate=" + CreateDate +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", state=" + state +
                 '}';
     }
 }

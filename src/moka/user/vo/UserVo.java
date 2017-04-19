@@ -4,6 +4,7 @@ import moka.basic.page.Page;
 import moka.user.to.UserDetailTo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 接收应用层的数据
@@ -18,6 +19,9 @@ public class UserVo extends Page implements Serializable {
     private String phone;
     private String nickName;
     private UserDetailVo userDetail;
+    private Date createDate;
+    private Date updateDate;
+    private int state;
 
     public UserDetailVo getUserDetail() {
         return userDetail;
@@ -83,6 +87,30 @@ public class UserVo extends Page implements Serializable {
         this.nickName = nickName;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "UserVo{" +
@@ -93,6 +121,10 @@ public class UserVo extends Page implements Serializable {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", nickName='" + nickName + '\'' +
+                ", userDetail=" + userDetail +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", state=" + state +
                 '}';
     }
 }

@@ -3,6 +3,7 @@ package moka.user.vo;
 import moka.basic.page.Page;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by moka on 2017/3/22.
@@ -14,6 +15,9 @@ public class UserDetailVo extends Page implements Serializable {
     private String diploma;
     private String idCard;
     private String address;
+    private Date createDate;
+    private Date updateDate;
+    private int state;
 
     public String getAddress() {
         return address;
@@ -63,6 +67,30 @@ public class UserDetailVo extends Page implements Serializable {
         this.idCard = idCard;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "UserDetailVo{" +
@@ -71,6 +99,10 @@ public class UserDetailVo extends Page implements Serializable {
                 ", hobby='" + hobby + '\'' +
                 ", diploma='" + diploma + '\'' +
                 ", idCard='" + idCard + '\'' +
+                ", address='" + address + '\'' +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", state=" + state +
                 '}';
     }
 }
