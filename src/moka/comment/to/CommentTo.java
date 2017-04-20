@@ -18,8 +18,9 @@ public class CommentTo implements Serializable {
     private BranchTo branch;
     private LineTo line;
     private UserTo user;
+    private String context;
     private int praised;
-    private int repeat;
+    private int review;
     private int forward;
     private Date createDate;
     private Date updateDate;
@@ -31,30 +32,6 @@ public class CommentTo implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(int branchId) {
-        this.branchId = branchId;
-    }
-
-    public int getLineId() {
-        return lineId;
-    }
-
-    public void setLineId(int lineId) {
-        this.lineId = lineId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public BranchTo getBranch() {
@@ -89,12 +66,12 @@ public class CommentTo implements Serializable {
         this.praised = praised;
     }
 
-    public int getRepeat() {
-        return repeat;
+    public int getReview() {
+        return review;
     }
 
-    public void setRepeat(int repeat) {
-        this.repeat = repeat;
+    public void setReview(int review) {
+        this.review = review;
     }
 
     public int getForward() {
@@ -129,22 +106,19 @@ public class CommentTo implements Serializable {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "CommentTo{" +
-                "id=" + id +
-                ", branchId=" + branchId +
-                ", lineId=" + lineId +
-                ", userId=" + userId +
-                ", branch=" + branch +
-                ", line=" + line +
-                ", user=" + user +
-                ", praised=" + praised +
-                ", repeat=" + repeat +
-                ", forward=" + forward +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
     }
 }

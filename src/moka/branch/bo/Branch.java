@@ -75,18 +75,4 @@ public class Branch extends IdEntity {
     public void setScope(String scope) {
         this.scope = scope;
     }
-
-    @Override
-    public String toString() {
-        return "Branch{" +
-                "lineId=" + lineId +
-                ", title='" + title + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", url='" + url + '\'' +
-                ", lng='" + lng + '\'' +
-                ", lat='" + lat + '\'' +
-                ", scope='" + scope + '\'' +
-                ", createDate=" + createDate +
-                '}';
-    }
 }

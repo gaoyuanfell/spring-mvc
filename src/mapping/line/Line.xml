@@ -5,13 +5,13 @@
 <mapper namespace="moka.line.dao.LineDao">
 
     <sql id="Line">
-        userId,title,introduce,praised,`repeat`,forward,privacy,createDate
+        userId,title,introduce,praised,review,forward,privacy,createDate
     </sql>
 
     <insert id="insert" parameterType="moka.line.bo.Line" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.line(
         <include refid="Line"/>
-        ) VALUES (#{userId}, #{title}, #{introduce}, #{praised}, #{repeat}, #{forward}, #{privacy}, #{createDate});
+        ) VALUES (#{userId}, #{title}, #{introduce}, #{praised}, #{review}, #{forward}, #{privacy}, #{createDate});
     </insert>
 
     <resultMap id="map" type="moka.line.to.LineTo">
@@ -19,7 +19,11 @@
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
     </resultMap>
 
-    <select id="findOne" parameterType="Integer" resultMap="map">
+    <select id="findOne" parameterType="Integer" resultType="moka.line.to.LineTo">
+        SELECT * FROM moka.line WHERE id = #{id};
+    </select>
+
+    <select id="findOneAll" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.line WHERE id = #{id};
     </select>
     
@@ -35,8 +39,8 @@
         UPDATE moka.line SET line.praised = line.praised + 1 WHERE line.id = #{id};
     </update>
 
-    <update id="addRepeat">
-        UPDATE moka.line SET line.repeat = line.repeat + 1 WHERE line.id = #{id};
+    <update id="addReview">
+        UPDATE moka.line SET line.review = line.review + 1 WHERE line.id = #{id};
     </update>
 
     <update id="addForward" parameterType="Integer">

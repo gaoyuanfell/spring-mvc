@@ -16,7 +16,7 @@ public class LineVo extends Page implements Serializable {
     private String title;
     private String introduce;
     private int praised;
-    private int repeat;
+    private int review;
     private int forward;
     private int privacy;
     private Date createDate;
@@ -63,6 +63,38 @@ public class LineVo extends Page implements Serializable {
         this.introduce = introduce;
     }
 
+    public int getPraised() {
+        return praised;
+    }
+
+    public void setPraised(int praised) {
+        this.praised = praised;
+    }
+
+    public int getReview() {
+        return review;
+    }
+
+    public void setReview(int review) {
+        this.review = review;
+    }
+
+    public int getForward() {
+        return forward;
+    }
+
+    public void setForward(int forward) {
+        this.forward = forward;
+    }
+
+    public int getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -85,55 +117,5 @@ public class LineVo extends Page implements Serializable {
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public int getPraised() {
-        return praised;
-    }
-
-    public void setPraised(int praised) {
-        this.praised = praised;
-    }
-
-    public int getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(int repeat) {
-        this.repeat = repeat;
-    }
-
-    public int getForward() {
-        return forward;
-    }
-
-    public void setForward(int forward) {
-        this.forward = forward;
-    }
-
-    public int getPrivacy() {
-        return privacy;
-    }
-
-    public void setPrivacy(int privacy) {
-        this.privacy = privacy;
-    }
-
-    @Override
-    public String toString() {
-        return "LineVo{" +
-                "id=" + id +
-                ", user=" + user +
-                ", userId=" + userId +
-                ", title='" + title + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", praised=" + praised +
-                ", repeat=" + repeat +
-                ", forward=" + forward +
-                ", privacy=" + privacy +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
     }
 }

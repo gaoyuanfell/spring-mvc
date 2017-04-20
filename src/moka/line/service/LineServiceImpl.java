@@ -46,8 +46,8 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     }
 
     @Override
-    public int addRepeat(int id) {
-        return lineDao.addRepeat(id);
+    public int addReview(int id) {
+        return lineDao.addReview(id);
     }
 
     @Override

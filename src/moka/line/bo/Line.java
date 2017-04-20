@@ -16,7 +16,7 @@ public class Line extends IdEntity {
     private String title;
     private String introduce;
     private int praised;
-    private int repeat;
+    private int review;
     private int forward;
     private int privacy;
 
@@ -60,12 +60,12 @@ public class Line extends IdEntity {
         this.praised = praised;
     }
 
-    public int getRepeat() {
-        return repeat;
+    public int getReview() {
+        return review;
     }
 
-    public void setRepeat(int repeat) {
-        this.repeat = repeat;
+    public void setReview(int review) {
+        this.review = review;
     }
 
     public int getForward() {
@@ -74,19 +74,5 @@ public class Line extends IdEntity {
 
     public void setForward(int forward) {
         this.forward = forward;
-    }
-
-    @Override
-    public String toString() {
-        return "Line{" +
-                "userId=" + userId +
-                ", title='" + title + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", privacy=" + privacy +
-                ", praised=" + praised +
-                ", repeat=" + repeat +
-                ", forward=" + forward +
-                ", createDate=" + createDate +
-                '}';
     }
 }

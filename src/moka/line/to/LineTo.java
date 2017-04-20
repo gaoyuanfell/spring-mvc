@@ -11,10 +11,11 @@ import java.util.Date;
 public class LineTo implements Serializable {
     private int id;
     private UserTo user;
+    private int userId;
     private String title;
     private String introduce;
     private int praised;
-    private int repeat;
+    private int review;
     private int forward;
     private int privacy;
     private Date createDate;
@@ -86,12 +87,12 @@ public class LineTo implements Serializable {
         this.praised = praised;
     }
 
-    public int getRepeat() {
-        return repeat;
+    public int getReview() {
+        return review;
     }
 
-    public void setRepeat(int repeat) {
-        this.repeat = repeat;
+    public void setReview(int review) {
+        this.review = review;
     }
 
     public int getForward() {
@@ -110,20 +111,11 @@ public class LineTo implements Serializable {
         this.privacy = privacy;
     }
 
-    @Override
-    public String toString() {
-        return "LineTo{" +
-                "id=" + id +
-                ", user=" + user +
-                ", title='" + title + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", praised=" + praised +
-                ", repeat=" + repeat +
-                ", forward=" + forward +
-                ", privacy=" + privacy +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

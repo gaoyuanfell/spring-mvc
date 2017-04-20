@@ -17,7 +17,7 @@ public interface LineService extends BasicService {
 
     int addPraised(int id);
 
-    int addRepeat(int id);
+    int addReview(int id);
 
     int addForward(int id);
 }

@@ -12,6 +12,8 @@ public interface BasicDao<E, T> {
 
     T findOne(Integer id);
 
+    T findOneAll(Integer id);
+
     List findList(Page page);
 
     List findPage(Page page);

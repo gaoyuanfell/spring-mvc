@@ -18,7 +18,9 @@ public class UserVo extends Page implements Serializable {
     private String address;
     private String phone;
     private String nickName;
+    private String url;
     private UserDetailVo userDetail;
+    private int userDetailId;
     private Date createDate;
     private Date updateDate;
     private int state;
@@ -111,20 +113,11 @@ public class UserVo extends Page implements Serializable {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "UserVo{" +
-                "id=" + id +
-                ", user='" + user + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", userDetail=" + userDetail +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

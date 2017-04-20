@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-17 16:53:50
+Date: 2017-04-20 10:38:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,13 +37,13 @@ CREATE TABLE `branch` (
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-  `id` int(11) NOT NULL COMMENT '评论',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论',
   `branchId` int(11) DEFAULT NULL,
   `lineId` int(11) DEFAULT NULL,
   `userId` int(11) DEFAULT NULL,
   `context` varchar(255) DEFAULT NULL COMMENT '评论内容',
   `praised` int(11) DEFAULT NULL COMMENT '赞数',
-  `repeat` int(11) DEFAULT NULL COMMENT '评论数',
+  `review` int(11) DEFAULT NULL COMMENT '评论数',
   `forward` int(11) DEFAULT NULL COMMENT '分享数',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
@@ -58,10 +58,10 @@ CREATE TABLE `line` (
   `userId` int(11) DEFAULT NULL COMMENT '用户id',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `introduce` varchar(255) DEFAULT NULL COMMENT '简介',
-  `praised` int(11) DEFAULT NULL COMMENT '赞',
-  `repeat` int(11) DEFAULT NULL COMMENT '评论',
-  `forward` int(11) DEFAULT NULL COMMENT '分享',
   `privacy` int(11) DEFAULT NULL COMMENT '隐私',
+  `praised` int(11) DEFAULT NULL COMMENT '赞',
+  `review` int(11) DEFAULT NULL COMMENT '评论',
+  `forward` int(11) DEFAULT NULL COMMENT '分享',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

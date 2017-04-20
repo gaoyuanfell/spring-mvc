@@ -5,13 +5,13 @@
 <mapper namespace="moka.comment.dao.CommentDao">
 
     <sql id="Comment">
-        branchId,lineId,userId,praised,repeat,forward,createDate
+        branchId,lineId,userId,context,praised,review,forward,createDate
     </sql>
 
     <insert id="insert" parameterType="moka.comment.bo.Comment" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.comment(
         <include refid="Comment"/>
-        ) VALUES (#{branchId}, #{lineId}, #{userId}, #{praised}, #{repeat}, #{forward}, #{createDate});
+        ) VALUES (#{branchId}, #{lineId}, #{userId}, #{context}, #{praised}, #{review}, #{forward}, #{createDate});
     </insert>
 
     <resultMap id="map" type="moka.comment.to.CommentTo">
@@ -21,7 +21,11 @@
         <association property="branch" javaType="moka.branch.to.BranchTo" column="branchId" select="moka.branch.dao.BranchDao.findOne"/>
     </resultMap>
 
-    <select id="findOne" parameterType="Integer" resultMap="map">
+    <select id="findOne" parameterType="Integer" resultType="moka.comment.to.CommentTo">
+        SELECT * FROM moka.comment WHERE id = #{id};
+    </select>
+
+    <select id="findOneAll" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.comment WHERE id = #{id};
     </select>
 
@@ -30,7 +34,52 @@
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT * FROM moka.comment LIMIT #{pageStart} , #{pageSize};
+        SELECT * FROM moka.comment WHERE 1 = 1
+        <if test="lineId != 0">
+            AND comment.lineId = #{lineId}
+        </if>
+        LIMIT #{pageStart} , #{pageSize};
     </select>
+
+    <insert id="insertCommentRelation" parameterType="moka.comment.bo.CommentRelation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.commentrelation(
+          userId, lineId, commentId, comType
+        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType});
+    </insert>
+
+    <delete id="removeCommentRelation" parameterType="moka.comment.bo.CommentRelation">
+        DELETE FROM moka.commentrelation WHERE 1 = 1 AND commentId = #{commentId} AND userId = #{userId} AND comType = #{comType}
+    </delete>
+
+    <select id="hasCommentRelation" parameterType="moka.comment.bo.CommentRelation" resultType="Integer">
+        SELECT COUNT(cr.id) FROM moka.commentrelation AS cr WHERE 1 = 1 AND cr.commentId = #{commentId} AND cr.userId = #{userId} AND cr.comType = #{comType}
+    </select>
+
+    <update id="addPraised">
+        <if test="operationType">
+            UPDATE moka.comment SET comment.praised = comment.praised - 1 WHERE comment.id = #{id};
+        </if>
+        <if test="!operationType">
+            UPDATE moka.comment SET comment.praised = comment.praised + 1 WHERE comment.id = #{id};
+        </if>
+    </update>
+
+    <update id="addReview">
+        <if test="operationType">
+            UPDATE moka.comment SET comment.review = comment.review - 1 WHERE comment.id = #{id};
+        </if>
+        <if test="!operationType">
+            UPDATE moka.comment SET comment.review = comment.review + 1 WHERE comment.id = #{id};
+        </if>
+    </update>
+
+    <update id="addForward" parameterType="Integer">
+        <if test="operationType">
+            UPDATE moka.comment SET comment.forward = comment.forward - 1 WHERE comment.id = #{id};
+        </if>
+        <if test="!operationType">
+            UPDATE moka.comment SET comment.forward = comment.forward + 1 WHERE comment.id = #{id};
+        </if>
+    </update>
 
 </mapper>

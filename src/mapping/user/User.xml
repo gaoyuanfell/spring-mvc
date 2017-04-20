@@ -19,7 +19,11 @@
         <association property="userDetail" javaType="moka.user.to.UserDetailTo" column="userDetailId" select="moka.user.dao.UserDetailDao.findOne"/>
     </resultMap>
 
-    <select id="findOne" parameterType="Integer" resultMap="map">
+    <select id="findOne" parameterType="Integer" resultType="moka.user.to.UserTo">
+        SELECT * FROM moka.user WHERE id = #{id};
+    </select>
+
+    <select id="findOneAll" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.user WHERE id = #{id};
     </select>
     

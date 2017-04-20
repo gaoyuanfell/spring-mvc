@@ -19,12 +19,24 @@ public class CommentVo extends Page implements Serializable {
     private BranchVo branch;
     private LineVo line;
     private UserVo user;
+    private String context;
     private int praised;
-    private int repeat;
+    private int review;
     private int forward;
     private Date createDate;
     private Date updateDate;
     private int state;
+
+    //运算类型 为true 减法 默认加法
+    private boolean operationType;
+
+    public boolean isOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(boolean operationType) {
+        this.operationType = operationType;
+    }
 
     public int getId() {
         return id;
@@ -90,12 +102,12 @@ public class CommentVo extends Page implements Serializable {
         this.praised = praised;
     }
 
-    public int getRepeat() {
-        return repeat;
+    public int getReview() {
+        return review;
     }
 
-    public void setRepeat(int repeat) {
-        this.repeat = repeat;
+    public void setReview(int review) {
+        this.review = review;
     }
 
     public int getForward() {
@@ -130,22 +142,11 @@ public class CommentVo extends Page implements Serializable {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "CommentVo{" +
-                "id=" + id +
-                ", branchId=" + branchId +
-                ", lineId=" + lineId +
-                ", userId=" + userId +
-                ", branch=" + branch +
-                ", line=" + line +
-                ", user=" + user +
-                ", praised=" + praised +
-                ", repeat=" + repeat +
-                ", forward=" + forward +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
     }
 }

@@ -38,14 +38,18 @@ public class CommentCtrl extends BasicController {
     /**
      * 查
      *
-     * @param id
+     * @param commentVo
      * @return
      */
     @RequestMapping(value = "findOne.htm")
     @ResponseBody
-    public Object findOne(int id) {
-        CommentTo commentTo = commentService.findOne(id);
-        return result(commentTo);
+    public Object findOne(@RequestBody CommentVo commentVo) {
+        if(commentVo.getId() != 0){
+            CommentTo commentTo = commentService.findOne(commentVo.getId());
+            return result(commentTo);
+        }else{
+            return result(CODE_PROMPT,"id不能为空");
+        }
     }
 
     /**
@@ -57,8 +61,51 @@ public class CommentCtrl extends BasicController {
     @ResponseBody
     public Object findPage(@RequestBody CommentVo commentVo) {
         Page list = commentService.findPage(commentVo);
-        String[] s = {"1", "2", "3", "4", "5"};
-        System.out.println(s[5]);
         return result(list);
+    }
+
+    /**
+     * 点赞+
+     */
+    @RequestMapping(value = "addPraised.htm")
+    @ResponseBody
+    public Object addPraised(@RequestBody CommentVo commentVo){
+        if(commentVo.getId() != 0 && commentVo.getUserId() != 0){
+            int i = commentService.addPraised(commentVo);
+            if(commentVo.isOperationType()){
+                return result(true);
+            }
+            return result();
+        }else{
+            return result(CODE_PROMPT,"id不能为空");
+        }
+    }
+
+    /**
+     * 评论+
+     */
+    @RequestMapping(value = "addReview.htm")
+    @ResponseBody
+    public Object addReview(@RequestBody CommentVo commentVo){
+        if(commentVo.getId() != 0 && commentVo.getUserId() != 0){
+            int i = commentService.addReview(commentVo);
+            return result();
+        }else{
+            return result(CODE_PROMPT,"id不能为空");
+        }
+    }
+
+    /**
+     * 分享+
+     */
+    @RequestMapping(value = "addForward.htm")
+    @ResponseBody
+    public Object addForward(@RequestBody CommentVo commentVo){
+        if(commentVo.getId() != 0 && commentVo.getUserId() != 0){
+            int i = commentService.addForward(commentVo);
+            return result();
+        }else{
+            return result(CODE_PROMPT,"id不能为空");
+        }
     }
 }

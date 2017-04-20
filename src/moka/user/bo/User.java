@@ -21,6 +21,7 @@ public class User extends IdEntity implements Serializable {
     private String email;
     private String phone;
     private String nickName;
+    private String url;
 
     public int getUserDetailId() {
         return userDetailId;
@@ -70,15 +71,11 @@ public class User extends IdEntity implements Serializable {
         this.nickName = nickName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userDetailId=" + userDetailId +
-                ", user='" + user + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", nickName='" + nickName + '\'' +
-                '}';
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

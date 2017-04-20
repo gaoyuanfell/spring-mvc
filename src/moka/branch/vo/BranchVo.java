@@ -12,6 +12,7 @@ import java.util.Date;
 public class BranchVo extends Page implements Serializable {
     private int id;
     private LineVo line;
+    private int lineId;
     private String title;
     private String introduce;
     private String url;
@@ -101,19 +102,11 @@ public class BranchVo extends Page implements Serializable {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "BranchVo{" +
-                "id=" + id +
-                ", line=" + line +
-                ", title='" + title + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", url='" + url + '\'' +
-                ", lng='" + lng + '\'' +
-                ", lat='" + lat + '\'' +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
+    public int getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
     }
 }

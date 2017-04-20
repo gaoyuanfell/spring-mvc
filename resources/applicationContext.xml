@@ -38,6 +38,11 @@
     <!--fastjson json 配置-->
     <bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
         <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+        <property name="serializerFeatures">
+            <list>
+                <value>DisableCircularReferenceDetect</value>
+            </list>
+        </property>
     </bean>
 
     <!-- 注解驱动 -->

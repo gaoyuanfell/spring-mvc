@@ -11,6 +11,7 @@ import java.util.Date;
 public class BranchTo implements Serializable {
     private int id;
     private LineTo line;
+    private int lineId;
     private String title;
     private String introduce;
     private String url;
@@ -100,19 +101,11 @@ public class BranchTo implements Serializable {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "BranchTo{" +
-                "id=" + id +
-                ", line=" + line +
-                ", title='" + title + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", url='" + url + '\'' +
-                ", lng='" + lng + '\'' +
-                ", lat='" + lat + '\'' +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
+    public int getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
     }
 }

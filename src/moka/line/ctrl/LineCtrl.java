@@ -82,11 +82,11 @@ public class LineCtrl extends BasicController {
     /**
      * 评论+
      */
-    @RequestMapping(value = "addRepeat.htm")
+    @RequestMapping(value = "addReview.htm")
     @ResponseBody
-    public Object addRepeat(@RequestBody LineVo lineVo){
+    public Object addReview(@RequestBody LineVo lineVo){
         if(lineVo.getId() != 0){
-            int i = lineService.addRepeat(lineVo.getId());
+            int i = lineService.addReview(lineVo.getId());
             return result();
         }else{
             return result(CODE_PROMPT,"id不能为空");

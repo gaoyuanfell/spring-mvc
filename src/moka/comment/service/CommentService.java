@@ -14,4 +14,10 @@ public interface CommentService extends BasicService {
     CommentTo findOne(Integer id);
 
     Page findPage(CommentVo commentVo);
+
+    int addPraised(CommentVo commentVo);
+
+    int addReview(CommentVo commentVo);
+
+    int addForward(CommentVo commentVo);
 }

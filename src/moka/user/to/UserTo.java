@@ -15,7 +15,9 @@ public class UserTo implements Serializable {
     private String address;
     private String phone;
     private String nickName;
+    private String url;
     private UserDetailTo userDetail;
+    private int userDetailId;
     private Date createDate;
     private Date updateDate;
     private int state;
@@ -108,20 +110,19 @@ public class UserTo implements Serializable {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "UserTo{" +
-                "id=" + id +
-                ", user='" + user + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", userDetail=" + userDetail +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getUserDetailId() {
+        return userDetailId;
+    }
+
+    public void setUserDetailId(int userDetailId) {
+        this.userDetailId = userDetailId;
     }
 }

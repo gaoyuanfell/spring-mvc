@@ -19,7 +19,11 @@
         <association property="line" javaType="moka.branch.to.BranchTo" column="lineId" select="moka.branch.dao.BranchDao.findOne"/>
     </resultMap>
 
-    <select id="findOne" parameterType="Integer" resultMap="map">
+    <select id="findOne" parameterType="Integer" resultType="moka.branch.to.BranchTo">
+        SELECT * FROM moka.branch WHERE id = #{id};
+    </select>
+
+    <select id="findOneAll" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.branch WHERE id = #{id};
     </select>
     

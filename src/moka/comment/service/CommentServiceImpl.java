@@ -3,9 +3,11 @@ package moka.comment.service;
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
 import moka.comment.bo.Comment;
+import moka.comment.bo.CommentRelation;
 import moka.comment.dao.CommentDao;
 import moka.comment.to.CommentTo;
 import moka.comment.vo.CommentVo;
+import moka.line.service.LineService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,12 +21,17 @@ import java.util.List;
 public class CommentServiceImpl extends BasicServiceImpl implements CommentService {
     @Resource
     private CommentDao commentDao;
+    @Resource
+    private LineService lineService;
 
     @Override
     public int insert(CommentVo commentVo) {
         Comment comment = this.convertBusinessValue(commentVo, Comment.class);
         comment.setCreateDate(new Date());
         commentDao.insert(comment);
+        if(commentVo.getLineId() != 0){
+            lineService.addReview(commentVo.getLineId());
+        }
         return comment.getId();
     }
 
@@ -38,5 +45,32 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
         List list = commentDao.findPage(commentVo);
         int totalCount = commentDao.findCount();
         return new Page(totalCount, list);
+    }
+
+    @Override
+    public int addPraised(CommentVo commentVo) {
+        CommentRelation commentRelation =  new CommentRelation();
+        commentRelation.setUserId(commentVo.getUserId());
+        commentRelation.setCommentId(commentVo.getId());
+        commentRelation.setComType(1);
+        int i = commentDao.hasCommentRelation(commentRelation);
+        //已经点过赞的总赞数-1 并移除关联
+        if(i >0){
+            commentVo.setOperationType(true);//按减法运算总赞数
+            commentDao.removeCommentRelation(commentRelation);
+        }else{
+            commentDao.insertCommentRelation(commentRelation);
+        }
+        return commentDao.addPraised(commentVo);
+    }
+
+    @Override
+    public int addReview(CommentVo commentVo) {
+        return commentDao.addReview(commentVo);
+    }
+
+    @Override
+    public int addForward(CommentVo commentVo) {
+        return commentDao.addForward(commentVo);
     }
 }

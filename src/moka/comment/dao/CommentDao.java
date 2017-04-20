@@ -2,7 +2,9 @@ package moka.comment.dao;
 
 import moka.basic.dao.BasicDao;
 import moka.comment.bo.Comment;
+import moka.comment.bo.CommentRelation;
 import moka.comment.to.CommentTo;
+import moka.comment.vo.CommentVo;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +13,15 @@ import org.springframework.stereotype.Repository;
 @Repository("commentDao")
 public interface CommentDao extends BasicDao<Comment, CommentTo> {
 
+    int addPraised(CommentVo commentVo);
+
+    int addReview(CommentVo commentVo);
+
+    int addForward(CommentVo commentVo);
+
+    int insertCommentRelation(CommentRelation commentRelation);
+
+    int removeCommentRelation(CommentRelation commentRelation);
+
+    int hasCommentRelation(CommentRelation commentRelation);
 }

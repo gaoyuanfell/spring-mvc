@@ -17,7 +17,7 @@ public class Comment extends IdEntity {
     private int userId;
     private String context;
     private int praised;
-    private int repeat;
+    private int review;
     private int forward;
 
     public int getBranchId() {
@@ -60,12 +60,12 @@ public class Comment extends IdEntity {
         this.praised = praised;
     }
 
-    public int getRepeat() {
-        return repeat;
+    public int getReview() {
+        return review;
     }
 
-    public void setRepeat(int repeat) {
-        this.repeat = repeat;
+    public void setReview(int review) {
+        this.review = review;
     }
 
     public int getForward() {
@@ -74,19 +74,5 @@ public class Comment extends IdEntity {
 
     public void setForward(int forward) {
         this.forward = forward;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "branchId=" + branchId +
-                ", lineId=" + lineId +
-                ", userId=" + userId +
-                ", context='" + context + '\'' +
-                ", praised=" + praised +
-                ", repeat=" + repeat +
-                ", forward=" + forward +
-                ", createDate=" + createDate +
-                '}';
     }
 }

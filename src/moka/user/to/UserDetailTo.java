@@ -89,19 +89,4 @@ public class UserDetailTo implements Serializable {
     public void setState(int state) {
         this.state = state;
     }
-
-    @Override
-    public String toString() {
-        return "UserDetailTo{" +
-                "id=" + id +
-                ", school='" + school + '\'' +
-                ", hobby='" + hobby + '\'' +
-                ", diploma='" + diploma + '\'' +
-                ", idCard='" + idCard + '\'' +
-                ", address='" + address + '\'' +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
-    }
 }

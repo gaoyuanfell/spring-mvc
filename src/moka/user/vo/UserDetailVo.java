@@ -91,18 +91,4 @@ public class UserDetailVo extends Page implements Serializable {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "UserDetailVo{" +
-                "id=" + id +
-                ", school='" + school + '\'' +
-                ", hobby='" + hobby + '\'' +
-                ", diploma='" + diploma + '\'' +
-                ", idCard='" + idCard + '\'' +
-                ", address='" + address + '\'' +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", state=" + state +
-                '}';
-    }
 }
