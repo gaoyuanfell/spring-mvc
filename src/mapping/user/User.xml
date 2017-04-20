@@ -16,6 +16,7 @@
 
     <resultMap id="map" type="moka.user.to.UserTo">
         <id property="id" column="id"/>
+        <id property="userDetailId" column="userDetailId"/>
         <association property="userDetail" javaType="moka.user.to.UserDetailTo" column="userDetailId" select="moka.user.dao.UserDetailDao.findOne"/>
     </resultMap>
 
@@ -40,11 +41,11 @@
     </select>
 
     <select id="login" parameterType="moka.user.vo.UserVo" resultMap="map">
-        SELECT * FROM moka.user as u WHERE 1 = 1 AND u.user = #{user} AND u.password = #{password}
+        SELECT * FROM moka.user u WHERE 1 = 1 AND u.user = #{user} AND u.password = #{password}
     </select>
 
     <select id="findRepeatUser" parameterType="String" resultType="Integer">
-        SELECT COUNT(*) FROM moka.user as u WHERE 1 = 1 AND u.user = #{user}
+        SELECT COUNT(*) FROM moka.user u WHERE 1 = 1 AND u.user = #{user}
     </select>
 
 </mapper>

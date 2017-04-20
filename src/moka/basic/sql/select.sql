@@ -1,18 +1,30 @@
 SELECT
-	id in (
+	c.*, (
 		SELECT
-			cr.id FROM moka.commentrelation as cr
+			COUNT(cr.id)
+		FROM
+			moka.commentrelation cr
 		WHERE
 			1 = 1
- 		AND cr.commentId = 1
+		AND cr.commentId = c.id
 		AND cr.userId = 1
-	), c.*
+		AND cr.comType = 1
+	) AS isPraised,
+	(
+		SELECT
+			COUNT(cr.id)
+		FROM
+			moka.commentrelation cr
+		WHERE
+			1 = 1
+		AND cr.commentId = c.id
+		AND cr.userId = 1
+		AND cr.comType = 3
+	) AS isForward
 FROM
-	moka. COMMENT AS c
+	moka. COMMENT c
 WHERE
 	1 = 1
 AND c.lineId = 1
-LIMIT 0,5;
-
-
-SELECT ur.item_id ,r.* FROM zc_materiel_review.sys_user_role ur left join sys_role r using(role_id);
+LIMIT 0,
+ 5;

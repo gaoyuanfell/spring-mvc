@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-20 19:02:03
+Date: 2017-04-21 00:14:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,15 +51,16 @@ CREATE TABLE `comment` (
   `forward` int(11) DEFAULT NULL COMMENT '分享数',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='评论';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='评论';
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('1', '0', '1', '1', '好了歌，中国著名古典章回体小说《红楼梦》中经典诗词，小说中为跛足道人所做，甄士隐彻悟后进行进一步注解，表现了作者现实主义和宗教思想。文中还有与之相和的《好了歌注》，承接并引申了《好了歌》的思想。诗歌内容隐射小说情节，表达了作者对现实的愤懑和失望，以及对自由的追求和向往![1] ', '2', '0', '0', '2017-04-20 04:46:24');
-INSERT INTO `comment` VALUES ('2', '0', '1', '2', '测试测绘师', '2', '0', '0', '2017-04-20 05:12:22');
-INSERT INTO `comment` VALUES ('3', '0', '1', '3', '蓝牙5是蓝牙技术联盟 （Bluetooth Special Interest Group）于2016年6月16日发布的新一代蓝牙标准。', '2', '0', '0', '2017-04-20 08:24:42');
-INSERT INTO `comment` VALUES ('4', '0', '1', '4', '部门与组织是manytoone和onetomany的关系，并且两张表都有自关联，查询部门信息时会级联查询上级部门以及他的组织结构，然后返回json数据时，会出现$ref ', '2', '0', '0', '2017-04-20 08:36:02');
+INSERT INTO `comment` VALUES ('1', '0', '1', '1', '好了歌，中国著名古典章回体小说《红楼梦》中经典诗词，小说中为跛足道人所做，甄士隐彻悟后进行进一步注解，表现了作者现实主义和宗教思想。文中还有与之相和的《好了歌注》，承接并引申了《好了歌》的思想。诗歌内容隐射小说情节，表达了作者对现实的愤懑和失望，以及对自由的追求和向往![1] ', '1', '0', '0', '2017-04-20 04:46:24');
+INSERT INTO `comment` VALUES ('2', '0', '1', '2', '测试测绘师', '0', '0', '0', '2017-04-20 05:12:22');
+INSERT INTO `comment` VALUES ('3', '0', '1', '3', '蓝牙5是蓝牙技术联盟 （Bluetooth Special Interest Group）于2016年6月16日发布的新一代蓝牙标准。', '0', '0', '0', '2017-04-20 08:24:42');
+INSERT INTO `comment` VALUES ('4', '0', '1', '4', '部门与组织是manytoone和onetomany的关系，并且两张表都有自关联，查询部门信息时会级联查询上级部门以及他的组织结构，然后返回json数据时，会出现$ref ', '0', '0', '0', '2017-04-20 08:36:02');
+INSERT INTO `comment` VALUES ('5', '0', '1', '3', '别名在子查询及联接查询中的应用有着很好效果，当两张表有相同列名或者为了加强可读性，给表加上不同的别名，就能很好的区分哪些列属于哪张表。', '0', '0', '0', '2017-04-20 17:19:37');
 
 -- ----------------------------
 -- Table structure for commentrelation
@@ -72,19 +73,12 @@ CREATE TABLE `commentrelation` (
   `commentId` int(11) DEFAULT NULL,
   `comType` int(11) DEFAULT NULL COMMENT '1-点赞 2-评论 3-分享',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
 
 -- ----------------------------
 -- Records of commentrelation
 -- ----------------------------
-INSERT INTO `commentrelation` VALUES ('30', '1', '0', '1', '1');
-INSERT INTO `commentrelation` VALUES ('31', '1', '0', '2', '1');
-INSERT INTO `commentrelation` VALUES ('32', '1', '0', '3', '1');
-INSERT INTO `commentrelation` VALUES ('34', '1', '0', '4', '1');
-INSERT INTO `commentrelation` VALUES ('36', '2', '0', '2', '1');
-INSERT INTO `commentrelation` VALUES ('37', '2', '0', '3', '1');
-INSERT INTO `commentrelation` VALUES ('39', '2', '0', '4', '1');
-INSERT INTO `commentrelation` VALUES ('40', '2', '0', '1', '1');
+INSERT INTO `commentrelation` VALUES ('46', '1', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for line
@@ -106,7 +100,7 @@ CREATE TABLE `line` (
 -- ----------------------------
 -- Records of line
 -- ----------------------------
-INSERT INTO `line` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '0', '4', '0', '2017-04-20 04:43:31');
+INSERT INTO `line` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '0', '1', '0', '2017-04-20 04:43:31');
 
 -- ----------------------------
 -- Table structure for user
@@ -122,7 +116,7 @@ CREATE TABLE `user` (
   `nickName` varchar(255) DEFAULT NULL COMMENT '昵称',
   `url` varchar(255) DEFAULT NULL COMMENT '头像',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='用户';
 
 -- ----------------------------
 -- Records of user
@@ -148,6 +142,7 @@ INSERT INTO `user` VALUES ('18', '18', 'gaoyuan17', 'gaoyuan', '465716992@qq.com
 INSERT INTO `user` VALUES ('19', '19', 'gaoyuan18', 'gaoyuan', '465716992@qq.com', '17770085046', '万俟碧春', 'http://180.97.75.144:8035/hig/201704200123565375.png');
 INSERT INTO `user` VALUES ('20', '20', 'gaoyuan19', 'gaoyuan', '465716992@qq.com', '17770085046', '南门和怡', 'http://180.97.75.144:8035/hig/201704200123565375.png');
 INSERT INTO `user` VALUES ('21', '21', 'gaoyuan20', 'gaoyuan', '465716992@qq.com', '17770085046', '管飞双', 'http://180.97.75.144:8035/hig/201704200123565375.png');
+INSERT INTO `user` VALUES ('22', '22', 'gaoyuan21', 'gaoyuan', '465716992@qq.com', '17770085046', '管飞双次', 'http://180.97.75.144:8035/hig/201704200123565375.png');
 
 -- ----------------------------
 -- Table structure for userdetail
@@ -161,8 +156,30 @@ CREATE TABLE `userdetail` (
   `idCard` varchar(255) DEFAULT NULL COMMENT '身份证',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户详情';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='用户详情';
 
 -- ----------------------------
 -- Records of userdetail
 -- ----------------------------
+INSERT INTO `userdetail` VALUES ('1', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('2', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('3', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('4', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('5', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('6', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('7', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('8', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('9', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('10', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('11', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('12', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('13', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('14', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('15', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('16', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('17', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('18', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('19', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('20', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('21', '1', null, null, null, null);
+INSERT INTO `userdetail` VALUES ('22', '1', null, null, null, null);

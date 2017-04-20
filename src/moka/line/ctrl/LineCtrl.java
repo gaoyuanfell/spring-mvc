@@ -60,8 +60,6 @@ public class LineCtrl extends BasicController {
     @ResponseBody
     public Object findPage(@RequestBody LineVo lineVo) {
         Page list = lineService.findPage(lineVo);
-        String[] s = {"1", "2", "3", "4", "5"};
-        System.out.println(s);
         return result(list);
     }
 

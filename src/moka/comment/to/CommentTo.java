@@ -26,6 +26,9 @@ public class CommentTo implements Serializable {
     private Date updateDate;
     private int state;
 
+    private int isPraised;
+    private int isForward;
+
     public int getId() {
         return id;
     }
@@ -120,5 +123,37 @@ public class CommentTo implements Serializable {
 
     public void setBranchId(int branchId) {
         this.branchId = branchId;
+    }
+
+    public int getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getIsPraised() {
+        return isPraised;
+    }
+
+    public void setIsPraised(int isPraised) {
+        this.isPraised = isPraised;
+    }
+
+    public int getIsForward() {
+        return isForward;
+    }
+
+    public void setIsForward(int isForward) {
+        this.isForward = isForward;
     }
 }
