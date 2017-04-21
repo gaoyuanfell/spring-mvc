@@ -1,5 +1,6 @@
-package moka.line.to;
+package moka.lineSend.to;
 
+import moka.line.bo.Line;
 import moka.user.to.UserTo;
 
 import java.io.Serializable;
@@ -8,11 +9,14 @@ import java.util.Date;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public class LineTo implements Serializable {
+public class LineSendTo implements Serializable {
     private int id;
+    private int lineId;
+    private Line line;
     private UserTo user;
     private int userId;
     private String title;
+    private String context;
     private String introduce;
     private int praised;
     private int review;
@@ -24,6 +28,30 @@ public class LineTo implements Serializable {
 
     private int isPraised;//指定用户是否点赞
     private int isForward;//指定用户是否分享
+
+    public int getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public Line getLine() {
+        return line;
+    }
+
+    public void setLine(Line line) {
+        this.line = line;
+    }
 
     public int getIsPraised() {
         return isPraised;

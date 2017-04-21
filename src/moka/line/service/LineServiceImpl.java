@@ -2,6 +2,8 @@ package moka.line.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
+import moka.comment.bo.CommentRelation;
+import moka.comment.dao.CommentDao;
 import moka.line.bo.Line;
 import moka.line.dao.LineDao;
 import moka.line.to.LineTo;
@@ -19,6 +21,8 @@ import java.util.List;
 public class LineServiceImpl extends BasicServiceImpl implements LineService {
     @Resource
     private LineDao lineDao;
+    @Resource
+    private CommentDao commentDao;
 
     @Override
     public int insert(LineVo lineVo) {
@@ -34,6 +38,11 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     }
 
     @Override
+    public LineTo findOneOfUser(LineVo lineVo) {
+        return lineDao.findOneOfUser(lineVo);
+    }
+
+    @Override
     public Page findPage(LineVo lineVo) {
         List list = lineDao.findPage(lineVo);
         int totalCount = lineDao.findCount();
@@ -41,17 +50,39 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     }
 
     @Override
-    public int addPraised(int id) {
-        return lineDao.addPraised(id);
+    public int addPraised(LineVo lineVo) {
+        CommentRelation commentRelation =  new CommentRelation();
+        commentRelation.setUserId(lineVo.getUserId());
+        commentRelation.setLineId(lineVo.getId());
+        commentRelation.setComType(1);
+        int i = commentDao.hasCommentRelation(commentRelation);
+        if(i == 0){
+            commentDao.insertCommentRelation(commentRelation);
+        }else{
+            lineVo.setOperationType(true);//按减法运算总赞数
+            commentDao.removeCommentRelation(commentRelation);
+        }
+        return lineDao.addPraised(lineVo);
     }
 
     @Override
-    public int addReview(int id) {
-        return lineDao.addReview(id);
+    public int addReview(LineVo lineVo) {
+        return lineDao.addReview(lineVo);
     }
 
     @Override
-    public int addForward(int id) {
-        return lineDao.addForward(id);
+    public int addForward(LineVo lineVo) {
+        CommentRelation commentRelation =  new CommentRelation();
+        commentRelation.setUserId(lineVo.getUserId());
+        commentRelation.setLineId(lineVo.getId());
+        commentRelation.setComType(3);
+        int i = commentDao.hasCommentRelation(commentRelation);
+        if(i == 0){
+            commentDao.insertCommentRelation(commentRelation);
+        }else{
+            lineVo.setOperationType(true);//按减法运算总赞数
+            commentDao.removeCommentRelation(commentRelation);
+        }
+        return lineDao.addForward(lineVo);
     }
 }

@@ -26,8 +26,8 @@ public class CommentTo implements Serializable {
     private Date updateDate;
     private int state;
 
-    private int isPraised;
-    private int isForward;
+    private int isPraised;//指定用户是否点赞
+    private int isForward;//指定用户是否分享
 
     public int getId() {
         return id;

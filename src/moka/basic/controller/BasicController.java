@@ -6,8 +6,11 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import moka.basic.bo.Token;
 import moka.basic.service.RedisService;
 import moka.user.to.UserTo;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by moka on 2017/3/27 0027.
@@ -16,6 +19,12 @@ public class BasicController {
 
     @Resource
     private RedisService redisService;
+
+    @Value("#{propertyConfigurer['data_token_name']}")
+    protected String tokenName;
+
+    @Resource
+    private HttpServletRequest request;
 
     protected static final int CODE_NO_LOGIN = 201;
     protected static final int CODE_PROMPT = 202;//提示
@@ -54,8 +63,12 @@ public class BasicController {
         return redisService.addUserSession(t);
     }
 
-    protected UserTo getUserSession(Token t) {
-        return redisService.getUserSession(t);
+    protected UserTo getUserSession() {
+        String token = request.getHeader("X-Token");
+        if (StringUtils.isEmpty(token))
+            return null;
+        else
+            return redisService.getUserSession(new Token(token));
     }
 
     protected boolean flashLoginSession(Token t) {

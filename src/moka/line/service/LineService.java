@@ -13,11 +13,13 @@ public interface LineService extends BasicService {
 
     LineTo findOne(Integer id);
 
+    LineTo findOneOfUser(LineVo lineVo);
+
     Page findPage(LineVo lineVo);
 
-    int addPraised(int id);
+    int addPraised(LineVo lineVo);
 
-    int addReview(int id);
+    int addReview(LineVo lineVo);
 
-    int addForward(int id);
+    int addForward(LineVo lineVo);
 }

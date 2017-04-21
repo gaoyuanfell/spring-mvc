@@ -8,6 +8,7 @@ import moka.comment.dao.CommentDao;
 import moka.comment.to.CommentTo;
 import moka.comment.vo.CommentVo;
 import moka.line.service.LineService;
+import moka.line.vo.LineVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +31,9 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
         comment.setCreateDate(new Date());
         commentDao.insert(comment);
         if(commentVo.getLineId() != 0){
-            lineService.addReview(commentVo.getLineId());
+            LineVo lineVo = new LineVo();
+            lineVo.setId(commentVo.getLineId());
+            lineService.addReview(lineVo);
         }
         return comment.getId();
     }
@@ -55,11 +58,11 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
         commentRelation.setComType(1);
         int i = commentDao.hasCommentRelation(commentRelation);
         //已经点过赞的总赞数-1 并移除关联
-        if(i >0){
+        if(i == 0){
+            commentDao.insertCommentRelation(commentRelation);
+        }else{
             commentVo.setOperationType(true);//按减法运算总赞数
             commentDao.removeCommentRelation(commentRelation);
-        }else{
-            commentDao.insertCommentRelation(commentRelation);
         }
         return commentDao.addPraised(commentVo);
     }
@@ -71,6 +74,18 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
 
     @Override
     public int addForward(CommentVo commentVo) {
+        CommentRelation commentRelation =  new CommentRelation();
+        commentRelation.setUserId(commentVo.getUserId());
+        commentRelation.setCommentId(commentVo.getId());
+        commentRelation.setComType(3);
+        int i = commentDao.hasCommentRelation(commentRelation);
+        //已经分享的总赞数-1 并移除关联
+        if(i == 0){
+            commentDao.insertCommentRelation(commentRelation);
+        }else{
+            commentVo.setOperationType(true);//按减法运算总赞数
+            commentDao.removeCommentRelation(commentRelation);
+        }
         return commentDao.addForward(commentVo);
     }
 }

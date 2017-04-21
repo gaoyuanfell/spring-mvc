@@ -3,9 +3,11 @@ package moka.basic.aspect;
 import moka.basic.annotation.IgnoreSecurity;
 import moka.basic.annotation.NotAspect;
 import moka.basic.bo.Token;
+import moka.basic.exception.NoLoginException;
 import moka.basic.service.RedisService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -21,7 +23,8 @@ import java.lang.reflect.Method;
  */
 public class SecurityAspect {
 
-    private static final String DEFAULT_TOKEN_NAME = "X-Token";
+    @Value("#{propertyConfigurer['data_token_name']}")
+    private String DEFAULT_TOKEN_NAME;
 
     private String tokenName;
 
@@ -51,8 +54,9 @@ public class SecurityAspect {
         if(!StringUtils.isEmpty(token)){
             redisService.flashLoginSession(new Token(token));
             response.setHeader(tokenName,token);
+        }else{
+            throw new NoLoginException("用户没有登录");
         }
-
         return pjp.proceed();
     }
 }

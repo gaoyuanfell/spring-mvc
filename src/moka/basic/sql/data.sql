@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-21 00:14:23
+Date: 2017-04-21 18:44:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,16 +51,17 @@ CREATE TABLE `comment` (
   `forward` int(11) DEFAULT NULL COMMENT '分享数',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='评论';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='评论';
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('1', '0', '1', '1', '好了歌，中国著名古典章回体小说《红楼梦》中经典诗词，小说中为跛足道人所做，甄士隐彻悟后进行进一步注解，表现了作者现实主义和宗教思想。文中还有与之相和的《好了歌注》，承接并引申了《好了歌》的思想。诗歌内容隐射小说情节，表达了作者对现实的愤懑和失望，以及对自由的追求和向往![1] ', '1', '0', '0', '2017-04-20 04:46:24');
-INSERT INTO `comment` VALUES ('2', '0', '1', '2', '测试测绘师', '0', '0', '0', '2017-04-20 05:12:22');
-INSERT INTO `comment` VALUES ('3', '0', '1', '3', '蓝牙5是蓝牙技术联盟 （Bluetooth Special Interest Group）于2016年6月16日发布的新一代蓝牙标准。', '0', '0', '0', '2017-04-20 08:24:42');
-INSERT INTO `comment` VALUES ('4', '0', '1', '4', '部门与组织是manytoone和onetomany的关系，并且两张表都有自关联，查询部门信息时会级联查询上级部门以及他的组织结构，然后返回json数据时，会出现$ref ', '0', '0', '0', '2017-04-20 08:36:02');
-INSERT INTO `comment` VALUES ('5', '0', '1', '3', '别名在子查询及联接查询中的应用有着很好效果，当两张表有相同列名或者为了加强可读性，给表加上不同的别名，就能很好的区分哪些列属于哪张表。', '0', '0', '0', '2017-04-20 17:19:37');
+INSERT INTO `comment` VALUES ('1', '0', '1', '1', '好了歌，中国著名古典章回体小说《红楼梦》中经典诗词，小说中为跛足道人所做，甄士隐彻悟后进行进一步注解，表现了作者现实主义和宗教思想。文中还有与之相和的《好了歌注》，承接并引申了《好了歌》的思想。诗歌内容隐射小说情节，表达了作者对现实的愤懑和失望，以及对自由的追求和向往![1] ', '3', '0', '2', '2017-04-20 04:46:24');
+INSERT INTO `comment` VALUES ('2', '0', '1', '2', '测试测绘师', '2', '0', '2', '2017-04-20 05:12:22');
+INSERT INTO `comment` VALUES ('3', '0', '1', '3', '蓝牙5是蓝牙技术联盟 （Bluetooth Special Interest Group）于2016年6月16日发布的新一代蓝牙标准。', '2', '0', '2', '2017-04-20 08:24:42');
+INSERT INTO `comment` VALUES ('4', '0', '1', '4', '部门与组织是manytoone和onetomany的关系，并且两张表都有自关联，查询部门信息时会级联查询上级部门以及他的组织结构，然后返回json数据时，会出现$ref ', '2', '0', '2', '2017-04-20 08:36:02');
+INSERT INTO `comment` VALUES ('5', '0', '1', '3', '别名在子查询及联接查询中的应用有着很好效果，当两张表有相同列名或者为了加强可读性，给表加上不同的别名，就能很好的区分哪些列属于哪张表。', '2', '0', '2', '2017-04-20 17:19:37');
+INSERT INTO `comment` VALUES ('6', '0', '1', '5', '陋室1空堂，当年笏满床2；衰草枯杨，曾为歌舞场。蛛丝儿结满雕梁3，绿纱今又糊在蓬窗上。说什么脂正浓，粉正香，如何两鬓又成霜？', '1', '0', '0', '2017-04-21 07:01:56');
 
 -- ----------------------------
 -- Table structure for commentrelation
@@ -73,12 +74,38 @@ CREATE TABLE `commentrelation` (
   `commentId` int(11) DEFAULT NULL,
   `comType` int(11) DEFAULT NULL COMMENT '1-点赞 2-评论 3-分享',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
 
 -- ----------------------------
 -- Records of commentrelation
 -- ----------------------------
-INSERT INTO `commentrelation` VALUES ('46', '1', '0', '1', '1');
+INSERT INTO `commentrelation` VALUES ('77', '1', '1', '0', '1');
+INSERT INTO `commentrelation` VALUES ('78', '1', '1', '0', '3');
+INSERT INTO `commentrelation` VALUES ('79', '1', '0', '1', '1');
+INSERT INTO `commentrelation` VALUES ('80', '1', '0', '2', '1');
+INSERT INTO `commentrelation` VALUES ('81', '1', '0', '2', '3');
+INSERT INTO `commentrelation` VALUES ('82', '1', '0', '1', '3');
+INSERT INTO `commentrelation` VALUES ('83', '1', '0', '3', '3');
+INSERT INTO `commentrelation` VALUES ('84', '1', '0', '3', '1');
+INSERT INTO `commentrelation` VALUES ('85', '1', '0', '4', '1');
+INSERT INTO `commentrelation` VALUES ('86', '1', '0', '4', '3');
+INSERT INTO `commentrelation` VALUES ('87', '1', '0', '5', '3');
+INSERT INTO `commentrelation` VALUES ('88', '1', '0', '5', '1');
+INSERT INTO `commentrelation` VALUES ('89', '2', '1', '0', '1');
+INSERT INTO `commentrelation` VALUES ('90', '2', '1', '0', '3');
+INSERT INTO `commentrelation` VALUES ('91', '2', '0', '1', '1');
+INSERT INTO `commentrelation` VALUES ('92', '2', '0', '1', '3');
+INSERT INTO `commentrelation` VALUES ('93', '2', '0', '2', '3');
+INSERT INTO `commentrelation` VALUES ('94', '2', '0', '2', '1');
+INSERT INTO `commentrelation` VALUES ('95', '2', '0', '3', '1');
+INSERT INTO `commentrelation` VALUES ('96', '2', '0', '3', '3');
+INSERT INTO `commentrelation` VALUES ('97', '2', '0', '4', '3');
+INSERT INTO `commentrelation` VALUES ('98', '2', '0', '4', '1');
+INSERT INTO `commentrelation` VALUES ('99', '2', '0', '5', '1');
+INSERT INTO `commentrelation` VALUES ('100', '2', '0', '5', '3');
+INSERT INTO `commentrelation` VALUES ('102', '5', '0', '1', '1');
+INSERT INTO `commentrelation` VALUES ('103', '5', '0', '6', '1');
+INSERT INTO `commentrelation` VALUES ('105', '5', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for line
@@ -100,7 +127,31 @@ CREATE TABLE `line` (
 -- ----------------------------
 -- Records of line
 -- ----------------------------
-INSERT INTO `line` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '0', '1', '0', '2017-04-20 04:43:31');
+INSERT INTO `line` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '3', '6', '1', '2017-04-20 04:43:31');
+
+-- ----------------------------
+-- Table structure for linesend
+-- ----------------------------
+DROP TABLE IF EXISTS `linesend`;
+CREATE TABLE `linesend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '转发线路',
+  `lineId` int(11) DEFAULT NULL COMMENT '线路id',
+  `context` varchar(255) DEFAULT NULL COMMENT '转发内容',
+  `userId` int(11) DEFAULT NULL COMMENT '用户id',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `introduce` varchar(255) DEFAULT NULL COMMENT '简介',
+  `privacy` int(11) DEFAULT NULL COMMENT '隐私',
+  `praised` int(11) DEFAULT NULL COMMENT '赞',
+  `review` int(11) DEFAULT NULL COMMENT '评论',
+  `forward` int(11) DEFAULT NULL COMMENT '分享',
+  `createDate` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='转发线路';
+
+-- ----------------------------
+-- Records of linesend
+-- ----------------------------
+INSERT INTO `linesend` VALUES ('1', '1', '测试分享', '5', null, null, '0', '0', '0', '0', '2017-04-21 12:01:51');
 
 -- ----------------------------
 -- Table structure for user

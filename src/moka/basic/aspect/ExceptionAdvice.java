@@ -1,5 +1,7 @@
 package moka.basic.aspect;
 
+import moka.basic.log4j.LoggerService;
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -16,15 +18,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseBody
 public class ExceptionAdvice {
 
+    Logger logger = LoggerService.getLogger(this.getClass());
+
     /**
      * 400 - Bad Request
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Object handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-//        logger.error("参数解析失败", e);
-//        return new Response().failure("could_not_read_json");
-        System.out.println(e);
+        logger.info("400",e);
         return e;
     }
 
@@ -34,9 +36,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Object handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-//        logger.error("不支持当前请求方法", e);
-//        return new Response().failure("request_method_not_supported");
-        System.out.println(e);
+        logger.info("405",e);
         return e;
     }
 
@@ -46,9 +46,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public Object handleHttpMediaTypeNotSupportedException(Exception e) {
-//        logger.error("不支持当前媒体类型", e);
-//        return new Response().failure("content_type_not_supported");
-        System.out.println(e);
+        logger.info("415",e);
         return e;
     }
 
@@ -58,9 +56,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e) {
-//        logger.error("服务运行异常", e);
-//        return Response.failure(e.getMessage());
-        System.out.println(e);
+        logger.debug("500",e);
         return e;
     }
 }

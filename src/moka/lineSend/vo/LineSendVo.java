@@ -1,6 +1,7 @@
-package moka.line.vo;
+package moka.lineSend.vo;
 
 import moka.basic.page.Page;
+import moka.line.bo.Line;
 import moka.user.vo.UserVo;
 
 import java.io.Serializable;
@@ -9,11 +10,14 @@ import java.util.Date;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public class LineVo extends Page implements Serializable {
+public class LineSendVo extends Page implements Serializable {
     private int id;
+    private int lineId;
+    private Line line;
     private UserVo user;
     private int userId;
     private String title;
+    private String context;
     private String introduce;
     private int praised;
     private int review;
@@ -32,6 +36,30 @@ public class LineVo extends Page implements Serializable {
 
     public void setOperationType(boolean operationType) {
         this.operationType = operationType;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public int getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
+    }
+
+    public Line getLine() {
+        return line;
+    }
+
+    public void setLine(Line line) {
+        this.line = line;
     }
 
     public int getId() {

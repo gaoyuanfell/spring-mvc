@@ -28,3 +28,39 @@ WHERE
 AND c.lineId = 1
 LIMIT 0,
  5;
+
+
+
+
+SELECT
+	*
+FROM
+	(
+		SELECT
+			null,
+			null,
+			userId,
+			title,
+			introduce,
+			privacy,
+			praised,
+			review,
+			forward,
+			createDate
+		FROM
+			line
+		UNION
+			SELECT
+				lineId,
+				context,
+				userId,
+				title,
+				introduce,
+				privacy,
+				praised,
+				review,
+				forward,
+				createDate
+			FROM
+				linesend
+	) t

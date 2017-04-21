@@ -16,8 +16,6 @@
 
     <resultMap id="map" type="moka.comment.to.CommentTo">
         <id property="id" column="id"/>
-        <id property="isPraised" column="isPraised"/>
-        <id property="isForward" column="isForward"/>
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
         <association property="line" javaType="moka.line.to.LineTo" column="lineId" select="moka.line.dao.LineDao.findOne"/>
         <association property="branch" javaType="moka.branch.to.BranchTo" column="branchId" select="moka.branch.dao.BranchDao.findOne"/>
@@ -59,10 +57,23 @@
     </delete>
 
     <select id="hasCommentRelation" parameterType="moka.comment.bo.CommentRelation" resultType="Integer">
-        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = #{commentId} AND cr.userId = #{userId} AND cr.comType = #{comType}
+        SELECT COUNT(cr.id) FROM moka.commentrelation cr
+        WHERE 1 = 1
+        <if test="lineId != 0">
+            AND cr.lineId = #{lineId}
+        </if>
+        <if test="commentId != 0">
+            AND cr.commentId = #{commentId}
+        </if>
+        <if test="userId != 0">
+            AND cr.userId = #{userId}
+        </if>
+        <if test="comType != 0">
+            AND cr.comType = #{comType}
+        </if>
     </select>
 
-    <update id="addPraised">
+    <update id="addPraised" parameterType="moka.comment.vo.CommentVo">
         <if test="operationType">
             UPDATE moka.comment SET comment.praised = comment.praised - 1 WHERE comment.id = #{id};
         </if>
@@ -71,7 +82,7 @@
         </if>
     </update>
 
-    <update id="addReview">
+    <update id="addReview" parameterType="moka.comment.vo.CommentVo">
         <if test="operationType">
             UPDATE moka.comment SET comment.review = comment.review - 1 WHERE comment.id = #{id};
         </if>
@@ -80,7 +91,7 @@
         </if>
     </update>
 
-    <update id="addForward" parameterType="Integer">
+    <update id="addForward" parameterType="moka.comment.vo.CommentVo">
         <if test="operationType">
             UPDATE moka.comment SET comment.forward = comment.forward - 1 WHERE comment.id = #{id};
         </if>

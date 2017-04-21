@@ -2,28 +2,29 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="moka.line.dao.LineDao">
+<mapper namespace="moka.lineSend.dao.LineSendDao">
 
-    <sql id="Line">
-        userId,title,introduce,praised,review,forward,privacy,createDate
+    <sql id="LineSend">
+        lineId, userId, title, context, introduce, privacy, praised, review, forward, createDate
     </sql>
 
-    <insert id="insert" parameterType="moka.line.bo.Line" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO moka.line(
-        <include refid="Line"/>
-        ) VALUES (#{userId}, #{title}, #{introduce}, #{praised}, #{review}, #{forward}, #{privacy}, #{createDate});
+    <insert id="insert" parameterType="moka.lineSend.bo.LineSend" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.linesend(
+        <include refid="LineSend"/>
+        ) VALUES (#{lineId}, #{userId}, #{title}, #{context}, #{introduce}, #{privacy}, #{praised}, #{review}, #{forward}, #{createDate});
     </insert>
 
-    <resultMap id="map" type="moka.line.to.LineTo">
+    <resultMap id="map" type="moka.lineSend.to.LineSendTo">
         <id property="id" column="id"/>
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
+        <association property="line" javaType="moka.lineSend.to.LineSendTo" column="lineId" select="moka.lineSend.dao.LineSendDao.findOne"/>
     </resultMap>
 
-    <select id="findOne" parameterType="Integer" resultType="moka.line.to.LineTo">
-        SELECT * FROM moka.line WHERE id = #{id};
+    <select id="findOne" parameterType="Integer" resultType="moka.lineSend.to.LineSendTo">
+        SELECT * FROM moka.linesend WHERE id = #{id};
     </select>
 
-    <select id="findOneOfUser" parameterType="moka.line.vo.LineVo" resultType="moka.line.to.LineTo">
+    <select id="findOneOfUser" parameterType="moka.lineSend.vo.LineSendVo" resultType="moka.lineSend.to.LineSendTo">
         SELECT
         l.* ,
         (
@@ -42,15 +43,15 @@
             0
         </if>-->
         ) AS isForward
-        FROM moka.line l WHERE id = #{id};
+        FROM moka.linesend l WHERE id = #{id};
     </select>
 
     <select id="findOneAll" parameterType="Integer" resultMap="map">
-        SELECT * FROM moka.line WHERE id = #{id};
+        SELECT * FROM moka.linesend WHERE id = #{id};
     </select>
     
     <select id="findCount" resultType="Integer">
-        SELECT COUNT(id) FROM moka.line;
+        SELECT COUNT(id) FROM moka.linesend;
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
@@ -72,33 +73,33 @@
             0
         </if>
         ) AS isForward
-        FROM moka.line l LIMIT #{pageStart} , #{pageSize};
+        FROM moka.linesend l LIMIT #{pageStart} , #{pageSize};
     </select>
 
-    <update id="addPraised" parameterType="moka.line.vo.LineVo">
+    <update id="addPraised" parameterType="moka.lineSend.vo.LineSendVo">
         <if test="operationType">
-            UPDATE moka.line SET line.praised = line.praised - 1 WHERE line.id = #{id};
+            UPDATE moka.linesend SET line.praised = line.praised - 1 WHERE line.id = #{id};
         </if>
         <if test="!operationType">
-            UPDATE moka.line SET line.praised = line.praised + 1 WHERE line.id = #{id};
+            UPDATE moka.linesend SET line.praised = line.praised + 1 WHERE line.id = #{id};
         </if>
     </update>
 
-    <update id="addReview" parameterType="moka.line.vo.LineVo">
+    <update id="addReview" parameterType="moka.lineSend.vo.LineSendVo">
         <if test="operationType">
-            UPDATE moka.line SET line.review = line.review - 1 WHERE line.id = #{id};
+            UPDATE moka.linesend SET line.review = line.review - 1 WHERE line.id = #{id};
         </if>
         <if test="!operationType">
-            UPDATE moka.line SET line.review = line.review + 1 WHERE line.id = #{id};
+            UPDATE moka.linesend SET line.review = line.review + 1 WHERE line.id = #{id};
         </if>
     </update>
 
-    <update id="addForward" parameterType="moka.line.vo.LineVo">
+    <update id="addForward" parameterType="moka.lineSend.vo.LineSendVo">
         <if test="operationType">
-            UPDATE moka.line SET line.forward = line.forward - 1 WHERE line.id = #{id};
+            UPDATE moka.linesend SET line.forward = line.forward - 1 WHERE line.id = #{id};
         </if>
         <if test="!operationType">
-            UPDATE moka.line SET line.forward = line.forward + 1 WHERE line.id = #{id};
+            UPDATE moka.linesend SET line.forward = line.forward + 1 WHERE line.id = #{id};
         </if>
     </update>
 

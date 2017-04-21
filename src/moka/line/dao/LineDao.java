@@ -1,8 +1,10 @@
 package moka.line.dao;
 
 import moka.basic.dao.BasicDao;
+import moka.comment.bo.CommentRelation;
 import moka.line.bo.Line;
 import moka.line.to.LineTo;
+import moka.line.vo.LineVo;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,9 +12,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("lineDao")
 public interface LineDao extends BasicDao<Line, LineTo> {
-    int addPraised(int id);
+    LineTo findOneOfUser(LineVo lineVo);
 
-    int addReview(int id);
+    int addPraised(LineVo lineVo);
 
-    int addForward(int id);
+    int addReview(LineVo lineVo);
+
+    int addForward(LineVo lineVo);
 }
