@@ -17,14 +17,14 @@
     <resultMap id="map" type="moka.lineSend.to.LineSendTo">
         <id property="id" column="id"/>
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
-        <association property="line" javaType="moka.lineSend.to.LineSendTo" column="lineId" select="moka.lineSend.dao.LineSendDao.findOne"/>
+        <association property="line" javaType="moka.lineSend.to.LineSendTo" column="lineId" select="moka.line.dao.LineDao.findOne"/>
     </resultMap>
 
     <select id="findOne" parameterType="Integer" resultType="moka.lineSend.to.LineSendTo">
         SELECT * FROM moka.linesend WHERE id = #{id};
     </select>
 
-    <select id="findOneOfUser" parameterType="moka.lineSend.vo.LineSendVo" resultType="moka.lineSend.to.LineSendTo">
+    <select id="findOneOfUser" parameterType="moka.lineSend.vo.LineSendVo" resultMap="map">
         SELECT
         l.* ,
         (

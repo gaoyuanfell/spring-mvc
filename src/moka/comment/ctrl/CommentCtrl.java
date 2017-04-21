@@ -48,11 +48,11 @@ public class CommentCtrl extends BasicController {
     @RequestMapping(value = "findOne.htm")
     @ResponseBody
     public Object findOne(@RequestBody CommentVo commentVo) {
-        if(commentVo.getId() != 0){
+        if (commentVo.getId() != 0) {
             CommentTo commentTo = commentService.findOne(commentVo.getId());
             return result(commentTo);
-        }else{
-            return result(CODE_PROMPT,"id不能为空");
+        } else {
+            return result(CODE_PROMPT, "id不能为空");
         }
     }
 
@@ -75,17 +75,17 @@ public class CommentCtrl extends BasicController {
      */
     @RequestMapping(value = "addPraised.htm")
     @ResponseBody
-    public Object addPraised(@RequestBody CommentVo commentVo){
+    public Object addPraised(@RequestBody CommentVo commentVo) {
         UserTo userTo = getUserSession();
-        if(commentVo.getId() != 0 && userTo != null && userTo.getId() != 0){
+        if (commentVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
             commentVo.setUserId(userTo.getId());
             int i = commentService.addPraised(commentVo);
-            if(commentVo.isOperationType()){
+            if (commentVo.isOperationType()) {
                 return result(true);
             }
             return result();
-        }else{
-            return result(CODE_PROMPT,"id不能为空");
+        } else {
+            return result(CODE_PROMPT, "id不能为空");
         }
     }
 
@@ -94,12 +94,12 @@ public class CommentCtrl extends BasicController {
      */
     @RequestMapping(value = "addReview.htm")
     @ResponseBody
-    public Object addReview(@RequestBody CommentVo commentVo){
-        if(commentVo.getId() != 0 && commentVo.getUserId() != 0){
+    public Object addReview(@RequestBody CommentVo commentVo) {
+        if (commentVo.getId() != 0 && commentVo.getUserId() != 0) {
             int i = commentService.addReview(commentVo);
             return result();
-        }else{
-            return result(CODE_PROMPT,"id不能为空");
+        } else {
+            return result(CODE_PROMPT, "id不能为空");
         }
     }
 
@@ -108,17 +108,17 @@ public class CommentCtrl extends BasicController {
      */
     @RequestMapping(value = "addForward.htm")
     @ResponseBody
-    public Object addForward(@RequestBody CommentVo commentVo){
+    public Object addForward(@RequestBody CommentVo commentVo) {
         UserTo userTo = getUserSession();
-        if(commentVo.getId() != 0 && userTo != null && userTo.getId() != 0){
+        if (commentVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
             commentVo.setUserId(userTo.getId());
             int i = commentService.addForward(commentVo);
-            if(commentVo.isOperationType()){
+            if (commentVo.isOperationType()) {
                 return result(true);
             }
             return result();
-        }else{
-            return result(CODE_PROMPT,"id不能为空");
+        } else {
+            return result(CODE_PROMPT, "id不能为空");
         }
     }
 }

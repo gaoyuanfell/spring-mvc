@@ -28,7 +28,7 @@
         l.* ,
         (
         <!--<if test="userId != 0">-->
-            SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1
+        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1
         <!--</if>
         <if test="userId == 0">
             0
@@ -36,7 +36,7 @@
         ) AS isPraised,
         (
         <!--<if test="userId != 0">-->
-            SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3
+        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3
         <!--</if>
         <if test="userId == 0">
             0
@@ -48,31 +48,34 @@
     <select id="findOneAll" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.line WHERE id = #{id};
     </select>
-    
+
     <select id="findCount" resultType="Integer">
         SELECT COUNT(id) FROM moka.line;
     </select>
 
+
+    <insert id="asd" parameterType="moka.line.bo.Line" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.line ( userId, title, introduce, praised, forward, privacy, createDate, review )
+    </insert>
+
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT
-        l.* ,
+        SELECT t.* FROM
         (
-        <if test="userId != 0">
-            SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1
-        </if>
-        <if test="userId == 0">
-            0
-        </if>
-        ) AS isPraised,
-        (
-        <if test="userId != 0">
-            SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3
-        </if>
-        <if test="userId == 0">
-            0
-        </if>
-        ) AS isForward
-        FROM moka.line l LIMIT #{pageStart} , #{pageSize};
+        SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        lineId, context
+        FROM moka.linesend ls
+        UNION ALL
+
+        SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        null, null
+        FROM moka.line l
+        ) t
+        ORDER BY t.createDate DESC
+        LIMIT #{pageStart} , #{pageSize};
     </select>
 
     <update id="addPraised" parameterType="moka.line.vo.LineVo">

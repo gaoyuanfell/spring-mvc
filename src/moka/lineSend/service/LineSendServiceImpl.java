@@ -63,7 +63,7 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
     public int addPraised(LineSendVo lineSendVo) {
         CommentRelation commentRelation = new CommentRelation();
         commentRelation.setUserId(lineSendVo.getUserId());
-        commentRelation.setLineId(lineSendVo.getId());
+        commentRelation.setLineSendId(lineSendVo.getId());
         commentRelation.setComType(1);
         int i = commentDao.hasCommentRelation(commentRelation);
         if (i == 0) {
@@ -84,7 +84,7 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
     public int addForward(LineSendVo lineSendVo) {
         CommentRelation commentRelation = new CommentRelation();
         commentRelation.setUserId(lineSendVo.getUserId());
-        commentRelation.setLineId(lineSendVo.getId());
+        commentRelation.setLineSendId(lineSendVo.getId());
         commentRelation.setComType(3);
         int i = commentDao.hasCommentRelation(commentRelation);
         if (i == 0) {

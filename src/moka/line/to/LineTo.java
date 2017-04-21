@@ -25,6 +25,26 @@ public class LineTo implements Serializable {
     private int isPraised;//指定用户是否点赞
     private int isForward;//指定用户是否分享
 
+    //合并线路转发的字段
+    private int lineId;
+    private String context;
+
+    public int getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
     public int getIsPraised() {
         return isPraised;
     }

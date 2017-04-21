@@ -1,6 +1,6 @@
 package moka.lineSend.to;
 
-import moka.line.bo.Line;
+import moka.line.to.LineTo;
 import moka.user.to.UserTo;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.util.Date;
 public class LineSendTo implements Serializable {
     private int id;
     private int lineId;
-    private Line line;
+    private LineTo line;
     private UserTo user;
     private int userId;
     private String title;
@@ -45,11 +45,11 @@ public class LineSendTo implements Serializable {
         this.context = context;
     }
 
-    public Line getLine() {
+    public LineTo getLine() {
         return line;
     }
 
-    public void setLine(Line line) {
+    public void setLine(LineTo line) {
         this.line = line;
     }
 

@@ -14,6 +14,7 @@ public class CommentRelation extends IdEntity {
     private int comType;
     private int userId;
     private int lineId;
+    private int lineSendId;
     private int commentId;
 
     public int getComType() {
@@ -46,5 +47,13 @@ public class CommentRelation extends IdEntity {
 
     public void setCommentId(int commentId) {
         this.commentId = commentId;
+    }
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
     }
 }

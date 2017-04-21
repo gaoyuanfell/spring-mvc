@@ -33,11 +33,11 @@ public class LineSendCtrl extends BasicController {
     @ResponseBody
     public Object insert(@RequestBody LineSendVo lineSendVo) {
         UserTo userTo = getUserSession();
-        if(userTo != null){
+        if (userTo != null) {
             lineSendVo.setUserId(userTo.getId());
             int i = lineSendService.insert(lineSendVo);
             return result(i);
-        }else{
+        } else {
             return result(CODE_PROMPT, "没有登录");
         }
     }

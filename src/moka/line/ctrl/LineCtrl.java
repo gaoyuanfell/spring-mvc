@@ -6,6 +6,7 @@ import moka.basic.page.Page;
 import moka.line.service.LineService;
 import moka.line.to.LineTo;
 import moka.line.vo.LineVo;
+import moka.lineSend.service.LineSendService;
 import moka.user.to.UserTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -24,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 public class LineCtrl extends BasicController {
     @Resource
     private LineService lineService;
+    @Resource
+    private LineSendService lineSendService;
 
     /**
      * 增
@@ -34,8 +37,14 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "insert.htm")
     @ResponseBody
     public Object insert(@RequestBody LineVo lineVo) {
-        int i = lineService.insert(lineVo);
-        return result(i);
+        UserTo userTo = getUserSession();
+        if(userTo != null){
+            lineVo.setUserId(userTo.getId());
+            int i = lineService.insert(lineVo);
+            return result(i);
+        }else{
+            return result(CODE_PROMPT, "id不能为空");
+        }
     }
 
     /**
