@@ -14,11 +14,20 @@ import java.util.Date;
 public class Comment extends IdEntity {
     private int branchId;
     private int lineId;
+    private int lineSendId;
     private int userId;
     private String context;
     private int praised;
     private int review;
     private int forward;
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
+    }
 
     public int getBranchId() {
         return branchId;

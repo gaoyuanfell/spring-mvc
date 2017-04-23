@@ -27,14 +27,18 @@ public class LineSendCtrl extends BasicController {
      * 增
      *
      * @param lineSendVo
-     * @return
+     * @return 从主线路转发
+     * {
+     * "lineId": "2",
+     * "context": "测试内容"
+     * }
      */
     @RequestMapping(value = "insert.htm")
     @ResponseBody
     public Object insert(@RequestBody LineSendVo lineSendVo) {
-        UserTo userTo = getUserSession();
-        if (userTo != null) {
-            lineSendVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (userId != 0) {
+            lineSendVo.setUserId(userId);
             int i = lineSendService.insert(lineSendVo);
             return result(i);
         } else {
@@ -66,9 +70,9 @@ public class LineSendCtrl extends BasicController {
     @RequestMapping(value = "findOneOfUser.htm")
     @ResponseBody
     public Object findOneOfUser(@RequestBody LineSendVo lineSendVo) {
-        UserTo userTo = getUserSession();
-        if (lineSendVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            lineSendVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (lineSendVo.getId() != 0 && userId != 0) {
+            lineSendVo.setUserId(userId);
             LineSendTo lineSendTo = lineSendService.findOneOfUser(lineSendVo);
             return result(lineSendTo);
         } else {
@@ -84,59 +88,33 @@ public class LineSendCtrl extends BasicController {
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
     public Object findPage(@RequestBody LineSendVo lineSendVo) {
-        UserTo userTo = getUserSession();
-        lineSendVo.setUserId(userTo.getId());
-        Page list = lineSendService.findPage(lineSendVo);
-        return result(list);
+        int userId = getUserSessionId();
+        lineSendVo.setUserId(userId);
+        if (userId != 0) {
+            Page list = lineSendService.findPage(lineSendVo);
+            return result(list);
+        }else{
+            return result(CODE_PROMPT, "没有登录");
+        }
     }
 
     /**
      * 点赞+
+     * {
+     * "id": 1
+     * }
      */
     @RequestMapping(value = "addPraised.htm")
     @ResponseBody
     public Object addPraised(@RequestBody LineSendVo lineSendVo) {
-        UserTo userTo = getUserSession();
-        if (lineSendVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            lineSendVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (lineSendVo.getId() != 0 && userId != 0) {
+            lineSendVo.setUserId(userId);
             int i = lineSendService.addPraised(lineSendVo);
-            if (lineSendVo.isOperationType()) {
-                return result(true);
+            if (!lineSendVo.isOperationType()) {
+                return result();
             }
-            return result();
-        } else {
-            return result(CODE_PROMPT, "id不能为空");
-        }
-    }
-
-    /**
-     * 评论+
-     */
-    @RequestMapping(value = "addReview.htm")
-    @ResponseBody
-    public Object addReview(@RequestBody LineSendVo lineSendVo) {
-        if (lineSendVo.getId() != 0) {
-            int i = lineSendService.addReview(lineSendVo);
-            return result();
-        } else {
-            return result(CODE_PROMPT, "id不能为空");
-        }
-    }
-
-    /**
-     * 分享+
-     */
-    @RequestMapping(value = "addForward.htm")
-    @ResponseBody
-    public Object addForward(@RequestBody LineSendVo lineSendVo) {
-        UserTo userTo = getUserSession();
-        if (lineSendVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            lineSendVo.setUserId(userTo.getId());
-            int i = lineSendService.addForward(lineSendVo);
-            if (lineSendVo.isOperationType()) {
-                return result(true);
-            }
-            return result();
+            return result(true);
         } else {
             return result(CODE_PROMPT, "id不能为空");
         }

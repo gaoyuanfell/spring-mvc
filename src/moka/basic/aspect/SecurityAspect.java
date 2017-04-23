@@ -1,5 +1,6 @@
 package moka.basic.aspect;
 
+import com.alibaba.fastjson.JSONObject;
 import moka.basic.annotation.IgnoreSecurity;
 import moka.basic.annotation.NotAspect;
 import moka.basic.bo.Token;
@@ -55,7 +56,11 @@ public class SecurityAspect {
             redisService.flashLoginSession(new Token(token));
             response.setHeader(tokenName,token);
         }else{
-            throw new NoLoginException("用户没有登录");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code", 201);
+            jsonObject.put("msg", "用户没有登录");
+            return jsonObject;
+//            throw new NoLoginException("用户没有登录");
         }
         return pjp.proceed();
     }

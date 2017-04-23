@@ -27,20 +27,10 @@
         SELECT
         l.* ,
         (
-        <!--<if test="userId != 0">-->
         SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1
-        <!--</if>
-        <if test="userId == 0">
-            0
-        </if>-->
         ) AS isPraised,
         (
-        <!--<if test="userId != 0">-->
         SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3
-        <!--</if>
-        <if test="userId == 0">
-            0
-        </if>-->
         ) AS isForward
         FROM moka.line l WHERE id = #{id};
     </select>
@@ -88,21 +78,11 @@
     </update>
 
     <update id="addReview" parameterType="moka.line.vo.LineVo">
-        <if test="operationType">
-            UPDATE moka.line SET line.review = line.review - 1 WHERE line.id = #{id};
-        </if>
-        <if test="!operationType">
-            UPDATE moka.line SET line.review = line.review + 1 WHERE line.id = #{id};
-        </if>
+        UPDATE moka.line SET line.review = line.review + 1 WHERE line.id = #{id};
     </update>
 
     <update id="addForward" parameterType="moka.line.vo.LineVo">
-        <if test="operationType">
-            UPDATE moka.line SET line.forward = line.forward - 1 WHERE line.id = #{id};
-        </if>
-        <if test="!operationType">
-            UPDATE moka.line SET line.forward = line.forward + 1 WHERE line.id = #{id};
-        </if>
+        UPDATE moka.line SET line.forward = line.forward + 1 WHERE line.id = #{id};
     </update>
 
 </mapper>

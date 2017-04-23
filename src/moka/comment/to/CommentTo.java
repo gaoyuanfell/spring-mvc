@@ -2,6 +2,7 @@ package moka.comment.to;
 
 import moka.branch.to.BranchTo;
 import moka.line.to.LineTo;
+import moka.lineSend.to.LineSendTo;
 import moka.user.to.UserTo;
 
 import java.io.Serializable;
@@ -14,9 +15,11 @@ public class CommentTo implements Serializable {
     private int id;
     private int branchId;
     private int lineId;
+    private int lineSendId;
     private int userId;
     private BranchTo branch;
     private LineTo line;
+    private LineSendTo lineSend;
     private UserTo user;
     private String context;
     private int praised;
@@ -35,6 +38,22 @@ public class CommentTo implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
+    }
+
+    public LineSendTo getLineSend() {
+        return lineSend;
+    }
+
+    public void setLineSend(LineSendTo lineSend) {
+        this.lineSend = lineSend;
     }
 
     public BranchTo getBranch() {

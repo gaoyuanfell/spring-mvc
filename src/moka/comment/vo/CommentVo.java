@@ -3,6 +3,7 @@ package moka.comment.vo;
 import moka.basic.page.Page;
 import moka.branch.vo.BranchVo;
 import moka.line.vo.LineVo;
+import moka.lineSend.to.LineSendTo;
 import moka.user.vo.UserVo;
 
 import java.io.Serializable;
@@ -15,9 +16,11 @@ public class CommentVo extends Page implements Serializable {
     private int id;
     private int branchId;
     private int lineId;
+    private int lineSendId;
     private int userId;
     private BranchVo branch;
     private LineVo line;
+    private LineSendTo lineSend;
     private UserVo user;
     private String context;
     private int praised;
@@ -44,6 +47,22 @@ public class CommentVo extends Page implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
+    }
+
+    public LineSendTo getLineSend() {
+        return lineSend;
+    }
+
+    public void setLineSend(LineSendTo lineSend) {
+        this.lineSend = lineSend;
     }
 
     public int getBranchId() {

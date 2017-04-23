@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "lineSend")
 public class LineSend extends IdEntity {
     private int lineId;
+    private int lineSendId;
     private int userId;
     private String title;
     private String context;
@@ -20,6 +21,14 @@ public class LineSend extends IdEntity {
     private int review;
     private int forward;
     private int privacy;
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
+    }
 
     public int getLineId() {
         return lineId;

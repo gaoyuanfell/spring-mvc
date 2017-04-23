@@ -12,6 +12,7 @@ import java.util.Date;
 public class LineSendTo implements Serializable {
     private int id;
     private int lineId;
+    private int lineSendId;
     private LineTo line;
     private UserTo user;
     private int userId;
@@ -35,6 +36,14 @@ public class LineSendTo implements Serializable {
 
     public void setLineId(int lineId) {
         this.lineId = lineId;
+    }
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
     }
 
     public String getContext() {

@@ -38,11 +38,11 @@ public class LineCtrl extends BasicController {
     @ResponseBody
     public Object insert(@RequestBody LineVo lineVo) {
         UserTo userTo = getUserSession();
-        if(userTo != null){
+        if (userTo != null) {
             lineVo.setUserId(userTo.getId());
             int i = lineService.insert(lineVo);
             return result(i);
-        }else{
+        } else {
             return result(CODE_PROMPT, "id不能为空");
         }
     }
@@ -97,6 +97,9 @@ public class LineCtrl extends BasicController {
 
     /**
      * 点赞+
+     * {
+     * "id": 1
+     * }
      */
     @RequestMapping(value = "addPraised.htm")
     @ResponseBody
@@ -105,39 +108,6 @@ public class LineCtrl extends BasicController {
         if (lineVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
             lineVo.setUserId(userTo.getId());
             int i = lineService.addPraised(lineVo);
-            if (lineVo.isOperationType()) {
-                return result(true);
-            }
-            return result();
-        } else {
-            return result(CODE_PROMPT, "id不能为空");
-        }
-    }
-
-    /**
-     * 评论+
-     */
-    @RequestMapping(value = "addReview.htm")
-    @ResponseBody
-    public Object addReview(@RequestBody LineVo lineVo) {
-        if (lineVo.getId() != 0) {
-            int i = lineService.addReview(lineVo);
-            return result();
-        } else {
-            return result(CODE_PROMPT, "id不能为空");
-        }
-    }
-
-    /**
-     * 分享+
-     */
-    @RequestMapping(value = "addForward.htm")
-    @ResponseBody
-    public Object addForward(@RequestBody LineVo lineVo) {
-        UserTo userTo = getUserSession();
-        if (lineVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            lineVo.setUserId(userTo.getId());
-            int i = lineService.addForward(lineVo);
             if (lineVo.isOperationType()) {
                 return result(true);
             }

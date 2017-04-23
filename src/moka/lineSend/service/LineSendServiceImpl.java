@@ -82,17 +82,6 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
 
     @Override
     public int addForward(LineSendVo lineSendVo) {
-        CommentRelation commentRelation = new CommentRelation();
-        commentRelation.setUserId(lineSendVo.getUserId());
-        commentRelation.setLineSendId(lineSendVo.getId());
-        commentRelation.setComType(3);
-        int i = commentDao.hasCommentRelation(commentRelation);
-        if (i == 0) {
-            commentDao.insertCommentRelation(commentRelation);
-        } else {
-            lineSendVo.setOperationType(true);//按减法运算总赞数
-            commentDao.removeCommentRelation(commentRelation);
-        }
         return lineSendDao.addForward(lineSendVo);
     }
 }

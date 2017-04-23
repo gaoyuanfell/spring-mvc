@@ -1,12 +1,10 @@
 package moka.comment.ctrl;
 
-import moka.basic.bo.Token;
 import moka.basic.controller.BasicController;
 import moka.basic.page.Page;
 import moka.comment.service.CommentService;
 import moka.comment.to.CommentTo;
 import moka.comment.vo.CommentVo;
-import moka.user.bo.User;
 import moka.user.to.UserTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 
 /**
  * Created by moka on 2017/4/6 0006.
@@ -30,7 +26,11 @@ public class CommentCtrl extends BasicController {
      * 增
      *
      * @param commentVo
-     * @return
+     * @return 主线路参数 {
+     * "context": "测试评论",
+     * "lineId": "1",
+     * "userId": 1
+     * }
      */
     @RequestMapping(value = "insert.htm")
     @ResponseBody
@@ -71,54 +71,24 @@ public class CommentCtrl extends BasicController {
     }
 
     /**
-     * 点赞+
+     * 点赞+ 参数
+     * {
+     * "id": 1
+     * }
      */
     @RequestMapping(value = "addPraised.htm")
     @ResponseBody
     public Object addPraised(@RequestBody CommentVo commentVo) {
-        UserTo userTo = getUserSession();
-        if (commentVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            commentVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (commentVo.getId() != 0 && userId != 0) {
+            commentVo.setUserId(userId);
             int i = commentService.addPraised(commentVo);
             if (commentVo.isOperationType()) {
                 return result(true);
             }
             return result();
         } else {
-            return result(CODE_PROMPT, "id不能为空");
-        }
-    }
-
-    /**
-     * 评论+
-     */
-    @RequestMapping(value = "addReview.htm")
-    @ResponseBody
-    public Object addReview(@RequestBody CommentVo commentVo) {
-        if (commentVo.getId() != 0 && commentVo.getUserId() != 0) {
-            int i = commentService.addReview(commentVo);
-            return result();
-        } else {
-            return result(CODE_PROMPT, "id不能为空");
-        }
-    }
-
-    /**
-     * 分享+
-     */
-    @RequestMapping(value = "addForward.htm")
-    @ResponseBody
-    public Object addForward(@RequestBody CommentVo commentVo) {
-        UserTo userTo = getUserSession();
-        if (commentVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            commentVo.setUserId(userTo.getId());
-            int i = commentService.addForward(commentVo);
-            if (commentVo.isOperationType()) {
-                return result(true);
-            }
-            return result();
-        } else {
-            return result(CODE_PROMPT, "id不能为空");
+            return result(CODE_PROMPT, "id不能为空！");
         }
     }
 }

@@ -40,16 +40,22 @@
         ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 3) AS isForward
         FROM moka.comment c
         WHERE 1 = 1
+        <if test="branchId != 0">
+            AND c.branchId = #{branchId}
+        </if>
         <if test="lineId != 0">
             AND c.lineId = #{lineId}
+        </if>
+        <if test="lineSendId != 0">
+            AND c.lineSendId = #{lineSendId}
         </if>
         LIMIT #{pageStart} , #{pageSize};
     </select>
 
     <insert id="insertCommentRelation" parameterType="moka.comment.bo.CommentRelation" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.commentrelation(
-          userId, lineId, commentId, comType
-        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType});
+        userId, lineId, commentId, comType, lineSendId
+        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType}, #{lineSendId});
     </insert>
 
     <delete id="removeCommentRelation" parameterType="moka.comment.bo.CommentRelation">
@@ -83,21 +89,11 @@
     </update>
 
     <update id="addReview" parameterType="moka.comment.vo.CommentVo">
-        <if test="operationType">
-            UPDATE moka.comment SET comment.review = comment.review - 1 WHERE comment.id = #{id};
-        </if>
-        <if test="!operationType">
-            UPDATE moka.comment SET comment.review = comment.review + 1 WHERE comment.id = #{id};
-        </if>
+        UPDATE moka.comment SET comment.review = comment.review + 1 WHERE comment.id = #{id};
     </update>
 
     <update id="addForward" parameterType="moka.comment.vo.CommentVo">
-        <if test="operationType">
-            UPDATE moka.comment SET comment.forward = comment.forward - 1 WHERE comment.id = #{id};
-        </if>
-        <if test="!operationType">
-            UPDATE moka.comment SET comment.forward = comment.forward + 1 WHERE comment.id = #{id};
-        </if>
+        UPDATE moka.comment SET comment.forward = comment.forward + 1 WHERE comment.id = #{id};
     </update>
 
 </mapper>

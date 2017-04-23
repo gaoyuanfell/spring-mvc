@@ -72,17 +72,6 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
 
     @Override
     public int addForward(LineVo lineVo) {
-        CommentRelation commentRelation =  new CommentRelation();
-        commentRelation.setUserId(lineVo.getUserId());
-        commentRelation.setLineId(lineVo.getId());
-        commentRelation.setComType(3);
-        int i = commentDao.hasCommentRelation(commentRelation);
-        if(i == 0){
-            commentDao.insertCommentRelation(commentRelation);
-        }else{
-            lineVo.setOperationType(true);//按减法运算总赞数
-            commentDao.removeCommentRelation(commentRelation);
-        }
         return lineDao.addForward(lineVo);
     }
 }

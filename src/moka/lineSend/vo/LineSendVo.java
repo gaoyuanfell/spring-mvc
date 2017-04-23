@@ -13,6 +13,7 @@ import java.util.Date;
 public class LineSendVo extends Page implements Serializable {
     private int id;
     private int lineId;
+    private int lineSendId;
     private Line line;
     private UserVo user;
     private int userId;
@@ -36,6 +37,14 @@ public class LineSendVo extends Page implements Serializable {
 
     public void setOperationType(boolean operationType) {
         this.operationType = operationType;
+    }
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
     }
 
     public String getContext() {

@@ -63,12 +63,21 @@ public class BasicController {
         return redisService.addUserSession(t);
     }
 
+    //获取用户
     protected UserTo getUserSession() {
         String token = request.getHeader("X-Token");
         if (StringUtils.isEmpty(token))
             return null;
         else
             return redisService.getUserSession(new Token(token));
+    }
+
+    protected int getUserSessionId() {
+        UserTo userTo = getUserSession();
+        if (userTo == null)
+            return 0;
+        else
+            return userTo.getId();
     }
 
     protected boolean flashLoginSession(Token t) {
