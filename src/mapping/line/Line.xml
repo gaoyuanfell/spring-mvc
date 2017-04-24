@@ -32,7 +32,7 @@
         (
         SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3
         ) AS isForward
-        FROM moka.line l WHERE id = #{id};
+        FROM moka.line l WHERE l.id = #{id};
     </select>
 
     <select id="findOneAll" parameterType="Integer" resultMap="map">
