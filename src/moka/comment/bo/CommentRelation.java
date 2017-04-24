@@ -11,11 +11,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "commentRelation")
 public class CommentRelation extends IdEntity {
+    private int type;
     private int comType;
     private int userId;
     private int lineId;
     private int lineSendId;
     private int commentId;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getComType() {
         return comType;

@@ -19,9 +19,6 @@
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne">
             <id property="id" column="id"/>
         </association>
-        <association property="line" javaType="moka.line.to.LineTo" column="lineId" select="moka.line.dao.LineDao.findOneOfUser">
-            <id property="id" column="id"/>
-        </association>
     </resultMap>
 
     <select id="findOne" parameterType="Integer" resultType="moka.lineSend.to.LineSendTo">
@@ -49,16 +46,23 @@
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT
-        l.* ,
+        SELECT t.* FROM
         (
-        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = l.id AND cr.userId = #{userId} AND cr.comType = 1
-        ) AS isPraised,
-        (
+        SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        lineId, context
+        FROM moka.linesend ls
+        UNION ALL
 
-        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = l.id AND cr.userId = #{userId} AND cr.comType = 3
-        ) AS isForward
-        FROM moka.linesend l LIMIT #{pageStart} , #{pageSize};
+        SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        null, null
+        FROM moka.line l
+        ) t
+        ORDER BY t.createDate DESC
+        LIMIT #{pageStart} , #{pageSize};
     </select>
 
     <update id="addPraised" parameterType="moka.lineSend.vo.LineSendVo">

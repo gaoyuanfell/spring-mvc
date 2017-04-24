@@ -5,6 +5,7 @@ import moka.basic.service.BasicServiceImpl;
 import moka.comment.bo.CommentRelation;
 import moka.comment.dao.CommentDao;
 import moka.line.dao.LineDao;
+import moka.line.to.LineTo;
 import moka.line.vo.LineVo;
 import moka.lineSend.bo.LineSend;
 import moka.lineSend.dao.LineSendDao;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,7 +51,13 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
 
     @Override
     public LineSendTo findOneOfUser(LineSendVo lineSendVo) {
-        return lineSendDao.findOneOfUser(lineSendVo);
+        LineSendTo lineSendTo = lineSendDao.findOneOfUser(lineSendVo);
+        LineVo lineVo = new LineVo();
+        lineVo.setUserId(lineSendVo.getUserId());
+        lineVo.setId(lineSendTo.getLineId());
+        LineTo lineTo = lineDao.findOneOfUser(lineVo);
+        lineSendTo.setLine(lineTo);
+        return lineSendTo;
     }
 
     @Override
@@ -65,6 +73,7 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
         commentRelation.setUserId(lineSendVo.getUserId());
         commentRelation.setLineSendId(lineSendVo.getId());
         commentRelation.setComType(1);
+        commentRelation.setType(2);
         int i = commentDao.hasCommentRelation(commentRelation);
         if (i == 0) {
             commentDao.insertCommentRelation(commentRelation);

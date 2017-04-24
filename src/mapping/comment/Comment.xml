@@ -54,28 +54,45 @@
 
     <insert id="insertCommentRelation" parameterType="moka.comment.bo.CommentRelation" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.commentrelation(
-        userId, lineId, commentId, comType, lineSendId
-        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType}, #{lineSendId});
+        userId, lineId, commentId, comType, lineSendId, type
+        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType}, #{lineSendId}, #{type});
     </insert>
 
     <delete id="removeCommentRelation" parameterType="moka.comment.bo.CommentRelation">
-        DELETE FROM moka.commentrelation WHERE 1 = 1 AND commentId = #{commentId} AND userId = #{userId} AND comType = #{comType}
+        DELETE FROM moka.commentrelation
+        WHERE 1 = 1
+        AND userId = #{userId}
+        AND comType = #{comType}
+        <if test="type == 1">
+            AND lineId = #{lineId}
+        </if>
+        <if test="type == 2">
+            AND lineSendId = #{lineSendId}
+        </if>
+        <if test="type == 3">
+            AND commentId = #{commentId}
+        </if>
+        <if test="type == 0">
+            AND 1 = 2
+        </if>
     </delete>
 
     <select id="hasCommentRelation" parameterType="moka.comment.bo.CommentRelation" resultType="Integer">
         SELECT COUNT(cr.id) FROM moka.commentrelation cr
         WHERE 1 = 1
-        <if test="lineId != 0">
+        AND cr.comType = #{comType}
+        AND cr.userId = #{userId}
+        <if test="type == 1">
             AND cr.lineId = #{lineId}
         </if>
-        <if test="commentId != 0">
+        <if test="type == 2">
+            AND cr.lineSendId = #{lineSendId}
+        </if>
+        <if test="type == 3">
             AND cr.commentId = #{commentId}
         </if>
-        <if test="userId != 0">
-            AND cr.userId = #{userId}
-        </if>
-        <if test="comType != 0">
-            AND cr.comType = #{comType}
+        <if test="type == 0">
+            AND 1 = 2
         </if>
     </select>
 

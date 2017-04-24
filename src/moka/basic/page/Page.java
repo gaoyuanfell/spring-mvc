@@ -7,13 +7,13 @@ import java.util.List;
  * 分页
  * Created by moka on 2017/3/11.
  */
-public class Page implements Serializable {
+public class Page<T> implements Serializable {
     private int pageIndex = 1;
     private int pageStart;
     private int pageSize = 5;
     private int totalPage;
     private int totalCount;
-    private List list;
+    private List<T> list;
 
     public Page() {
     }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-20 10:38:42
+Date: 2017-04-24 22:47:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `branch` (
   `scope` varchar(255) DEFAULT NULL COMMENT '范围',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分支';
 
 -- ----------------------------
 -- Table structure for comment
@@ -40,6 +40,7 @@ CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论',
   `branchId` int(11) DEFAULT NULL,
   `lineId` int(11) DEFAULT NULL,
+  `lineSendId` int(11) DEFAULT NULL COMMENT '线路转发id',
   `userId` int(11) DEFAULT NULL,
   `context` varchar(255) DEFAULT NULL COMMENT '评论内容',
   `praised` int(11) DEFAULT NULL COMMENT '赞数',
@@ -47,7 +48,22 @@ CREATE TABLE `comment` (
   `forward` int(11) DEFAULT NULL COMMENT '分享数',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='评论';
+
+-- ----------------------------
+-- Table structure for commentrelation
+-- ----------------------------
+DROP TABLE IF EXISTS `commentrelation`;
+CREATE TABLE `commentrelation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户线路评论',
+  `type` int(11) DEFAULT NULL COMMENT '1-line 2-lineSned 2-comment',
+  `userId` int(11) DEFAULT NULL,
+  `lineSendId` int(11) DEFAULT NULL COMMENT '线路转发id',
+  `lineId` int(11) DEFAULT NULL,
+  `commentId` int(11) DEFAULT NULL,
+  `comType` int(11) NOT NULL COMMENT '1-点赞 2-评论 3-分享',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
 
 -- ----------------------------
 -- Table structure for line
@@ -64,7 +80,27 @@ CREATE TABLE `line` (
   `forward` int(11) DEFAULT NULL COMMENT '分享',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='线路';
+
+-- ----------------------------
+-- Table structure for linesend
+-- ----------------------------
+DROP TABLE IF EXISTS `linesend`;
+CREATE TABLE `linesend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '转发线路',
+  `lineSendId` int(11) DEFAULT NULL COMMENT '之父关系',
+  `lineId` int(11) DEFAULT NULL COMMENT '线路id',
+  `context` varchar(255) DEFAULT NULL COMMENT '转发内容',
+  `userId` int(11) DEFAULT NULL COMMENT '用户id',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `introduce` varchar(255) DEFAULT NULL COMMENT '简介',
+  `privacy` int(11) DEFAULT NULL COMMENT '隐私',
+  `praised` int(11) DEFAULT NULL COMMENT '赞',
+  `review` int(11) DEFAULT NULL COMMENT '评论',
+  `forward` int(11) DEFAULT NULL COMMENT '分享',
+  `createDate` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='转发线路';
 
 -- ----------------------------
 -- Table structure for user
@@ -78,8 +114,9 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `phone` varchar(255) DEFAULT NULL COMMENT '电话',
   `nickName` varchar(255) DEFAULT NULL COMMENT '昵称',
+  `url` varchar(255) DEFAULT NULL COMMENT '头像',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户';
 
 -- ----------------------------
 -- Table structure for userdetail
@@ -93,4 +130,4 @@ CREATE TABLE `userdetail` (
   `idCard` varchar(255) DEFAULT NULL COMMENT '身份证',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户详情';

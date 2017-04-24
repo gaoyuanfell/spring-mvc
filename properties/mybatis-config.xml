@@ -19,13 +19,8 @@
 
     <!-- Continue going here -->
     <settings>
-        <!--<setting name="logImpl" value="slf4j"/>-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="cacheEnabled" value="true"/>
     </settings>
-
-    <!--给实体类设置别名 然并卵-->
-    <!--<typeAliases>
-        <package name="moka.user.bo"/>
-    </typeAliases>-->
 
 </configuration>

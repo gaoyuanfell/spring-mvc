@@ -44,7 +44,7 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
 
     @Override
     public Page findPage(LineVo lineVo) {
-        List list = lineDao.findPage(lineVo);
+        List<LineTo> list = lineDao.findPage(lineVo);
         int totalCount = lineDao.findCount();
         return new Page(totalCount, list);
     }
@@ -55,6 +55,7 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
         commentRelation.setUserId(lineVo.getUserId());
         commentRelation.setLineId(lineVo.getId());
         commentRelation.setComType(1);
+        commentRelation.setType(1);
         int i = commentDao.hasCommentRelation(commentRelation);
         if(i == 0){
             commentDao.insertCommentRelation(commentRelation);

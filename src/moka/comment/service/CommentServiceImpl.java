@@ -56,6 +56,7 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
         commentRelation.setUserId(commentVo.getUserId());
         commentRelation.setCommentId(commentVo.getId());
         commentRelation.setComType(1);
+        commentRelation.setType(3);
         int i = commentDao.hasCommentRelation(commentRelation);
         //已经点过赞的总赞数-1 并移除关联
         if(i == 0){

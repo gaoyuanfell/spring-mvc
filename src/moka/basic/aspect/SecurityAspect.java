@@ -6,6 +6,7 @@ import moka.basic.annotation.NotAspect;
 import moka.basic.bo.Token;
 import moka.basic.exception.NoLoginException;
 import moka.basic.service.RedisService;
+import moka.user.to.UserTo;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,15 +54,22 @@ public class SecurityAspect {
 
         String token = request.getHeader(tokenName);
         if(!StringUtils.isEmpty(token)){
-            redisService.flashLoginSession(new Token(token));
+            Token t = new Token(token);
+            UserTo userTo = redisService.getUserSession(t);
+            if (userTo == null) return result();
+            redisService.flashLoginSession(t);
             response.setHeader(tokenName,token);
         }else{
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("code", 201);
-            jsonObject.put("msg", "用户没有登录");
-            return jsonObject;
+            return result();
 //            throw new NoLoginException("用户没有登录");
         }
         return pjp.proceed();
+    }
+
+    public Object result(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 201);
+        jsonObject.put("msg", "用户没有登录");
+        return jsonObject;
     }
 }
