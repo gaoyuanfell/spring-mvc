@@ -64,3 +64,8 @@ FROM
 			FROM
 				linesend
 	) t
+
+
+
+UPDATE moka.linesend SET linesend.forward = linesend.forward + 1 WHERE linesend.id
+        IN ( SELECT * FROM (SELECT e.id FROM moka.linesend as t, moka.linesend as e WHERE t.lft BETWEEN e.lft AND e.rgt AND t.id = 5) as da )

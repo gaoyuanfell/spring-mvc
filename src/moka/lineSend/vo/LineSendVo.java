@@ -28,7 +28,6 @@ public class LineSendVo extends Page implements Serializable {
     private Date updateDate;
     private int state;
     private int sort;
-    private String business;
 
     //运算类型 为true 减法 默认加法
     private boolean operationType;
@@ -47,14 +46,6 @@ public class LineSendVo extends Page implements Serializable {
 
     public void setSort(int sort) {
         this.sort = sort;
-    }
-
-    public String getBusiness() {
-        return business;
-    }
-
-    public void setBusiness(String business) {
-        this.business = business;
     }
 
     public int getLineSendId() {

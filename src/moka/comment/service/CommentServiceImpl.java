@@ -9,6 +9,8 @@ import moka.comment.to.CommentTo;
 import moka.comment.vo.CommentVo;
 import moka.line.service.LineService;
 import moka.line.vo.LineVo;
+import moka.lineSend.service.LineSendService;
+import moka.lineSend.vo.LineSendVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +26,8 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
     private CommentDao commentDao;
     @Resource
     private LineService lineService;
+    @Resource
+    private LineSendService lineSendService;
 
     @Override
     public int insert(CommentVo commentVo) {
@@ -34,6 +38,11 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
             LineVo lineVo = new LineVo();
             lineVo.setId(commentVo.getLineId());
             lineService.addReview(lineVo);
+        }
+        if(commentVo.getLineSendId() != 0){
+            LineSendVo lineSendVo = new LineSendVo();
+            lineSendVo.setId(commentVo.getLineSendId());
+            lineSendService.addReview(lineSendVo);
         }
         return comment.getId();
     }

@@ -2,7 +2,6 @@ package moka.lineSend.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
-import moka.basic.util.Util;
 import moka.comment.bo.CommentRelation;
 import moka.comment.dao.CommentDao;
 import moka.line.dao.LineDao;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,26 +33,23 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
 
     @Override
     public int insert(LineSendVo lineSendVo) {
-        int lineSendId = lineSendVo.getLineSendId();
         LineSend lineSend = this.convertBusinessValue(lineSendVo, LineSend.class);
         lineSend.setCreateDate(new Date());
-        lineSend.setSort(lineSendVo.getSort() + 1);
-        //从主分支转发
-        LineSendTo lineSendTo = lineSendDao.findOne(lineSendId);
-        if(lineSendTo != null && lineSendTo.getForward() == 0){
-            String b = lineSendTo.getBusiness();
-            lineSend.setBusiness(b);
-            lineSendVo.setBusiness(b);
-        }else {
-            String m = Util.getTokenMd5();
-            lineSend.setBusiness(m);
-            lineSendVo.setBusiness(m);
+
+        if(lineSendVo.getLineSendId() != 0){
+            //从分支转发
+            lineSendDao.addForward(lineSendVo);
         }
 
-        lineSendDao.addForward(lineSendVo);
+        int lineSendId = lineSendDao.insert(lineSend);
 
-
-        lineSendDao.insert(lineSend);
+        //分享用户关联
+        CommentRelation commentRelation = new CommentRelation();
+        commentRelation.setUserId(lineSendVo.getUserId());
+        commentRelation.setLineSendId(lineSendId);
+        commentRelation.setType(2);
+        commentRelation.setComType(3);
+        commentDao.insertCommentRelation(commentRelation);
 
         //转发成功后线路分享+
         LineVo lineVo = new LineVo();

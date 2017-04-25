@@ -22,7 +22,6 @@ public class LineSend extends IdEntity {
     private int forward;
     private int privacy;
     private int sort;
-    private String business;
 
     public int getSort() {
         return sort;
@@ -30,14 +29,6 @@ public class LineSend extends IdEntity {
 
     public void setSort(int sort) {
         this.sort = sort;
-    }
-
-    public String getBusiness() {
-        return business;
-    }
-
-    public void setBusiness(String business) {
-        this.business = business;
     }
 
     public int getLineSendId() {

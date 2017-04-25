@@ -29,14 +29,20 @@ public class CommentCtrl extends BasicController {
      * @return 主线路参数 {
      * "context": "测试评论",
      * "lineId": "1",
-     * "userId": 1
+     * "lineSendId": "1"
      * }
      */
     @RequestMapping(value = "insert.htm")
     @ResponseBody
     public Object insert(@RequestBody CommentVo commentVo) {
-        int i = commentService.insert(commentVo);
-        return result(i);
+        int userId = getUserSessionId();
+        if (userId != 0) {
+            commentVo.setUserId(userId);
+            int i = commentService.insert(commentVo);
+            return result(i);
+        } else {
+            return result(CODE_PROMPT, "没有登录");
+        }
     }
 
     /**
