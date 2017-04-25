@@ -1,5 +1,6 @@
 package moka.basic.aspect;
 
+import com.alibaba.fastjson.JSONObject;
 import moka.basic.log4j.LoggerService;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Object handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         logger.info("400",e);
-        return e;
+        return result(400,e);
     }
 
     /**
@@ -37,7 +38,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Object handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         logger.info("405",e);
-        return e;
+        return result(405,e);
     }
 
     /**
@@ -47,7 +48,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public Object handleHttpMediaTypeNotSupportedException(Exception e) {
         logger.info("415",e);
-        return e;
+        return result(415,e);
     }
 
     /**
@@ -57,6 +58,14 @@ public class ExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e) {
         logger.debug("500",e);
-        return e;
+        return result(500,e);
+    }
+
+    private Object result(int code,Exception e){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code",code);
+        jsonObject.put("msg","系统错误");
+        jsonObject.put("error",e);
+        return jsonObject;
     }
 }
