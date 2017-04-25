@@ -29,7 +29,9 @@ public class LineSendCtrl extends BasicController {
      * @param lineSendVo
      * @return 从主线路转发
      * {
-     * "lineId": "2",
+     * "lineId": "2", 为主线路id 必须
+     * "lineSendId": "1" 支线id 有就传,
+     * "sort": 1 排序 有就传,
      * "context": "测试内容"
      * }
      */

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-24 22:45:38
+Date: 2017-04-25 17:47:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -112,7 +112,7 @@ CREATE TABLE `line` (
 -- Records of line
 -- ----------------------------
 INSERT INTO `line` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '1', '7', '0', '2017-04-20 04:43:31');
-INSERT INTO `line` VALUES ('2', '1', '短歌行 作者：曹操', '对酒当歌，人生几何！\n譬如朝露，去日苦多。\n慨当以慷，忧思难忘。\n何以解忧？惟有杜康。\n青青子衿，悠悠我心。\n但为君故，沉吟至今。\n呦呦鹿鸣，食野之苹。\n我有嘉宾，鼓瑟吹笙。\n明明如月，何时可掇？\n忧从中来，不可断绝。\n越陌度阡，枉用相存。\n契阔谈，心念旧恩。\n月明星稀，乌鹊南飞。\n绕树三匝，何枝可依？\n山不厌高，海不厌深。\n周公吐哺，天下归心。', '0', '1', '1', '1', '2017-04-21 15:55:35');
+INSERT INTO `line` VALUES ('2', '1', '短歌行 作者：曹操', '对酒当歌，人生几何！\n譬如朝露，去日苦多。\n慨当以慷，忧思难忘。\n何以解忧？惟有杜康。\n青青子衿，悠悠我心。\n但为君故，沉吟至今。\n呦呦鹿鸣，食野之苹。\n我有嘉宾，鼓瑟吹笙。\n明明如月，何时可掇？\n忧从中来，不可断绝。\n越陌度阡，枉用相存。\n契阔谈，心念旧恩。\n月明星稀，乌鹊南飞。\n绕树三匝，何枝可依？\n山不厌高，海不厌深。\n周公吐哺，天下归心。', '0', '1', '1', '0', '2017-04-21 15:55:35');
 
 -- ----------------------------
 -- Table structure for linesend
@@ -131,13 +131,15 @@ CREATE TABLE `linesend` (
   `review` int(11) DEFAULT NULL COMMENT '评论',
   `forward` int(11) DEFAULT NULL COMMENT '分享',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
+  `sort` int(11) DEFAULT NULL COMMENT '排序 展现转发阶梯效果',
+  `lft` int(11) DEFAULT NULL COMMENT '左值 排序',
+  `rgt` int(11) DEFAULT NULL COMMENT '右值 排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='转发线路';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='转发线路';
 
 -- ----------------------------
 -- Records of linesend
 -- ----------------------------
-INSERT INTO `linesend` VALUES ('2', null, '2', '短歌行 作者：曹操-1', '1', null, null, '0', '1', '0', '0', '2017-04-22 17:24:11');
 
 -- ----------------------------
 -- Table structure for user

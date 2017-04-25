@@ -4,14 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="moka.lineSend.dao.LineSendDao">
 
-    <sql id="LineSend">
-        lineId, userId, title, context, introduce, privacy, praised, review, forward, createDate
-    </sql>
-
     <insert id="insert" parameterType="moka.lineSend.bo.LineSend" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.linesend(
-        <include refid="LineSend"/>
-        ) VALUES (#{lineId}, #{userId}, #{title}, #{context}, #{introduce}, #{privacy}, #{praised}, #{review}, #{forward}, #{createDate});
+        lineSendId, lineId,  userId, title, context,introduce, privacy, praised, review, forward, createDate, sort, business
+        ) VALUES (#{lineSendId}, #{lineId}, #{userId}, #{title}, #{context}, #{introduce}, #{privacy}, #{praised}, #{review}, #{forward}, #{createDate}, #{sort}, #{business});
     </insert>
 
     <resultMap id="map" type="moka.lineSend.to.LineSendTo">
@@ -40,7 +36,7 @@
     <select id="findOneAll" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.linesend WHERE id = #{id};
     </select>
-    
+
     <select id="findCount" resultType="Integer">
         SELECT COUNT(id) FROM moka.linesend;
     </select>
@@ -51,14 +47,14 @@
         SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
         (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
         (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
-        lineId, context
+        lineId, context, lineSendId
         FROM moka.linesend ls
         UNION ALL
 
         SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
         (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
         (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
-        null, null
+        null, null, null
         FROM moka.line l
         ) t
         ORDER BY t.createDate DESC
@@ -79,7 +75,8 @@
     </update>
 
     <update id="addForward" parameterType="moka.lineSend.vo.LineSendVo">
-        UPDATE moka.linesend SET linesend.forward = linesend.forward + 1 WHERE linesend.id = #{id};
+        UPDATE moka.linesend SET linesend.forward = linesend.forward + 1 WHERE linesend.lineId = #{lineId} AND linesend.business = #{business};
+        UPDATE moka.linesend SET linesend.forward = linesend.forward + 1 WHERE linesend.id = #{lineSendId};
     </update>
 
 </mapper>

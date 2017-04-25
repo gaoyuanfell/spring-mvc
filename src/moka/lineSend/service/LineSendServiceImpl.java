@@ -2,6 +2,7 @@ package moka.lineSend.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
+import moka.basic.util.Util;
 import moka.comment.bo.CommentRelation;
 import moka.comment.dao.CommentDao;
 import moka.line.dao.LineDao;
@@ -34,9 +35,27 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
 
     @Override
     public int insert(LineSendVo lineSendVo) {
+        int lineSendId = lineSendVo.getLineSendId();
         LineSend lineSend = this.convertBusinessValue(lineSendVo, LineSend.class);
         lineSend.setCreateDate(new Date());
+        lineSend.setSort(lineSendVo.getSort() + 1);
+        //从主分支转发
+        LineSendTo lineSendTo = lineSendDao.findOne(lineSendId);
+        if(lineSendTo != null && lineSendTo.getForward() == 0){
+            String b = lineSendTo.getBusiness();
+            lineSend.setBusiness(b);
+            lineSendVo.setBusiness(b);
+        }else {
+            String m = Util.getTokenMd5();
+            lineSend.setBusiness(m);
+            lineSendVo.setBusiness(m);
+        }
+
+        lineSendDao.addForward(lineSendVo);
+
+
         lineSendDao.insert(lineSend);
+
         //转发成功后线路分享+
         LineVo lineVo = new LineVo();
         lineVo.setId(lineSendVo.getLineId());

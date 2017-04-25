@@ -18,4 +18,7 @@ ViewObject表现层对象
 
 
 # tomcat 加大缓存 默认10M
-    context.xml 增加 <Resources cachingAllowed="true" cacheMaxSize="100000"/>
+    context.xml 增加 <Resources cachingAllowed="true" cachMaxSize="100000"/>
+
+# 算法的应用 预排序遍历树算法
+    
