@@ -94,9 +94,18 @@
     </update>
 
     <delete id="delete" parameterType="moka.lineSend.vo.LineSendVo">
-        DELETE FROM moka.linesend WHERE id = #{id} AND userId = = #{userId};
-        DELETE FROM moka.comment WHERE lineSendId = #{id} AND userId = = #{userId};
-        DELETE FROM moka.commentrelation WHERE lineSendId = #{id} AND userId = #{userId};
+        DELETE FROM moka.linesend WHERE id = #{id} AND userId = #{userId};
+        DELETE FROM moka.comment WHERE lineSendId = #{id};
+        DELETE FROM moka.commentrelation WHERE lineSendId = #{id};
+
+        LOCK TABLE moka.linesend WRITE;
+        SELECT @myLeft := lft, @myRight := rgt, @myWidth := rgt - lft + 1
+        FROM moka.linesend
+        WHERE id = #{id};
+        DELETE FROM moka.linesend WHERE lft BETWEEN @myLeft AND @myRight;
+        UPDATE moka.linesend SET rgt = rgt - @myWidth WHERE rgt > @myRight;
+        UPDATE moka.linesend SET lft = lft - @myWidth WHERE lft > @myRight;
+        UNLOCK TABLES;
     </delete>
 
 </mapper>

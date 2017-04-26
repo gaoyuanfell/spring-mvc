@@ -46,7 +46,7 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
         //分享用户关联
         CommentRelation commentRelation = new CommentRelation();
         commentRelation.setUserId(lineSendVo.getUserId());
-        commentRelation.setLineSendId(lineSendId);
+        commentRelation.setLineSendId(lineSend.getId());
         commentRelation.setType(2);
         commentRelation.setComType(3);
         commentDao.insertCommentRelation(commentRelation);
@@ -105,6 +105,10 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
 
     @Override
     public int delete(LineSendVo lineSendVo) {
+        LineVo lineVo = new LineVo();
+        lineVo.setOperationType(true);
+        lineVo.setId(lineSendVo.getLineId());
+        lineDao.addForward(lineVo);
         return lineSendDao.delete(lineSendVo);
     }
 }

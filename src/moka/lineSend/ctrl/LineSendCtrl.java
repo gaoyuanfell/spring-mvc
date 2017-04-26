@@ -121,4 +121,21 @@ public class LineSendCtrl extends BasicController {
             return result(CODE_PROMPT, "id不能为空");
         }
     }
+
+    /**
+     * 转发删除
+     * {
+     *     id:"1
+     * }
+     * @param lineSendVo
+     * @return
+     */
+    @RequestMapping(value = "delete.htm")
+    @ResponseBody
+    public Object delete(@RequestBody LineSendVo lineSendVo){
+        int userId = getUserSessionId();
+        lineSendVo.setUserId(userId);
+        int i = lineSendService.delete(lineSendVo);
+        return result(i);
+    }
 }

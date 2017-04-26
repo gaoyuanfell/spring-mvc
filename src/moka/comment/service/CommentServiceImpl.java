@@ -64,6 +64,8 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
         CommentRelation commentRelation =  new CommentRelation();
         commentRelation.setUserId(commentVo.getUserId());
         commentRelation.setCommentId(commentVo.getId());
+        commentRelation.setLineSendId(commentVo.getLineSendId());
+        commentRelation.setLineId(commentVo.getLineId());
         commentRelation.setComType(1);
         commentRelation.setType(3);
         int i = commentDao.hasCommentRelation(commentRelation);

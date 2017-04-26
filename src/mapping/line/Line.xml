@@ -78,7 +78,12 @@
     </update>
 
     <update id="addForward" parameterType="moka.line.vo.LineVo">
-        UPDATE moka.line SET line.forward = line.forward + 1 WHERE line.id = #{id};
+        <if test="operationType">
+            UPDATE moka.line SET line.forward = line.forward - 1 WHERE line.id = #{id};
+        </if>
+        <if test="!operationType">
+            UPDATE moka.line SET line.forward = line.forward + 1 WHERE line.id = #{id};
+        </if>
     </update>
 
 </mapper>
