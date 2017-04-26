@@ -104,7 +104,7 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
     }
 
     @Override
-    public int addForward(LineSendVo lineSendVo) {
-        return lineSendDao.addForward(lineSendVo);
+    public int delete(LineSendVo lineSendVo) {
+        return lineSendDao.delete(lineSendVo);
     }
 }

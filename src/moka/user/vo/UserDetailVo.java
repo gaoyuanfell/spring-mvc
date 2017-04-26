@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by moka on 2017/3/22.
  */
-public class UserDetailVo extends Page implements Serializable {
+public class UserDetailVo extends Page {
     private int id;
     private String school;
     private String hobby;

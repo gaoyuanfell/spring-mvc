@@ -56,7 +56,7 @@ public class SecurityAspect {
         if(!StringUtils.isEmpty(token)){
             Token t = new Token(token);
             UserTo userTo = redisService.getUserSession(t);
-            if (userTo == null) return result();
+            if (userTo == null || userTo.getId() == 0) return result();
             redisService.flashLoginSession(t);
             response.setHeader(tokenName,token);
         }else{

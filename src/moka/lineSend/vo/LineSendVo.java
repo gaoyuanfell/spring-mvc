@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public class LineSendVo extends Page implements Serializable {
+public class LineSendVo extends Page {
     private int id;
     private int lineId;
     private int lineSendId;

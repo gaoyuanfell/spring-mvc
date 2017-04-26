@@ -21,5 +21,5 @@ public interface LineSendService extends BasicService {
 
     int addReview(LineSendVo lineSendVo);
 
-    int addForward(LineSendVo lineSendVo);
+    int delete(LineSendVo lineSendVo);
 }

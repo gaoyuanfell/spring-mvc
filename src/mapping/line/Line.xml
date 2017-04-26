@@ -16,6 +16,7 @@
 
     <resultMap id="map" type="moka.line.to.LineTo">
         <id property="id" column="id"/>
+        <result property="userId" column="userId"/>
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
     </resultMap>
 
@@ -42,11 +43,6 @@
     <select id="findCount" resultType="Integer">
         SELECT COUNT(id) FROM moka.line;
     </select>
-
-
-    <insert id="asd" parameterType="moka.line.bo.Line" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO moka.line ( userId, title, introduce, praised, forward, privacy, createDate, review )
-    </insert>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
         SELECT t.* FROM

@@ -48,7 +48,7 @@ FROM
 			forward,
 			createDate
 		FROM
-			line
+			reply
 		UNION
 			SELECT
 				lineId,

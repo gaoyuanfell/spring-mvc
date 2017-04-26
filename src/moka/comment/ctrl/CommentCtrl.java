@@ -29,7 +29,8 @@ public class CommentCtrl extends BasicController {
      * @return 主线路参数 {
      * "context": "测试评论",
      * "lineId": "1",
-     * "lineSendId": "1"
+     * "lineSendId": "1",
+     * "":""
      * }
      */
     @RequestMapping(value = "insert.htm")

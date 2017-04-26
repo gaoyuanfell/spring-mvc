@@ -3,6 +3,7 @@ package moka.comment.to;
 import moka.branch.to.BranchTo;
 import moka.line.to.LineTo;
 import moka.lineSend.to.LineSendTo;
+import moka.reply.bo.Reply;
 import moka.user.to.UserTo;
 
 import java.io.Serializable;
@@ -17,10 +18,12 @@ public class CommentTo implements Serializable {
     private int lineId;
     private int lineSendId;
     private int userId;
+    private int replyId;
     private BranchTo branch;
     private LineTo line;
     private LineSendTo lineSend;
     private UserTo user;
+    private Reply reply;
     private String context;
     private int praised;
     private int review;
@@ -174,5 +177,21 @@ public class CommentTo implements Serializable {
 
     public void setIsForward(int isForward) {
         this.isForward = isForward;
+    }
+
+    public int getReplyId() {
+        return replyId;
+    }
+
+    public void setReplyId(int replyId) {
+        this.replyId = replyId;
+    }
+
+    public Reply getReply() {
+        return reply;
+    }
+
+    public void setReply(Reply reply) {
+        this.reply = reply;
     }
 }

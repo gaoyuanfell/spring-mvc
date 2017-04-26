@@ -56,7 +56,7 @@ CREATE TABLE `comment` (
 DROP TABLE IF EXISTS `commentrelation`;
 CREATE TABLE `commentrelation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户线路评论',
-  `type` int(11) DEFAULT NULL COMMENT '1-line 2-lineSned 2-comment',
+  `type` int(11) DEFAULT NULL COMMENT '1-reply 2-lineSned 2-comment',
   `userId` int(11) DEFAULT NULL,
   `lineSendId` int(11) DEFAULT NULL COMMENT '线路转发id',
   `lineId` int(11) DEFAULT NULL,
@@ -66,10 +66,10 @@ CREATE TABLE `commentrelation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
 
 -- ----------------------------
--- Table structure for line
+-- Table structure for reply
 -- ----------------------------
-DROP TABLE IF EXISTS `line`;
-CREATE TABLE `line` (
+DROP TABLE IF EXISTS `reply`;
+CREATE TABLE `reply` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '线路',
   `userId` int(11) DEFAULT NULL COMMENT '用户id',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',

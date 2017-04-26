@@ -1,10 +1,10 @@
-package moka.comment.vo;
+package moka.reply.vo;
 
 import moka.basic.page.Page;
-import moka.branch.vo.BranchVo;
-import moka.line.vo.LineVo;
+import moka.branch.to.BranchTo;
+import moka.line.to.LineTo;
 import moka.lineSend.to.LineSendTo;
-import moka.reply.bo.Reply;
+import moka.user.to.UserTo;
 import moka.user.vo.UserVo;
 
 import java.io.Serializable;
@@ -13,22 +13,18 @@ import java.util.Date;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public class CommentVo extends Page {
+public class ReplyVo extends Page {
     private int id;
     private int branchId;
     private int lineId;
     private int lineSendId;
     private int userId;
-    private int replyId;
-    private BranchVo branch;
-    private LineVo line;
+    private BranchTo branch;
+    private LineTo line;
     private LineSendTo lineSend;
-    private UserVo user;
-    private Reply reply;
+    private UserTo user;
     private String context;
     private int praised;
-    private int review;
-    private int forward;
     private Date createDate;
     private Date updateDate;
     private int state;
@@ -52,22 +48,6 @@ public class CommentVo extends Page {
         this.id = id;
     }
 
-    public int getLineSendId() {
-        return lineSendId;
-    }
-
-    public void setLineSendId(int lineSendId) {
-        this.lineSendId = lineSendId;
-    }
-
-    public LineSendTo getLineSend() {
-        return lineSend;
-    }
-
-    public void setLineSend(LineSendTo lineSend) {
-        this.lineSend = lineSend;
-    }
-
     public int getBranchId() {
         return branchId;
     }
@@ -84,6 +64,14 @@ public class CommentVo extends Page {
         this.lineId = lineId;
     }
 
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
+    }
+
     public int getUserId() {
         return userId;
     }
@@ -92,28 +80,44 @@ public class CommentVo extends Page {
         this.userId = userId;
     }
 
-    public BranchVo getBranch() {
+    public BranchTo getBranch() {
         return branch;
     }
 
-    public void setBranch(BranchVo branch) {
+    public void setBranch(BranchTo branch) {
         this.branch = branch;
     }
 
-    public LineVo getLine() {
+    public LineTo getLine() {
         return line;
     }
 
-    public void setLine(LineVo line) {
+    public void setLine(LineTo line) {
         this.line = line;
     }
 
-    public UserVo getUser() {
+    public LineSendTo getLineSend() {
+        return lineSend;
+    }
+
+    public void setLineSend(LineSendTo lineSend) {
+        this.lineSend = lineSend;
+    }
+
+    public UserTo getUser() {
         return user;
     }
 
-    public void setUser(UserVo user) {
+    public void setUser(UserTo user) {
         this.user = user;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
     }
 
     public int getPraised() {
@@ -122,22 +126,6 @@ public class CommentVo extends Page {
 
     public void setPraised(int praised) {
         this.praised = praised;
-    }
-
-    public int getReview() {
-        return review;
-    }
-
-    public void setReview(int review) {
-        this.review = review;
-    }
-
-    public int getForward() {
-        return forward;
-    }
-
-    public void setForward(int forward) {
-        this.forward = forward;
     }
 
     public Date getCreateDate() {
@@ -162,29 +150,5 @@ public class CommentVo extends Page {
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context;
-    }
-
-    public int getReplyId() {
-        return replyId;
-    }
-
-    public void setReplyId(int replyId) {
-        this.replyId = replyId;
-    }
-
-    public Reply getReply() {
-        return reply;
-    }
-
-    public void setReply(Reply reply) {
-        this.reply = reply;
     }
 }

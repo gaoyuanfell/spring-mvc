@@ -76,7 +76,7 @@ INSERT INTO `comment` VALUES ('12', '0', '0', '2', '2', '痴心父母古来多�
 DROP TABLE IF EXISTS `commentrelation`;
 CREATE TABLE `commentrelation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户线路评论',
-  `type` int(11) DEFAULT NULL COMMENT '1-line 2-lineSned 2-comment',
+  `type` int(11) DEFAULT NULL COMMENT '1-reply 2-lineSned 2-comment',
   `userId` int(11) DEFAULT NULL,
   `lineSendId` int(11) DEFAULT NULL COMMENT '线路转发id',
   `lineId` int(11) DEFAULT NULL,
@@ -101,10 +101,10 @@ INSERT INTO `commentrelation` VALUES ('10', '3', '2', '0', '0', '9', '1');
 INSERT INTO `commentrelation` VALUES ('11', '3', '1', '0', '0', '12', '1');
 
 -- ----------------------------
--- Table structure for line
+-- Table structure for reply
 -- ----------------------------
-DROP TABLE IF EXISTS `line`;
-CREATE TABLE `line` (
+DROP TABLE IF EXISTS `reply`;
+CREATE TABLE `reply` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '线路',
   `userId` int(11) DEFAULT NULL COMMENT '用户id',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
@@ -118,10 +118,10 @@ CREATE TABLE `line` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='线路';
 
 -- ----------------------------
--- Records of line
+-- Records of reply
 -- ----------------------------
-INSERT INTO `line` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '1', '1', '2', '2017-04-20 04:43:31');
-INSERT INTO `line` VALUES ('2', '1', '短歌行 作者：曹操', '对酒当歌，人生几何！\n譬如朝露，去日苦多。\n慨当以慷，忧思难忘。\n何以解忧？惟有杜康。\n青青子衿，悠悠我心。\n但为君故，沉吟至今。\n呦呦鹿鸣，食野之苹。\n我有嘉宾，鼓瑟吹笙。\n明明如月，何时可掇？\n忧从中来，不可断绝。\n越陌度阡，枉用相存。\n契阔谈，心念旧恩。\n月明星稀，乌鹊南飞。\n绕树三匝，何枝可依？\n山不厌高，海不厌深。\n周公吐哺，天下归心。', '0', '0', '7', '1', '2017-04-21 15:55:35');
+INSERT INTO `reply` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '1', '1', '2', '2017-04-20 04:43:31');
+INSERT INTO `reply` VALUES ('2', '1', '短歌行 作者：曹操', '对酒当歌，人生几何！\n譬如朝露，去日苦多。\n慨当以慷，忧思难忘。\n何以解忧？惟有杜康。\n青青子衿，悠悠我心。\n但为君故，沉吟至今。\n呦呦鹿鸣，食野之苹。\n我有嘉宾，鼓瑟吹笙。\n明明如月，何时可掇？\n忧从中来，不可断绝。\n越陌度阡，枉用相存。\n契阔谈，心念旧恩。\n月明星稀，乌鹊南飞。\n绕树三匝，何枝可依？\n山不厌高，海不厌深。\n周公吐哺，天下归心。', '0', '0', '7', '1', '2017-04-21 15:55:35');
 
 -- ----------------------------
 -- Table structure for linesend

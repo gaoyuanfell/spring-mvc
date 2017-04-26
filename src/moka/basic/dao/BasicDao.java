@@ -1,5 +1,6 @@
 package moka.basic.dao;
 
+import moka.basic.bo.Basic;
 import moka.basic.page.Page;
 
 import java.util.HashMap;
@@ -20,4 +21,8 @@ public interface BasicDao<E, T> {
     List<T> findPage(Page page);
 
     int findCount();
+
+    int delete(Basic basic);
+
+    int update(Basic basic);
 }

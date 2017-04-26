@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by moka on 2017/4/6 0006.
  */
-public class BranchVo extends Page implements Serializable {
+public class BranchVo extends Page {
     private int id;
     private LineVo line;
     private int lineId;

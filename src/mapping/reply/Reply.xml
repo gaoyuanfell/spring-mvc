@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moka.reply.dao.ReplyDao">
+
+    <insert id="insert" parameterType="moka.reply.bo.Reply" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.reply(
+        branchId, lineId, lineSendId, userId, context, praised, createDate, state
+        ) VALUES (#{branchId}, #{lineId}, #{lineSendId}, #{userId}, #{context}, #{praised}, #{createDate}, #{state});
+    </insert>
+
+    <resultMap id="map" type="moka.reply.to.ReplyTo">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="findOne" parameterType="Integer" resultType="moka.reply.to.ReplyTo">
+        SELECT * FROM moka.reply WHERE id = #{id};
+    </select>
+
+    <select id="findOneAll" parameterType="Integer" resultMap="map">
+        SELECT * FROM moka.reply WHERE id = #{id};
+    </select>
+
+    <select id="findCount" resultType="Integer">
+        SELECT COUNT(id) FROM moka.reply;
+    </select>
+
+    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
+        SELECT * FROM moka.reply LIMIT #{pageStart} , #{pageSize};
+    </select>
+
+    <update id="addPraised" parameterType="moka.reply.vo.ReplyVo">
+        <if test="operationType">
+            UPDATE moka.reply SET reply.praised = reply.praised - 1 WHERE reply.id = #{id};
+        </if>
+        <if test="!operationType">
+            UPDATE moka.reply SET reply.praised = reply.praised + 1 WHERE reply.id = #{id};
+        </if>
+    </update>
+
+    <update id="addReview" parameterType="moka.reply.vo.ReplyVo">
+        UPDATE moka.reply SET reply.review = reply.review + 1 WHERE reply.id = #{id};
+    </update>
+
+</mapper>
