@@ -30,7 +30,6 @@ public class CommentCtrl extends BasicController {
      * "context": "测试评论",
      * "lineId": "1",
      * "lineSendId": "1",
-     * "":""
      * }
      */
     @RequestMapping(value = "insert.htm")
