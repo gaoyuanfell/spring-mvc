@@ -5,12 +5,13 @@ import moka.basic.bo.IdEntity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
+/**回复实体
  * Created by moka on 2017/4/6 0006.
  */
 @Entity
 @Table(name = "reply")
 public class Reply extends IdEntity {
+    private int commentId;
     private int branchId;
     private int lineId;
     private int lineSendId;
@@ -18,6 +19,14 @@ public class Reply extends IdEntity {
     private int userToId;
     private String context;
     private int praised;
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
 
     public int getUserToId() {
         return userToId;

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
 
-/**
+/**线路分支实体
  * Created by moka on 2017/4/6 0006.
  */
 @Entity

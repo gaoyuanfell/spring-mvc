@@ -12,6 +12,7 @@
 
     <resultMap id="map" type="moka.comment.to.CommentTo">
         <id property="id" column="id"/>
+        <result property="userId" column="userId"/>
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
         <!--<association property="branch" javaType="moka.branch.to.BranchTo" column="branchId" select="moka.branch.dao.BranchDao.findOne"/>-->
     </resultMap>

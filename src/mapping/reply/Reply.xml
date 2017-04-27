@@ -6,12 +6,15 @@
 
     <insert id="insert" parameterType="moka.reply.bo.Reply" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.reply(
-        branchId, lineId, lineSendId, userId, context, praised, createDate, state
-        ) VALUES (#{branchId}, #{lineId}, #{lineSendId}, #{userId}, #{context}, #{praised}, #{createDate}, #{state});
+        branchId, lineId, lineSendId, userId, userToId, context, praised, createDate, updateDate, state
+        ) VALUES (#{branchId}, #{lineId}, #{lineSendId}, #{userId}, #{userToId}, #{context}, #{praised}, #{createDate}, #{updateDate}, #{state});
     </insert>
 
     <resultMap id="map" type="moka.reply.to.ReplyTo">
         <id property="id" column="id"/>
+        <association property="user" column="userId" javaType="moka.user.to.UserTo" select="moka.user.dao.UserDao.findOne">
+            <id property="id" column="id"/>
+        </association>
     </resultMap>
 
     <select id="findOne" parameterType="Integer" resultType="moka.reply.to.ReplyTo">
@@ -27,7 +30,20 @@
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT * FROM moka.reply LIMIT #{pageStart} , #{pageSize};
+        SELECT r.*
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.replyId = r.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised
+        FROM moka.reply r WHERE 1 = 1
+        <if test="commentId != 0">
+            AND commentId = #{commentId}
+        </if>
+        LIMIT #{pageStart} , #{pageSize};
+    </select>
+
+    <select id="findList" parameterType="moka.basic.page.Page" resultType="moka.reply.to.ReplyTo">
+        SELECT * FROM moka.reply WHERE 1 = 1
+        <if test="commentId != 0">
+            AND commentId = #{commentId}
+        </if>
     </select>
 
     <update id="addPraised" parameterType="moka.reply.vo.ReplyVo">
@@ -37,10 +53,6 @@
         <if test="!operationType">
             UPDATE moka.reply SET reply.praised = reply.praised + 1 WHERE reply.id = #{id};
         </if>
-    </update>
-
-    <update id="addReview" parameterType="moka.reply.vo.ReplyVo">
-        UPDATE moka.reply SET reply.review = reply.review + 1 WHERE reply.id = #{id};
     </update>
 
 </mapper>

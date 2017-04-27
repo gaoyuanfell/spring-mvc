@@ -5,7 +5,7 @@ import moka.basic.bo.IdEntity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
+/**线路转发实体
  * Created by moka on 2017/4/6 0006.
  */
 @Entity

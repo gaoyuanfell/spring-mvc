@@ -2,8 +2,6 @@ package moka.reply.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
-import moka.comment.bo.CommentRelation;
-import moka.comment.dao.CommentDao;
 import moka.reply.bo.Reply;
 import moka.reply.dao.ReplyDao;
 import moka.reply.to.ReplyTo;
@@ -11,6 +9,7 @@ import moka.reply.vo.ReplyVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +34,17 @@ public class ReplyServiceImpl extends BasicServiceImpl implements ReplyService {
 
     @Override
     public Page findPage(ReplyVo replyVo) {
-        return null;
+        List list = null;
+        if(replyVo.getCommentId() != 0){
+            list = replyDao.findPage(replyVo);
+        }
+        int totalCount = replyDao.findCount();
+        return new Page(totalCount,list);
+    }
+
+    @Override
+    public List<ReplyTo> findList(ReplyVo replyVo) {
+        return replyDao.findList(replyVo);
     }
 
     @Override

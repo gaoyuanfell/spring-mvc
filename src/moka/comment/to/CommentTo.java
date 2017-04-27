@@ -4,10 +4,12 @@ import moka.branch.to.BranchTo;
 import moka.line.to.LineTo;
 import moka.lineSend.to.LineSendTo;
 import moka.reply.bo.Reply;
+import moka.reply.to.ReplyTo;
 import moka.user.to.UserTo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by moka on 2017/4/6 0006.
@@ -18,7 +20,7 @@ public class CommentTo implements Serializable {
     private int lineId;
     private int lineSendId;
     private int userId;
-    private int replyId;
+    private List<ReplyTo> replies;
     private BranchTo branch;
     private LineTo line;
     private LineSendTo lineSend;
@@ -179,12 +181,12 @@ public class CommentTo implements Serializable {
         this.isForward = isForward;
     }
 
-    public int getReplyId() {
-        return replyId;
+    public List<ReplyTo> getReplies() {
+        return replies;
     }
 
-    public void setReplyId(int replyId) {
-        this.replyId = replyId;
+    public void setReplies(List<ReplyTo> replies) {
+        this.replies = replies;
     }
 
     public Reply getReply() {

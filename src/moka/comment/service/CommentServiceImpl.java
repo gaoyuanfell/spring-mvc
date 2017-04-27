@@ -11,6 +11,9 @@ import moka.line.service.LineService;
 import moka.line.vo.LineVo;
 import moka.lineSend.service.LineSendService;
 import moka.lineSend.vo.LineSendVo;
+import moka.reply.service.ReplyService;
+import moka.reply.to.ReplyTo;
+import moka.reply.vo.ReplyVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +31,8 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
     private LineService lineService;
     @Resource
     private LineSendService lineSendService;
+    @Resource
+    private ReplyService replyService;
 
     @Override
     public int insert(CommentVo commentVo) {
@@ -54,8 +59,11 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
 
     @Override
     public Page findPage(CommentVo commentVo) {
-        List list = commentDao.findPage(commentVo);
+        List<CommentTo> list = commentDao.findPage(commentVo);
         int totalCount = commentDao.findCount();
+
+
+
         return new Page(totalCount, list);
     }
 
