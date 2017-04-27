@@ -75,4 +75,9 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     public int addForward(LineVo lineVo) {
         return lineDao.addForward(lineVo);
     }
+
+    @Override
+    public int delete(LineVo lineVo) {
+        return lineDao.delete(lineVo);
+    }
 }

@@ -15,8 +15,17 @@ public class Reply extends IdEntity {
     private int lineId;
     private int lineSendId;
     private int userId;
+    private int userToId;
     private String context;
     private int praised;
+
+    public int getUserToId() {
+        return userToId;
+    }
+
+    public void setUserToId(int userToId) {
+        this.userToId = userToId;
+    }
 
     public int getBranchId() {
         return branchId;

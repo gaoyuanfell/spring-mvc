@@ -22,4 +22,6 @@ public interface LineService extends BasicService {
     int addReview(LineVo lineVo);
 
     int addForward(LineVo lineVo);
+
+    int delete(LineVo lineVo);
 }

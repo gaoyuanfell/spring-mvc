@@ -86,4 +86,10 @@
         </if>
     </update>
 
+    <delete id="delete" parameterType="moka.line.vo.LineVo">
+        DELETE FROM moka.line WHERE id = #{id};
+        DELETE FROM moka.comment WHERE lineId = #{id};
+        DELETE FROM moka.commentrelation WHERE lineId = #{id};
+    </delete>
+
 </mapper>

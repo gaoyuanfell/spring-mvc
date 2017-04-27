@@ -27,9 +27,18 @@ public class LineSendTo implements Serializable {
     private Date updateDate;
     private int state;
     private int sort;
+    private String business;
 
     private int isPraised;//指定用户是否点赞
     private int isForward;//指定用户是否分享
+
+    public String getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(String business) {
+        this.business = business;
+    }
 
     public int getSort() {
         return sort;

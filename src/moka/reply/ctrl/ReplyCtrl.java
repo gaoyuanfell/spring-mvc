@@ -27,6 +27,14 @@ public class ReplyCtrl extends BasicController {
      * 增
      *
      * @param replyVo
+     * {
+     *     "comment":"1",
+     *     "userId":"1",
+     *     "userToId":"2",
+     *     "lineSendId":"1",
+     *     "lineId":"1",
+     *     "branchId":"1"
+     * }
      * @return
      */
     @RequestMapping(value = "insert.htm")

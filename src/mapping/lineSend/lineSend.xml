@@ -5,19 +5,22 @@
 <mapper namespace="moka.lineSend.dao.LineSendDao">
 
     <insert id="insert" parameterType="moka.lineSend.bo.LineSend" useGeneratedKeys="true" keyProperty="id">
+        <selectKey order="AFTER" keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
         <if test="lineSendId == 0">
             INSERT INTO moka.linesend(
-            lineSendId, lineId, userId, title, context,introduce, privacy, praised, review, forward, createDate, sort, lft, rgt
-            ) VALUES (#{lineSendId}, #{lineId}, #{userId}, #{title}, #{context}, #{introduce}, #{privacy}, #{praised}, #{review}, #{forward}, #{createDate}, #{sort}, 1, 2);
+            lineSendId, lineId, userId, title, context,introduce, privacy, praised, review, forward, createDate, sort, lft, rgt, business
+            ) VALUES (#{lineSendId}, #{lineId}, #{userId}, #{title}, #{context}, #{introduce}, #{privacy}, #{praised}, #{review}, #{forward}, #{createDate}, #{sort}, 1, 2, #{business});
         </if>
         <if test="lineSendId != 0">
             LOCK TABLE moka.linesend WRITE;
-            SELECT @myRight := lft FROM moka.linesend
+            SELECT @myRight := lft,@business := business FROM moka.linesend
             WHERE id = #{lineSendId};
             UPDATE moka.linesend SET rgt = rgt + 2 WHERE rgt > @myRight;
             UPDATE moka.linesend SET lft = lft + 2 WHERE lft > @myRight;
-            INSERT INTO moka.linesend(lineSendId, lineId, userId, title, context,introduce, privacy, praised, review, forward, createDate, sort, lft, rgt)
-            VALUES(#{lineSendId}, #{lineId}, #{userId}, #{title}, #{context}, #{introduce}, #{privacy}, #{praised}, #{review}, #{forward}, #{createDate}, #{sort}, @myRight + 1,@myRight + 2);
+            INSERT INTO moka.linesend(lineSendId, lineId, userId, title, context,introduce, privacy, praised, review, forward, createDate, sort, lft, rgt, business)
+            VALUES(#{lineSendId}, #{lineId}, #{userId}, #{title}, #{context}, #{introduce}, #{privacy}, #{praised}, #{review}, #{forward}, #{createDate}, #{sort}, @myRight + 1,@myRight + 2, @business);
             UNLOCK TABLES;
         </if>
     </insert>
@@ -89,7 +92,7 @@
     <update id="addForward" parameterType="moka.lineSend.vo.LineSendVo">
         <if test="lineSendId != 0">
             UPDATE moka.linesend SET linesend.forward = linesend.forward + 1 WHERE linesend.id
-            IN ( SELECT a.id FROM (SELECT e.id FROM moka.linesend as t, moka.linesend as e WHERE t.lft BETWEEN e.lft AND e.rgt AND t.id = #{lineSendId}) as a)
+            IN ( SELECT a.id FROM (SELECT e.id FROM moka.linesend as t, moka.linesend as e WHERE t.lft BETWEEN e.lft AND e.rgt AND t.id = #{lineSendId} AND t.business = e.business) as a)
         </if>
     </update>
 
@@ -97,15 +100,6 @@
         DELETE FROM moka.linesend WHERE id = #{id} AND userId = #{userId};
         DELETE FROM moka.comment WHERE lineSendId = #{id};
         DELETE FROM moka.commentrelation WHERE lineSendId = #{id};
-
-        LOCK TABLE moka.linesend WRITE;
-        SELECT @myLeft := lft, @myRight := rgt, @myWidth := rgt - lft + 1
-        FROM moka.linesend
-        WHERE id = #{id};
-        DELETE FROM moka.linesend WHERE lft BETWEEN @myLeft AND @myRight;
-        UPDATE moka.linesend SET rgt = rgt - @myWidth WHERE rgt > @myRight;
-        UPDATE moka.linesend SET lft = lft - @myWidth WHERE lft > @myRight;
-        UNLOCK TABLES;
     </delete>
 
 </mapper>

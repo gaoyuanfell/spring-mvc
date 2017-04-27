@@ -71,9 +71,9 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "findOneOfUser.htm")
     @ResponseBody
     public Object findOneOfUser(@RequestBody LineVo lineVo) {
-        UserTo userTo = getUserSession();
-        if (lineVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            lineVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (lineVo.getId() != 0 && userId != 0) {
+            lineVo.setUserId(userId);
             LineTo lineTo = lineService.findOneOfUser(lineVo);
             return result(lineTo);
         } else {
@@ -104,9 +104,9 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "addPraised.htm")
     @ResponseBody
     public Object addPraised(@RequestBody LineVo lineVo) {
-        UserTo userTo = getUserSession();
-        if (lineVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            lineVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (lineVo.getId() != 0 && userId != 0) {
+            lineVo.setUserId(userId);
             int i = lineService.addPraised(lineVo);
             if (lineVo.isOperationType()) {
                 return result(true);
@@ -115,5 +115,27 @@ public class LineCtrl extends BasicController {
         } else {
             return result(CODE_PROMPT, "id不能为空");
         }
+    }
+
+    /**
+     * 线路删除
+     * @param lineVo
+     * {
+     *     id:'1'
+     * }
+     * @return
+     */
+    @RequestMapping(value = "delete.htm")
+    @ResponseBody
+    public Object delete(@RequestBody LineVo lineVo) {
+        int userId = getUserSessionId();
+        if (lineVo.getId() != 0 && userId != 0) {
+            lineVo.setUserId(userId);
+            int i = lineService.delete(lineVo);
+            return result(i);
+        } else {
+            return result(CODE_PROMPT, "id不能为空");
+        }
+
     }
 }
