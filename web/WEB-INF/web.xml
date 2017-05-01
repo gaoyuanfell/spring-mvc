@@ -8,21 +8,10 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext*.xml</param-value>
     </context-param>
-    <listener>
+
+    <!--<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
-   <!-- <filter>
-        <filter-name>springSessionRepositoryFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>springSessionRepositoryFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>-->
+    </listener>-->
 
     <filter>
         <filter-name>CharacterEncoding</filter-name>

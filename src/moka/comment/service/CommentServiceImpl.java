@@ -61,9 +61,6 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
     public Page findPage(CommentVo commentVo) {
         List<CommentTo> list = commentDao.findPage(commentVo);
         int totalCount = commentDao.findCount();
-
-
-
         return new Page(totalCount, list);
     }
 
@@ -95,5 +92,20 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
     @Override
     public int addForward(CommentVo commentVo) {
         return commentDao.addForward(commentVo);
+    }
+
+    @Override
+    public int insertCommentRelation(CommentRelation commentRelation) {
+        return commentDao.insertCommentRelation(commentRelation);
+    }
+
+    @Override
+    public int removeCommentRelation(CommentRelation commentRelation) {
+        return commentDao.removeCommentRelation(commentRelation);
+    }
+
+    @Override
+    public int hasCommentRelation(CommentRelation commentRelation) {
+        return commentDao.hasCommentRelation(commentRelation);
     }
 }

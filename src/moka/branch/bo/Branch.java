@@ -13,12 +13,48 @@ import java.util.Date;
 @Table(name = "branch")
 public class Branch extends IdEntity {
     private int lineId;
+    private int userId;
     private String title;
     private String introduce;
+    private int privacy;
+    private int praised;
+    private int review;
     private String url;
     private String lng;
     private String lat;
-    private String scope;
+    private int scope;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
+    }
+
+    public int getPraised() {
+        return praised;
+    }
+
+    public void setPraised(int praised) {
+        this.praised = praised;
+    }
+
+    public int getReview() {
+        return review;
+    }
+
+    public void setReview(int review) {
+        this.review = review;
+    }
 
     public int getLineId() {
         return lineId;
@@ -68,11 +104,11 @@ public class Branch extends IdEntity {
         this.lat = lat;
     }
 
-    public String getScope() {
+    public int getScope() {
         return scope;
     }
 
-    public void setScope(String scope) {
+    public void setScope(int scope) {
         this.scope = scope;
     }
 }

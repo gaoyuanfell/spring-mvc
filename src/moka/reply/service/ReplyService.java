@@ -17,6 +17,8 @@ public interface ReplyService extends BasicService {
 
     Page findPage(ReplyVo replyVo);
 
+    Page findOfComPage(ReplyVo replyVo);
+
     List<ReplyTo> findList(ReplyVo replyVo);
 
     int addPraised(ReplyVo replyVo);

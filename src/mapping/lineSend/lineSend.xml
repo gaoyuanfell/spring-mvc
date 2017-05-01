@@ -60,15 +60,15 @@
         SELECT t.* FROM
         (
         SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 2 ) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 2 ) AS isForward,
         lineId, context, lineSendId
         FROM moka.linesend ls
         UNION ALL
 
         SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 2 ) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 2 ) AS isForward,
         null, null, null
         FROM moka.line l
         ) t

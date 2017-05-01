@@ -32,6 +32,16 @@ public class ReplyTo implements Serializable {
     private String context;
     private int praised;
 
+    private int isPraised;//指定用户是否点赞
+
+    public int getIsPraised() {
+        return isPraised;
+    }
+
+    public void setIsPraised(int isPraised) {
+        this.isPraised = isPraised;
+    }
+
     public int getId() {
         return id;
     }

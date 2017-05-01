@@ -6,8 +6,8 @@
 
     <insert id="insert" parameterType="moka.reply.bo.Reply" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.reply(
-        branchId, lineId, lineSendId, userId, userToId, context, praised, createDate, updateDate, state
-        ) VALUES (#{branchId}, #{lineId}, #{lineSendId}, #{userId}, #{userToId}, #{context}, #{praised}, #{createDate}, #{updateDate}, #{state});
+        branchId, lineId, lineSendId, userId, userToId, context, praised, createDate, updateDate, state, commentId
+        ) VALUES (#{branchId}, #{lineId}, #{lineSendId}, #{userId}, #{userToId}, #{context}, #{praised}, #{createDate}, #{updateDate}, #{state}, #{commentId});
     </insert>
 
     <resultMap id="map" type="moka.reply.to.ReplyTo">
@@ -30,8 +30,8 @@
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT r.*
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.replyId = r.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised
+        SELECT r.*,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.replyId = r.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 4) AS isPraised
         FROM moka.reply r WHERE 1 = 1
         <if test="commentId != 0">
             AND commentId = #{commentId}
