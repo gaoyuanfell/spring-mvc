@@ -4,14 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="moka.branch.dao.BranchDao">
 
-    <sql id="Branch">
-        lineId,title,introduce,url,lng,lat,createDate
-    </sql>
-
     <insert id="insert" parameterType="moka.branch.bo.Branch" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.branch(
-        <include refid="Branch"/>
-        ) VALUES (#{userId}, #{title}, #{introduce}, #{url}, #{lng}, #{lat}, #{createDate});
+        lineId, title, introduce, url, lng, lat, createDate, scope, userId, updateDate, state
+        ) VALUES (#{lineId}, #{title}, #{introduce}, #{url}, #{lng}, #{lat}, #{createDate}, #{scope}, #{userId}, #{updateDate}, #{state});
     </insert>
 
     <resultMap id="map" type="moka.branch.to.BranchTo">
@@ -32,7 +28,7 @@
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT * FROM moka.branch LIMIT #{pageStart} , #{pageSize};
+        SELECT * FROM moka.branch WHERE lineId = #{lineId}  LIMIT #{pageStart} , #{pageSize};
     </select>
 
 </mapper>

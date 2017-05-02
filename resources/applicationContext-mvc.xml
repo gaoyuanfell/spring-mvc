@@ -23,8 +23,13 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
 
-<!--CORS-->
+    <!--CORS-->
     <mvc:cors>
         <mvc:mapping path="/**/*.htm" exposed-headers="Content-Type, X-Token" allowed-origins="*" allowed-methods="GET, POST, PUT, DELETE" allowed-headers="Content-Type, X-Token" allow-credentials="true"/>
     </mvc:cors>
+
+    <!-- 支持上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSizePerFile" value="5242880"/>
+    </bean>
 </beans>

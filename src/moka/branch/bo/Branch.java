@@ -13,12 +13,21 @@ import java.util.Date;
 @Table(name = "branch")
 public class Branch extends IdEntity {
     private int lineId;
+    private int userId;
     private String title;
     private String introduce;
     private String url;
     private String lng;
     private String lat;
     private String scope;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public int getLineId() {
         return lineId;

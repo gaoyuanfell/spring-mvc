@@ -1,6 +1,6 @@
 package moka.comment.ctrl;
 
-import moka.basic.controller.BasicController;
+import moka.basic.ctrl.BasicController;
 import moka.basic.page.Page;
 import moka.comment.service.CommentService;
 import moka.comment.to.CommentTo;

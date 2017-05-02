@@ -1,6 +1,6 @@
 package moka.reply.ctrl;
 
-import moka.basic.controller.BasicController;
+import moka.basic.ctrl.BasicController;
 import moka.basic.page.Page;
 import moka.reply.service.ReplyService;
 import moka.reply.to.ReplyTo;

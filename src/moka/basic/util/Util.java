@@ -5,6 +5,8 @@ import moka.basic.exception.BusinessRuntimeException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by moka on 2017/4/25 0025.
@@ -22,5 +24,10 @@ public class Util {
         } catch (Exception e) {
             throw new BusinessRuntimeException(e.getMessage(), e);
         }
+    }
+
+    public static String dateFormat(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(new Date());
     }
 }

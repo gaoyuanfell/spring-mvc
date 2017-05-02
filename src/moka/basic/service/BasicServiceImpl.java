@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.ShardedJedisPool;
 
 import javax.annotation.Resource;
+import java.net.URL;
 
 /**
  * Created by moka on 2017/3/6 0006.
@@ -34,5 +35,17 @@ public class BasicServiceImpl implements BasicService {
             BeanUtils.copyProperties(resource, target, ignoreProperties);
         }
         return (T) target;
+    }
+
+    @Override
+    public void movePhoto(String[] urls) {
+        try {
+            for (int i = 0; i < urls.length; i++) {
+                URL url = new URL(urls[i]);
+                System.out.print(url);
+            }
+        } catch (Exception e) {
+
+        }
     }
 }

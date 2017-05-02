@@ -1,6 +1,6 @@
 package moka.user.ctrl;
 
-import moka.basic.controller.BasicController;
+import moka.basic.ctrl.BasicController;
 import moka.user.service.UserDetailService;
 import moka.user.vo.UserDetailVo;
 import org.springframework.stereotype.Controller;

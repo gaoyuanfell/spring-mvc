@@ -9,4 +9,5 @@ public interface BasicService {
 
     <T> T convertBusinessValue(Object resource, Object target, String... ignoreProperties);
 
+    void movePhoto(String[] urls);
 }

@@ -30,21 +30,23 @@ public class ReplyServiceImpl extends BasicServiceImpl implements ReplyService {
 
     @Override
     public ReplyTo findOne(Integer id) {
-        return null;
+        return replyDao.findOne(id);
     }
 
     @Override
     public Page findPage(ReplyVo replyVo) {
-        return null;
+        List list = replyDao.findPage(replyVo);
+        int totalCount = replyDao.findCount();
+        return new Page(totalCount, list);
     }
 
     @Override
     public int addPraised(ReplyVo replyVo) {
-        return 0;
+        return replyDao.addPraised(replyVo);
     }
 
     @Override
     public int addReview(ReplyVo replyVo) {
-        return 0;
+        return replyDao.addReview(replyVo);
     }
 }

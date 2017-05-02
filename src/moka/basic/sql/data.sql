@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-25 22:39:23
+Date: 2017-05-02 15:28:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS `branch`;
 CREATE TABLE `branch` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分支',
   `lineId` int(11) DEFAULT NULL COMMENT '线路id',
+  `userId` int(11) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `introduce` varchar(255) DEFAULT NULL COMMENT '简介',
   `url` varchar(255) DEFAULT NULL COMMENT '图片地址',
@@ -52,23 +53,11 @@ CREATE TABLE `comment` (
   `forward` int(11) DEFAULT NULL COMMENT '分享数',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='评论';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='评论';
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('1', '0', '1', null, '1', '好了歌，中国著名古典章回体小说《红楼梦》中经典诗词，小说中为跛足道人所做，甄士隐彻悟后进行进一步注解，表现了作者现实主义和宗教思想。文中还有与之相和的《好了歌注》，承接并引申了《好了歌》的思想。诗歌内容隐射小说情节，表达了作者对现实的愤懑和失望，以及对自由的追求和向往![1] ', '1', '0', '0', '2017-04-20 04:46:24');
-INSERT INTO `comment` VALUES ('2', '0', '1', null, '2', '测试测绘师', '1', '0', '0', '2017-04-20 05:12:22');
-INSERT INTO `comment` VALUES ('3', '0', '1', null, '3', '蓝牙5是蓝牙技术联盟 （Bluetooth Special Interest Group）于2016年6月16日发布的新一代蓝牙标准。', '0', '0', '0', '2017-04-20 08:24:42');
-INSERT INTO `comment` VALUES ('4', '0', '1', null, '4', '部门与组织是manytoone和onetomany的关系，并且两张表都有自关联，查询部门信息时会级联查询上级部门以及他的组织结构，然后返回json数据时，会出现$ref ', '0', '0', '0', '2017-04-20 08:36:02');
-INSERT INTO `comment` VALUES ('5', '0', '1', null, '3', '别名在子查询及联接查询中的应用有着很好效果，当两张表有相同列名或者为了加强可读性，给表加上不同的别名，就能很好的区分哪些列属于哪张表。', '0', '0', '0', '2017-04-20 17:19:37');
-INSERT INTO `comment` VALUES ('6', '0', '1', null, '5', '陋室1空堂，当年笏满床2；衰草枯杨，曾为歌舞场。蛛丝儿结满雕梁3，绿纱今又糊在蓬窗上。说什么脂正浓，粉正香，如何两鬓又成霜？', '1', '0', '0', '2017-04-21 07:01:56');
-INSERT INTO `comment` VALUES ('7', '0', '1', null, '1', '测试评论', '0', '0', '0', '2017-04-22 17:15:20');
-INSERT INTO `comment` VALUES ('8', '0', '2', null, '5', '《短歌行二首》是汉末政治家、文学家曹操以乐府古题创作的两首诗。其中第一首诗通过宴会的歌唱，以沉稳顿挫的笔调抒写了诗人求贤如渴的思想和统一天下的雄心壮志；第二首诗表明作者在有生之年只效法周文王姬昌，绝不作晋文公重耳，向内外臣僚及天下表明心迹，使他的内外政敌都无懈可击。这两首诗是政治性很强的作品，而其政治内容和意义完全熔铸在浓郁的抒情意境中。全诗内容深厚，庄重典雅，感情充沛，尤其是第一首，充分发挥了诗歌创作的特长，准确而巧妙地运用了比兴手法，来达到寓理于情，以情感人的目的，历来被视为曹操的代表作。', '1', '0', '0', '2017-04-24 16:44:52');
-INSERT INTO `comment` VALUES ('9', '0', '0', '2', '1', '世人都晓神仙好，惟有功名忘不了！', '2', '0', '0', '2017-04-25 16:30:51');
-INSERT INTO `comment` VALUES ('10', '0', '0', '1', '1', '古今将相在何方？荒冢一堆草没了。', '0', '0', '0', '2017-04-25 16:36:47');
-INSERT INTO `comment` VALUES ('11', '0', '0', '3', '1', '对酒当歌，人生几何！', '1', '0', '0', '2017-04-25 16:37:15');
-INSERT INTO `comment` VALUES ('12', '0', '0', '2', '2', '痴心父母古来多，孝顺儿孙谁见了？', '1', '0', '0', '2017-04-25 16:38:16');
 
 -- ----------------------------
 -- Table structure for commentrelation
@@ -76,32 +65,21 @@ INSERT INTO `comment` VALUES ('12', '0', '0', '2', '2', '痴心父母古来多�
 DROP TABLE IF EXISTS `commentrelation`;
 CREATE TABLE `commentrelation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户线路评论',
-  `type` int(11) DEFAULT NULL COMMENT '1-reply 2-lineSned 2-comment',
+  `type` int(11) DEFAULT NULL COMMENT '1-line 2-lineSned 2-comment',
   `userId` int(11) DEFAULT NULL,
   `lineSendId` int(11) DEFAULT NULL COMMENT '线路转发id',
   `lineId` int(11) DEFAULT NULL,
   `commentId` int(11) DEFAULT NULL,
   `comType` int(11) NOT NULL COMMENT '1-点赞 2-评论 3-分享',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
 
 -- ----------------------------
 -- Records of commentrelation
 -- ----------------------------
-INSERT INTO `commentrelation` VALUES ('1', '2', '1', '1', '0', '0', '3');
-INSERT INTO `commentrelation` VALUES ('2', '2', '1', '2', '0', '0', '3');
-INSERT INTO `commentrelation` VALUES ('3', '2', '1', '2', '0', '0', '1');
-INSERT INTO `commentrelation` VALUES ('4', '1', '1', '0', '1', '0', '1');
-INSERT INTO `commentrelation` VALUES ('5', '3', '1', '0', '0', '9', '1');
-INSERT INTO `commentrelation` VALUES ('6', '2', '1', '1', '0', '0', '3');
-INSERT INTO `commentrelation` VALUES ('7', '2', '1', '3', '0', '0', '1');
-INSERT INTO `commentrelation` VALUES ('8', '3', '1', '0', '0', '11', '1');
-INSERT INTO `commentrelation` VALUES ('9', '3', '1', '0', '0', '6', '1');
-INSERT INTO `commentrelation` VALUES ('10', '3', '2', '0', '0', '9', '1');
-INSERT INTO `commentrelation` VALUES ('11', '3', '1', '0', '0', '12', '1');
 
 -- ----------------------------
--- Table structure for reply
+-- Table structure for line
 -- ----------------------------
 DROP TABLE IF EXISTS `line`;
 CREATE TABLE `line` (
@@ -115,13 +93,12 @@ CREATE TABLE `line` (
   `forward` int(11) DEFAULT NULL COMMENT '分享',
   `createDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='线路';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='线路';
 
 -- ----------------------------
--- Records of reply
+-- Records of line
 -- ----------------------------
-INSERT INTO `line` VALUES ('1', '1', '好了歌', '世人都晓神仙好，惟有功名忘不了！\n古今将相在何方？荒冢一堆草没了。\n世人都晓神仙好，只有金银忘不了！\n终朝只恨聚无多，及到多时眼闭了。\n世人都晓神仙好，只有娇妻忘不了！\n君生日日说恩情，君死又随人去了。\n世人都晓神仙好，只有儿孙忘不了！\n痴心父母古来多，孝顺儿孙谁见了？', '0', '1', '1', '2', '2017-04-20 04:43:31');
-INSERT INTO `line` VALUES ('2', '1', '短歌行 作者：曹操', '对酒当歌，人生几何！\n譬如朝露，去日苦多。\n慨当以慷，忧思难忘。\n何以解忧？惟有杜康。\n青青子衿，悠悠我心。\n但为君故，沉吟至今。\n呦呦鹿鸣，食野之苹。\n我有嘉宾，鼓瑟吹笙。\n明明如月，何时可掇？\n忧从中来，不可断绝。\n越陌度阡，枉用相存。\n契阔谈，心念旧恩。\n月明星稀，乌鹊南飞。\n绕树三匝，何枝可依？\n山不厌高，海不厌深。\n周公吐哺，天下归心。', '0', '0', '7', '1', '2017-04-21 15:55:35');
+INSERT INTO `line` VALUES ('5', '1', '鬼吹灯', '胡八一（靳东饰）上山下乡来到中蒙边境的岗岗营子，带上了家中仅存的一本书——《十六字阴阳风水秘术》，闲来无事将书中文字背得滚瓜烂熟。之后参军到西藏，遇上雪崩掉落一条巨大的地沟当中，胡八一利用自己懂得的墓葬秘术逃得不死。复员后，胡八一和好友王胖子（赵达饰）一起加入了一支前往新疆考古的考古队。一行人历经万险来到了塔克拉玛干沙漠中的精绝古城遗址，进入了地下“鬼洞”。洞中机关重重、陷阱不断，这神秘的鬼洞似乎在一位先知的掌控之中。', '0', '0', '0', '0', '2017-05-02 08:27:25');
 
 -- ----------------------------
 -- Table structure for linesend
@@ -143,15 +120,36 @@ CREATE TABLE `linesend` (
   `sort` int(11) DEFAULT NULL COMMENT '排序 展现转发阶梯效果',
   `lft` int(11) DEFAULT NULL COMMENT '左值 排序',
   `rgt` int(11) DEFAULT NULL COMMENT '右值 排序',
+  `business` varchar(255) DEFAULT NULL COMMENT '业务id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='转发线路';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='转发线路';
 
 -- ----------------------------
 -- Records of linesend
 -- ----------------------------
-INSERT INTO `linesend` VALUES ('1', '0', '1', '好了歌1', '1', null, null, '0', '0', '1', '1', '2017-04-25 16:10:05', '0', '1', '4');
-INSERT INTO `linesend` VALUES ('2', '1', '1', '好了歌11', '1', null, null, '0', '1', '2', '0', '2017-04-25 16:10:12', '0', '2', '3');
-INSERT INTO `linesend` VALUES ('3', '0', '2', '短歌行 作者：曹操1', '1', null, null, '0', '1', '1', '0', '2017-04-25 16:37:08', '0', '1', '2');
+
+-- ----------------------------
+-- Table structure for reply
+-- ----------------------------
+DROP TABLE IF EXISTS `reply`;
+CREATE TABLE `reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '回复内容',
+  `branchId` int(11) DEFAULT NULL COMMENT '分支id',
+  `lineId` int(11) DEFAULT NULL COMMENT '线路id',
+  `lineSendId` int(11) DEFAULT NULL COMMENT '线路分享id',
+  `userId` int(11) DEFAULT NULL COMMENT '用户id',
+  `userToId` int(11) DEFAULT NULL,
+  `context` varchar(255) DEFAULT NULL COMMENT '回复内容',
+  `praised` varchar(255) DEFAULT NULL COMMENT '点赞',
+  `createDate` datetime DEFAULT NULL,
+  `updateDate` datetime DEFAULT NULL,
+  `state` int(11) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='回复内容';
+
+-- ----------------------------
+-- Records of reply
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user

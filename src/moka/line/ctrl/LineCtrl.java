@@ -1,7 +1,6 @@
 package moka.line.ctrl;
 
-import moka.basic.bo.Token;
-import moka.basic.controller.BasicController;
+import moka.basic.ctrl.BasicController;
 import moka.basic.page.Page;
 import moka.line.service.LineService;
 import moka.line.to.LineTo;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by moka on 2017/4/6 0006.

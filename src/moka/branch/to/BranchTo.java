@@ -1,6 +1,8 @@
 package moka.branch.to;
 
 import moka.line.to.LineTo;
+import moka.user.to.UserTo;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,14 +14,41 @@ public class BranchTo implements Serializable {
     private int id;
     private LineTo line;
     private int lineId;
+    private int userId;
+    private UserTo user;
     private String title;
     private String introduce;
     private String url;
+    private String[] urls;
     private String lng;
     private String lat;
     private Date createDate;
     private Date updateDate;
     private int state;
+
+    public String[] getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String[] urls) {
+        this.urls = urls;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public UserTo getUser() {
+        return user;
+    }
+
+    public void setUser(UserTo user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;
@@ -58,6 +87,9 @@ public class BranchTo implements Serializable {
     }
 
     public void setUrl(String url) {
+        if(!StringUtils.isEmpty(url)){
+            this.setUrls(url.split(","));
+        }
         this.url = url;
     }
 
