@@ -77,5 +77,5 @@ package moka.basic.image;
  */
 public class Exif {
     private String compression;//压缩方式
-    private int precision;
+    private int precision;//精度
 }
