@@ -12,8 +12,8 @@
 
     <resultMap id="map" type="moka.comment.to.CommentTo">
         <id property="id" column="id"/>
+        <result property="userId" column="userId"/>
         <association property="user" javaType="moka.user.to.UserTo" column="userId" select="moka.user.dao.UserDao.findOne"/>
-        <!--<association property="branch" javaType="moka.branch.to.BranchTo" column="branchId" select="moka.branch.dao.BranchDao.findOne"/>-->
     </resultMap>
 
     <select id="findOne" parameterType="Integer" resultType="moka.comment.to.CommentTo">
@@ -31,8 +31,8 @@
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
         SELECT
         c.* ,
-        ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 1) AS isPraised,
-        ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 3) AS isForward
+        ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 3) AS isPraised,
+        ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 3) AS isForward
         FROM moka.comment c
         WHERE 1 = 1
         <if test="branchId != 0">
@@ -49,8 +49,8 @@
 
     <insert id="insertCommentRelation" parameterType="moka.comment.bo.CommentRelation" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.commentrelation(
-        userId, lineId, commentId, comType, lineSendId, type
-        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType}, #{lineSendId}, #{type});
+        userId, lineId, commentId, comType, lineSendId, type, replyId
+        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType}, #{lineSendId}, #{type}, #{replyId});
     </insert>
 
     <delete id="removeCommentRelation" parameterType="moka.comment.bo.CommentRelation">
@@ -60,12 +60,19 @@
         AND comType = #{comType}
         <if test="type == 1">
             AND lineId = #{lineId}
+            AND type = 1
         </if>
         <if test="type == 2">
             AND lineSendId = #{lineSendId}
+            AND type = 2
         </if>
         <if test="type == 3">
             AND commentId = #{commentId}
+            AND type = 3
+        </if>
+        <if test="type == 4">
+            AND replyId = #{replyId}
+            AND type = 4
         </if>
         <if test="type == 0">
             AND 1 = 2
@@ -79,12 +86,19 @@
         AND cr.userId = #{userId}
         <if test="type == 1">
             AND cr.lineId = #{lineId}
+            AND type = 1
         </if>
         <if test="type == 2">
             AND cr.lineSendId = #{lineSendId}
+            AND type = 2
         </if>
         <if test="type == 3">
             AND cr.commentId = #{commentId}
+            AND type = 3
+        </if>
+        <if test="type == 4">
+            AND cr.replyId = #{replyId}
+            AND type = 4
         </if>
         <if test="type == 0">
             AND 1 = 2

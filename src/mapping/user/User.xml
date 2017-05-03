@@ -4,14 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="moka.user.dao.UserDao">
 
-    <sql id="User">
-        userDetailId,user,password,email,phone,nickName
-    </sql>
-
     <insert id="insert" parameterType="moka.user.bo.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.user(
-        <include refid="User"/>
-        ) VALUES (#{userDetailId}, #{user}, #{password}, #{email}, #{phone}, #{nickName});
+        user, password, email, phone, nickName, userDetailId, url, createDate, updateDate, state
+        ) VALUES (#{user}, #{password}, #{email}, #{phone}, #{nickName}, #{userDetailId}, #{url}, #{createDate}, #{updateDate}, #{state});
     </insert>
 
     <resultMap id="map" type="moka.user.to.UserTo">

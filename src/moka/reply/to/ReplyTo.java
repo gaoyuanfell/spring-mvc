@@ -1,6 +1,7 @@
 package moka.reply.to;
 
 import moka.branch.to.BranchTo;
+import moka.comment.to.CommentTo;
 import moka.line.to.LineTo;
 import moka.lineSend.to.LineSendTo;
 import moka.user.to.UserTo;
@@ -13,19 +14,33 @@ import java.util.Date;
  */
 public class ReplyTo implements Serializable {
     private int id;
-    private int branchId;
-    private int lineId;
-    private int lineSendId;
-    private int userId;
-    private BranchTo branch;
-    private LineTo line;
-    private LineSendTo lineSend;
-    private UserTo user;
-    private String context;
-    private int praised;
     private Date createDate;
     private Date updateDate;
     private int state;
+    private int commentId;
+    private CommentTo comment;
+    private int branchId;
+    private BranchTo branch;
+    private int lineId;
+    private LineTo line;
+    private int lineSendId;
+    private LineSendTo lineSend;
+    private int userId;
+    private UserTo user;
+    private int userToId;
+    private UserTo userTo;
+    private String context;
+    private int praised;
+
+    private int isPraised;//指定用户是否点赞
+
+    public int getIsPraised() {
+        return isPraised;
+    }
+
+    public void setIsPraised(int isPraised) {
+        this.isPraised = isPraised;
+    }
 
     public int getId() {
         return id;
@@ -33,86 +48,6 @@ public class ReplyTo implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(int branchId) {
-        this.branchId = branchId;
-    }
-
-    public int getLineId() {
-        return lineId;
-    }
-
-    public void setLineId(int lineId) {
-        this.lineId = lineId;
-    }
-
-    public int getLineSendId() {
-        return lineSendId;
-    }
-
-    public void setLineSendId(int lineSendId) {
-        this.lineSendId = lineSendId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public BranchTo getBranch() {
-        return branch;
-    }
-
-    public void setBranch(BranchTo branch) {
-        this.branch = branch;
-    }
-
-    public LineTo getLine() {
-        return line;
-    }
-
-    public void setLine(LineTo line) {
-        this.line = line;
-    }
-
-    public LineSendTo getLineSend() {
-        return lineSend;
-    }
-
-    public void setLineSend(LineSendTo lineSend) {
-        this.lineSend = lineSend;
-    }
-
-    public UserTo getUser() {
-        return user;
-    }
-
-    public void setUser(UserTo user) {
-        this.user = user;
-    }
-
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context;
-    }
-
-    public int getPraised() {
-        return praised;
-    }
-
-    public void setPraised(int praised) {
-        this.praised = praised;
     }
 
     public Date getCreateDate() {
@@ -137,5 +72,117 @@ public class ReplyTo implements Serializable {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public CommentTo getComment() {
+        return comment;
+    }
+
+    public void setComment(CommentTo comment) {
+        this.comment = comment;
+    }
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
+
+    public BranchTo getBranch() {
+        return branch;
+    }
+
+    public void setBranch(BranchTo branch) {
+        this.branch = branch;
+    }
+
+    public int getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
+    }
+
+    public LineTo getLine() {
+        return line;
+    }
+
+    public void setLine(LineTo line) {
+        this.line = line;
+    }
+
+    public int getLineSendId() {
+        return lineSendId;
+    }
+
+    public void setLineSendId(int lineSendId) {
+        this.lineSendId = lineSendId;
+    }
+
+    public LineSendTo getLineSend() {
+        return lineSend;
+    }
+
+    public void setLineSend(LineSendTo lineSend) {
+        this.lineSend = lineSend;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public UserTo getUser() {
+        return user;
+    }
+
+    public void setUser(UserTo user) {
+        this.user = user;
+    }
+
+    public int getUserToId() {
+        return userToId;
+    }
+
+    public void setUserToId(int userToId) {
+        this.userToId = userToId;
+    }
+
+    public UserTo getUserTo() {
+        return userTo;
+    }
+
+    public void setUserTo(UserTo userTo) {
+        this.userTo = userTo;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public int getPraised() {
+        return praised;
+    }
+
+    public void setPraised(int praised) {
+        this.praised = praised;
     }
 }

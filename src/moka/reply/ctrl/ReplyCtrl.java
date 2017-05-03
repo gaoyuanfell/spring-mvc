@@ -26,15 +26,14 @@ public class ReplyCtrl extends BasicController {
     /**
      * 增
      *
-     * @param replyVo
-     * {
-     *     "comment":"1",
-     *     "userId":"1",
-     *     "userToId":"2",
-     *     "lineSendId":"1",
-     *     "lineId":"1",
-     *     "branchId":"1"
-     * }
+     * @param replyVo 参数
+     *                {
+     *                "commentId":"1",
+     *                "userToId":"2",
+     *                "lineSendId":"1",
+     *                "lineId":"1",
+     *                "branchId":"1"
+     *                }
      * @return
      */
     @RequestMapping(value = "insert.htm")
@@ -70,9 +69,23 @@ public class ReplyCtrl extends BasicController {
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
     public Object findPage(@RequestBody ReplyVo replyVo) {
-        UserTo userTo = getUserSession();
-        replyVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        replyVo.setUserId(userId);
         Page list = replyService.findPage(replyVo);
+        return result(list);
+    }
+
+    /**
+     * 查 分页
+     *
+     * @return
+     */
+    @RequestMapping(value = "findOfComPage.htm")
+    @ResponseBody
+    public Object findOfComPage(@RequestBody ReplyVo replyVo) {
+        int userId = getUserSessionId();
+        replyVo.setUserId(userId);
+        Page list = replyService.findOfComPage(replyVo);
         return result(list);
     }
 
@@ -80,14 +93,16 @@ public class ReplyCtrl extends BasicController {
      * 点赞+
      * {
      * "id": 1
+     * "lineId":1,
+     * "lineSendId":1
      * }
      */
     @RequestMapping(value = "addPraised.htm")
     @ResponseBody
     public Object addPraised(@RequestBody ReplyVo replyVo) {
-        UserTo userTo = getUserSession();
-        if (replyVo.getId() != 0 && userTo != null && userTo.getId() != 0) {
-            replyVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (replyVo.getId() != 0 && userId != 0) {
+            replyVo.setUserId(userId);
             int i = replyService.addPraised(replyVo);
             if (replyVo.isOperationType()) {
                 return result(true);

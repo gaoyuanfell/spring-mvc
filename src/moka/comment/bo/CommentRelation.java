@@ -16,7 +16,16 @@ public class CommentRelation extends IdEntity {
     private int userId;
     private int lineId;
     private int lineSendId;
+    private int replyId;
     private int commentId;
+
+    public int getReplyId() {
+        return replyId;
+    }
+
+    public void setReplyId(int replyId) {
+        this.replyId = replyId;
+    }
 
     public int getType() {
         return type;

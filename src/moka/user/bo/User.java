@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-/**
+/**用户实体
  * Created by moka on 2017/3/5 0005.
  */
 @Entity

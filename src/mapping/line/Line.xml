@@ -4,14 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="moka.line.dao.LineDao">
 
-    <sql id="Line">
-        userId,title,introduce,praised,review,forward,privacy,createDate
-    </sql>
-
     <insert id="insert" parameterType="moka.line.bo.Line" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.line(
-        <include refid="Line"/>
-        ) VALUES (#{userId}, #{title}, #{introduce}, #{praised}, #{review}, #{forward}, #{privacy}, #{createDate});
+        userId, title, introduce, praised, forward, privacy, createDate, review, updateDate, state
+        ) VALUES (#{userId}, #{title}, #{introduce}, #{praised}, #{forward}, #{privacy}, #{createDate}, #{review}, #{updateDate}, #{state});
     </insert>
 
     <resultMap id="map" type="moka.line.to.LineTo">
@@ -28,10 +24,10 @@
         SELECT
         l.* ,
         (
-        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1
+        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 1
         ) AS isPraised,
         (
-        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3
+        SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 1
         ) AS isForward
         FROM moka.line l WHERE l.id = #{id};
     </select>
@@ -48,15 +44,15 @@
         SELECT t.* FROM
         (
         SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 2 ) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineSendId = ls.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 2 ) AS isForward,
         lineId, context, lineSendId
         FROM moka.linesend ls
         UNION ALL
 
         SELECT id, userId, title, introduce, privacy, praised, review, forward, createDate,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 ) AS isPraised,
-        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 ) AS isForward,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 1) AS isPraised,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.lineId = l.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 1) AS isForward,
         null, null, null
         FROM moka.line l
         ) t
@@ -90,6 +86,7 @@
         DELETE FROM moka.line WHERE id = #{id};
         DELETE FROM moka.comment WHERE lineId = #{id};
         DELETE FROM moka.commentrelation WHERE lineId = #{id};
+        DELETE FROM moka.reply WHERE lineId = #{id};
     </delete>
 
 </mapper>

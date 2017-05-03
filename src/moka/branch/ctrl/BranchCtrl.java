@@ -31,7 +31,7 @@ public class BranchCtrl extends BasicController {
      * "lineId": "5"
      * }
      *
-     * @param branchVo
+     * @param branchVo 参数 {"lineId":1}
      * @return
      */
     @RequestMapping(value = "insert.htm")
