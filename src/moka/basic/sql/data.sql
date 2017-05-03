@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-05-03 22:38:56
+Date: 2017-05-03 23:12:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,11 +36,12 @@ CREATE TABLE `branch` (
   `privacy` int(11) DEFAULT NULL,
   `userId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分支';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='分支';
 
 -- ----------------------------
 -- Records of branch
 -- ----------------------------
+INSERT INTO `branch` VALUES ('1', '1', '熊思思', '告白气球', 'http://127.0.0.1:8082/photo/2017-05-03/6dbcdfe2c8bb79e1f565f6e767962d92.jpg,http://127.0.0.1:8082/photo/2017-05-03/f95b1b246870798934113089d4119c39.jpg,http://127.0.0.1:8082/photo/2017-05-03/27e0e8ac64246a4fa728ed6071a17a47.jpg', null, null, '0', '2017-05-03 17:12:08', null, '0', '0', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for comment
@@ -98,7 +99,7 @@ CREATE TABLE `line` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '线路',
   `userId` int(11) DEFAULT NULL COMMENT '用户id',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
-  `introduce` varchar(255) DEFAULT NULL COMMENT '简介',
+  `introduce` varchar(1000) DEFAULT NULL COMMENT '简介',
   `privacy` int(11) DEFAULT NULL COMMENT '隐私',
   `praised` int(11) DEFAULT NULL COMMENT '赞',
   `review` int(11) DEFAULT NULL COMMENT '评论',
@@ -107,11 +108,12 @@ CREATE TABLE `line` (
   `updateDate` datetime DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='线路';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='线路';
 
 -- ----------------------------
 -- Records of line
 -- ----------------------------
+INSERT INTO `line` VALUES ('1', '1', '告白气球', '塞纳河畔 左岸的咖啡\n我手一杯 品尝你的美\n留下唇印的嘴\n花店玫瑰 名字写错谁\n告白气球 风吹到对街\n微笑在天上飞\n你说你有点难追 想让我知难而退\n礼物不需挑最贵 只要香榭的落叶\n喔 营造浪漫的约会 不害怕搞砸一切\n拥有你就拥有 全世界\n亲爱的 爱上你 从那天起\n甜蜜的很轻易\n亲爱的 别任性 你的眼睛\n在说我愿意\n塞纳河畔 左岸的咖啡\n我手一杯 品尝你的美\n留下唇印的嘴\n花店玫瑰 名字写错谁\n告白气球 风吹到对街\n微笑在天上飞\n你说你有点难追 想让我知难而退\n礼物不需挑最贵 只要香榭的落叶\n喔 营造浪漫的约会 不害怕搞砸一切\n拥有你就拥有 全世界\n亲爱的 爱上你 从那天起\n甜蜜的很轻易\n亲爱的 别任性 你的眼睛\n在说我愿意\n亲爱的 爱上你 恋爱日记\n飘香水的回忆\n一整瓶 的梦境 全都有你\n搅拌在一起\n亲爱的别任性 你的眼睛\n在说我愿意', '0', '0', '0', '0', '2017-05-03 17:07:16', null, '0');
 
 -- ----------------------------
 -- Table structure for linesend
@@ -121,7 +123,7 @@ CREATE TABLE `linesend` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '转发线路',
   `lineSendId` int(11) DEFAULT NULL COMMENT '之父关系',
   `lineId` int(11) DEFAULT NULL COMMENT '线路id',
-  `context` varchar(255) DEFAULT NULL COMMENT '转发内容',
+  `context` varchar(1000) DEFAULT NULL COMMENT '转发内容',
   `userId` int(11) DEFAULT NULL COMMENT '用户id',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `introduce` varchar(255) DEFAULT NULL COMMENT '简介',
