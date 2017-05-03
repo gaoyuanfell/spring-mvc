@@ -31,8 +31,7 @@
     <select id="findPageOfType" parameterType="moka.basic.page.Page" resultMap="map">
         SELECT
         c.* ,
-        ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 3) AS isPraised,
-        ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 3) AS isForward
+        ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 3) AS isPraised
         FROM moka.comment c
         WHERE
         <if test="type == 0">

@@ -19,7 +19,6 @@ public class Comment extends IdEntity {
     private String context;
     private int praised;
     private int review;
-    private int forward;
     private int type;
 
     public int getType() {
@@ -84,13 +83,5 @@ public class Comment extends IdEntity {
 
     public void setReview(int review) {
         this.review = review;
-    }
-
-    public int getForward() {
-        return forward;
-    }
-
-    public void setForward(int forward) {
-        this.forward = forward;
     }
 }
