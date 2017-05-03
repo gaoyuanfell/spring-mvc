@@ -6,8 +6,8 @@
 
     <insert id="insert" parameterType="moka.comment.bo.Comment" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.comment(
-        branchId, lineId, userId, context, praised, forward, createDate, review, lineSendId, type
-        ) VALUES (#{branchId}, #{lineId}, #{userId}, #{context}, #{praised}, #{forward}, #{createDate}, #{review}, #{lineSendId}, #{type});
+        branchId, lineId, userId, context, praised, createDate, review, lineSendId, type
+        ) VALUES (#{branchId}, #{lineId}, #{userId}, #{context}, #{praised}, #{createDate}, #{review}, #{lineSendId}, #{type});
     </insert>
 
     <resultMap id="map" type="moka.comment.to.CommentTo">
