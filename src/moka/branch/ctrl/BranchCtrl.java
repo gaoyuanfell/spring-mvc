@@ -69,7 +69,45 @@ public class BranchCtrl extends BasicController {
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
     public Object findPage(@RequestBody BranchVo branchVo) {
+        int userId = getUserSessionId();
+        branchVo.setUserId(userId);
         Page list = branchService.findPage(branchVo);
         return result(list);
+    }
+
+    /**
+     * 查 分页 lineId
+     *
+     * @return
+     */
+    @RequestMapping(value = "findPageOfLine.htm")
+    @ResponseBody
+    public Object findPageOfLine(@RequestBody BranchVo branchVo) {
+        int userId = getUserSessionId();
+        branchVo.setUserId(userId);
+        Page list = branchService.findPageOfLine(branchVo);
+        return result(list);
+    }
+
+    /**
+     * 点赞+
+     * {
+     * "id": 1
+     * }
+     */
+    @RequestMapping(value = "addPraised.htm")
+    @ResponseBody
+    public Object addPraised(@RequestBody BranchVo branchVo) {
+        int userId = getUserSessionId();
+        if (branchVo.getId() != 0 && userId != 0) {
+            branchVo.setUserId(userId);
+            int i = branchService.addPraised(branchVo);
+            if (!branchVo.isOperationType()) {
+                return result();
+            }
+            return result(true);
+        } else {
+            return result(CODE_PROMPT, "id不能为空");
+        }
     }
 }

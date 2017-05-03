@@ -14,4 +14,10 @@ public interface BranchService extends BasicService {
     BranchTo findOne(Integer id);
 
     Page findPage(BranchVo branchVo);
+
+    Page findPageOfLine(BranchVo branchVo);
+
+    int addPraised(BranchVo branchVo);
+
+    int addReview(BranchVo branchVo);
 }

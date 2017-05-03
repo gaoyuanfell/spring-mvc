@@ -7,11 +7,15 @@ import moka.comment.to.CommentTo;
 import moka.comment.vo.CommentVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by moka on 2017/4/6 0006.
  */
 @Repository("commentDao")
 public interface CommentDao extends BasicDao<Comment, CommentTo> {
+
+    List<CommentTo> findPageOfType(CommentVo commentVo);
 
     int addPraised(CommentVo commentVo);
 

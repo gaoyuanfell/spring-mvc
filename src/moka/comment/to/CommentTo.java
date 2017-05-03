@@ -33,9 +33,18 @@ public class CommentTo implements Serializable {
     private Date createDate;
     private Date updateDate;
     private int state;
+    private int type;
 
     private int isPraised;//指定用户是否点赞
     private int isForward;//指定用户是否分享
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;

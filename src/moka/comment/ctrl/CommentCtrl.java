@@ -29,19 +29,20 @@ public class CommentCtrl extends BasicController {
      * @return 主线路参数 {
      * "context": "测试评论",
      * "lineId": "1",
-     * "lineSendId": "1",
+     * "type": "1"
      * }
      */
     @RequestMapping(value = "insert.htm")
     @ResponseBody
     public Object insert(@RequestBody CommentVo commentVo) {
         int userId = getUserSessionId();
-        if (userId != 0) {
+        int type = commentVo.getType();
+        if (userId != 0 && type != 0) {
             commentVo.setUserId(userId);
             int i = commentService.insert(commentVo);
             return result(i);
         } else {
-            return result(CODE_PROMPT, "没有登录");
+            return result(CODE_PROMPT, "参数错误");
         }
     }
 
@@ -73,6 +74,20 @@ public class CommentCtrl extends BasicController {
         UserTo userTo = getUserSession();
         commentVo.setUserId(userTo.getId());
         Page list = commentService.findPage(commentVo);
+        return result(list);
+    }
+
+    /**
+     * 查 分页 type
+     *
+     * @return
+     */
+    @RequestMapping(value = "findPageOfType.htm")
+    @ResponseBody
+    public Object findPageOfType(@RequestBody CommentVo commentVo) {
+        UserTo userTo = getUserSession();
+        commentVo.setUserId(userTo.getId());
+        Page list = commentService.findPageOfType(commentVo);
         return result(list);
     }
 

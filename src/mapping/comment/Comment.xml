@@ -6,8 +6,8 @@
 
     <insert id="insert" parameterType="moka.comment.bo.Comment" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.comment(
-        branchId, lineId, userId, context, praised, forward, createDate, review, lineSendId
-        ) VALUES (#{branchId}, #{lineId}, #{userId}, #{context}, #{praised}, #{forward}, #{createDate}, #{review}, #{lineSendId});
+        branchId, lineId, userId, context, praised, forward, createDate, review, lineSendId, type
+        ) VALUES (#{branchId}, #{lineId}, #{userId}, #{context}, #{praised}, #{forward}, #{createDate}, #{review}, #{lineSendId}, #{type});
     </insert>
 
     <resultMap id="map" type="moka.comment.to.CommentTo">
@@ -28,29 +28,39 @@
         SELECT COUNT(id) FROM moka.comment;
     </select>
 
-    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
+    <select id="findPageOfType" parameterType="moka.basic.page.Page" resultMap="map">
         SELECT
         c.* ,
         ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 3) AS isPraised,
         ( SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE 1 = 1 AND cr.commentId = c.id AND cr.userId = #{userId} AND cr.comType = 3 AND cr.type = 3) AS isForward
         FROM moka.comment c
-        WHERE 1 = 1
-        <if test="branchId != 0">
-            AND c.branchId = #{branchId}
+        WHERE
+        <if test="type == 0">
+            1 = 2
         </if>
-        <if test="lineId != 0">
-            AND c.lineId = #{lineId}
+        <if test="type == 1">
+            c.lineId = #{lineId}
+            AND c.type = 1
         </if>
-        <if test="lineSendId != 0">
-            AND c.lineSendId = #{lineSendId}
+        <if test="type == 2">
+            c.lineSendId = #{lineSendId}
+            AND c.type = 2
+        </if>
+        <if test="type == 3">
+            c.branchId = #{branchId}
+            AND c.type = 3
         </if>
         LIMIT #{pageStart} , #{pageSize};
     </select>
 
+    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
+        SELECT * FROM moka.comment LIMIT #{pageStart} , #{pageSize};
+    </select>
+
     <insert id="insertCommentRelation" parameterType="moka.comment.bo.CommentRelation" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.commentrelation(
-        userId, lineId, commentId, comType, lineSendId, type, replyId
-        ) VALUES (#{userId}, #{lineId}, #{commentId}, #{comType}, #{lineSendId}, #{type}, #{replyId});
+        type, userId, lineSendId, lineId, commentId, comType, branchId, replyId
+        ) VALUES (#{type}, #{userId}, #{lineSendId}, #{lineId}, #{commentId}, #{comType}, #{branchId}, #{replyId});
     </insert>
 
     <delete id="removeCommentRelation" parameterType="moka.comment.bo.CommentRelation">
@@ -74,6 +84,10 @@
             AND replyId = #{replyId}
             AND type = 4
         </if>
+        <if test="type == 5">
+            AND branchId = #{branchId}
+            AND type = 5
+        </if>
         <if test="type == 0">
             AND 1 = 2
         </if>
@@ -86,19 +100,23 @@
         AND cr.userId = #{userId}
         <if test="type == 1">
             AND cr.lineId = #{lineId}
-            AND type = 1
+            AND cr.type = 1
         </if>
         <if test="type == 2">
             AND cr.lineSendId = #{lineSendId}
-            AND type = 2
+            AND cr.type = 2
         </if>
         <if test="type == 3">
             AND cr.commentId = #{commentId}
-            AND type = 3
+            AND cr.type = 3
         </if>
         <if test="type == 4">
             AND cr.replyId = #{replyId}
-            AND type = 4
+            AND cr.type = 4
+        </if>
+        <if test="type == 5">
+            AND cr.branchId = #{branchId}
+            AND cr.type = 5
         </if>
         <if test="type == 0">
             AND 1 = 2

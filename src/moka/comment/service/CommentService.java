@@ -16,6 +16,8 @@ public interface CommentService extends BasicService {
 
     Page findPage(CommentVo commentVo);
 
+    Page findPageOfType(CommentVo commentVo);
+
     int addPraised(CommentVo commentVo);
 
     int addReview(CommentVo commentVo);

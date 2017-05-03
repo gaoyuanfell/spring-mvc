@@ -30,6 +30,17 @@ public class BranchVo extends Page {
     private String lat;
     private int scope;
 
+    //运算类型 为true 减法 默认加法
+    private boolean operationType;
+
+    public boolean isOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(boolean operationType) {
+        this.operationType = operationType;
+    }
+
     public int getId() {
         return id;
     }

@@ -32,9 +32,18 @@ public class CommentVo extends Page {
     private Date createDate;
     private Date updateDate;
     private int state;
+    private int type;
 
     //运算类型 为true 减法 默认加法
     private boolean operationType;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public boolean isOperationType() {
         return operationType;

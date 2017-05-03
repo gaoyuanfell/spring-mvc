@@ -20,6 +20,15 @@ public class Comment extends IdEntity {
     private int praised;
     private int review;
     private int forward;
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getLineSendId() {
         return lineSendId;

@@ -18,6 +18,15 @@ public class CommentRelation extends IdEntity {
     private int lineSendId;
     private int replyId;
     private int commentId;
+    private int branchId;
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
 
     public int getReplyId() {
         return replyId;

@@ -2,6 +2,9 @@ package moka.comment.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
+import moka.branch.service.BranchService;
+import moka.branch.to.BranchTo;
+import moka.branch.vo.BranchVo;
 import moka.comment.bo.Comment;
 import moka.comment.bo.CommentRelation;
 import moka.comment.dao.CommentDao;
@@ -32,22 +35,35 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
     @Resource
     private LineSendService lineSendService;
     @Resource
-    private ReplyService replyService;
+    private BranchService branchService;
 
     @Override
     public int insert(CommentVo commentVo) {
         Comment comment = this.convertBusinessValue(commentVo, Comment.class);
         comment.setCreateDate(new Date());
         commentDao.insert(comment);
-        if(commentVo.getLineId() != 0){
-            LineVo lineVo = new LineVo();
-            lineVo.setId(commentVo.getLineId());
-            lineService.addReview(lineVo);
-        }
-        if(commentVo.getLineSendId() != 0){
-            LineSendVo lineSendVo = new LineSendVo();
-            lineSendVo.setId(commentVo.getLineSendId());
-            lineSendService.addReview(lineSendVo);
+        switch (commentVo.getType()){
+            case 1:
+                if(commentVo.getLineId() != 0){
+                    LineVo lineVo = new LineVo();
+                    lineVo.setId(commentVo.getLineId());
+                    lineService.addReview(lineVo);
+                }
+                break;
+            case 2:
+                if(commentVo.getLineSendId() != 0){
+                    LineSendVo lineSendVo = new LineSendVo();
+                    lineSendVo.setId(commentVo.getLineSendId());
+                    lineSendService.addReview(lineSendVo);
+                }
+                break;
+            case 3:
+                if(commentVo.getBranchId() != 0){
+                    BranchVo branchVo = new BranchVo();
+                    branchVo.setId(commentVo.getBranchId());
+                    branchService.addReview(branchVo);
+                }
+                break;
         }
         return comment.getId();
     }
@@ -59,7 +75,17 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
 
     @Override
     public Page findPage(CommentVo commentVo) {
-        List<CommentTo> list = commentDao.findPage(commentVo);
+        List list = commentDao.findPage(commentVo);
+        int totalCount = commentDao.findCount();
+        return new Page(totalCount, list);
+    }
+
+    @Override
+    public Page findPageOfType(CommentVo commentVo) {
+        List list = null;
+        if(commentVo.getType() != 0){
+            list = commentDao.findPageOfType(commentVo);
+        }
         int totalCount = commentDao.findCount();
         return new Page(totalCount, list);
     }

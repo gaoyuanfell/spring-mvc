@@ -6,13 +6,12 @@
 
     <insert id="insert" parameterType="moka.branch.bo.Branch" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.branch(
-        lineId, title, introduce, url, lng, lat, createDate, scope, userId, updateDate, state
-        ) VALUES (#{lineId}, #{title}, #{introduce}, #{url}, #{lng}, #{lat}, #{createDate}, #{scope}, #{userId}, #{updateDate}, #{state});
+        lineId, userId, title, introduce, url, lng, lat, scope, createDate, updateDate, state, praised, review, privacy
+        ) VALUES (#{lineId}, #{userId}, #{title}, #{introduce}, #{url}, #{lng}, #{lat}, #{scope}, #{createDate}, #{updateDate}, #{state}, #{praised}, #{review}, #{privacy});
     </insert>
 
     <resultMap id="map" type="moka.branch.to.BranchTo">
         <id property="id" column="id"/>
-        <association property="line" javaType="moka.branch.to.BranchTo" column="lineId" select="moka.branch.dao.BranchDao.findOne"/>
     </resultMap>
 
     <select id="findOne" parameterType="Integer" resultType="moka.branch.to.BranchTo">
@@ -28,7 +27,28 @@
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT * FROM moka.branch WHERE lineId = #{lineId}  LIMIT #{pageStart} , #{pageSize};
+        SELECT * FROM moka.branch WHERE 1 = 1 LIMIT #{pageStart} , #{pageSize};
     </select>
+
+    <select id="findPageOfLine" parameterType="moka.basic.page.Page" resultMap="map">
+        SELECT b.*,
+        (SELECT COUNT(cr.id) FROM moka.commentrelation cr WHERE cr.branchId = b.id AND cr.userId = #{userId} AND cr.comType = 1 AND cr.type = 5) AS isPraised
+        FROM moka.branch b
+        WHERE b.lineId = #{lineId}
+        LIMIT #{pageStart} , #{pageSize};
+    </select>
+
+    <update id="addReview" parameterType="moka.branch.vo.BranchVo">
+        UPDATE moka.branch SET branch.review = branch.review + 1 WHERE branch.id = #{id};
+    </update>
+
+    <update id="addPraised" parameterType="moka.branch.vo.BranchVo">
+        <if test="operationType">
+            UPDATE moka.branch SET branch.praised = branch.praised - 1 WHERE branch.id = #{id};
+        </if>
+        <if test="!operationType">
+            UPDATE moka.branch SET branch.praised = branch.praised + 1 WHERE branch.id = #{id};
+        </if>
+    </update>
 
 </mapper>
