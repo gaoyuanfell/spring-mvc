@@ -30,4 +30,9 @@ public class Util {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(new Date());
     }
+
+    public static String dateFormat(Date d){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(d);
+    }
 }

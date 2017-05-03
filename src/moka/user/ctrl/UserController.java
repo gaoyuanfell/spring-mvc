@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -138,15 +139,14 @@ public class UserController extends BasicController {
     /**
      * 退出
      * @param request
-     * @param userVo
      * @return
      */
-    @RequestMapping(value = "logout.htm")
+    @RequestMapping(value = "logout.htm",method = RequestMethod.GET)
     @ResponseBody
     @IgnoreSecurity
-    public Object logout(HttpServletRequest request, @RequestBody UserVo userVo) {
+    public Object logout(HttpServletRequest request) {
         String token = request.getHeader("X-Token");
-        Token t = new Token(userVo.getId(), token);
+        Token t = new Token(token);
         boolean b = deleteLoginSession(t);
         if (b)
             return result();

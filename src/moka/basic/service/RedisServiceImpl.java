@@ -97,10 +97,15 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public boolean deleteLoginSession(Token t) {
-        if(StringUtils.isEmpty(t.getKey()) || StringUtils.isEmpty(t.getToken())) return false;
-        if(!(hasKey(t.getKey()) && hasKey(t.getToken()))) return false;
-        delete(t.getKey());
-        delete(t.getToken());
-        return true;
+        UserTo user = this.getUserSession(t);
+        if(user != null){
+            String key = Integer.toString(user.getId());
+            String token = t.getToken();
+            if(StringUtils.isEmpty(key) || StringUtils.isEmpty(token)) return false;
+            delete(key);
+            delete(token);
+            return true;
+        }
+        return false;
     }
 }

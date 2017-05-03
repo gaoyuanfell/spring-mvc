@@ -25,6 +25,7 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
         Branch branch = this.convertBusinessValue(branchVo, Branch.class);
         branch.setCreateDate(new Date());
         branchDao.insert(branch);
+        //将临时图片移动到对应路径
         this.movePhoto(branchVo.getUrls());
         return branch.getId();
     }
