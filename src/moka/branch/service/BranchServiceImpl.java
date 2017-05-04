@@ -1,9 +1,13 @@
 package moka.branch.service;
 
+import moka.basic.image.Exif;
+import moka.basic.image.ExifInfo;
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
 import moka.branch.bo.Branch;
+import moka.branch.bo.Image;
 import moka.branch.dao.BranchDao;
+import moka.branch.dao.ImageDao;
 import moka.branch.to.BranchTo;
 import moka.branch.vo.BranchVo;
 import moka.comment.bo.CommentRelation;
@@ -12,6 +16,7 @@ import moka.comment.service.CommentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +29,8 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
     private BranchDao branchDao;
     @Resource
     private CommentDao commentDao;
+    @Resource
+    private ImageDao imageDao;
 
     @Override
     public int insert(BranchVo branchVo) {
@@ -31,7 +38,15 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
         branch.setCreateDate(new Date());
         branchDao.insert(branch);
         //将临时图片移动到对应路径
-        this.movePhoto(branchVo.getUrls());
+        ArrayList<Exif> photoPaths = this.movePhoto(branchVo.getUrls());
+        for (Exif e : photoPaths) {
+            //图片解析
+            Exif exif = ExifInfo.analysisImg(e);
+            Image image = this.convertBusinessValue(exif, Image.class);
+            image.setBranchId(branch.getId());
+            image.setCreateDate(new Date());
+            imageDao.insert(image);
+        }
         return branch.getId();
     }
 
@@ -50,7 +65,7 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
     @Override
     public Page findPageOfLine(BranchVo branchVo) {
         List list = null;
-        if(branchVo.getLineId() != 0){
+        if (branchVo.getLineId() != 0) {
             list = branchDao.findPageOfLine(branchVo);
         }
         int totalCount = branchDao.findCount();

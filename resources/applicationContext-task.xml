@@ -23,10 +23,13 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
 
-<bean id="taskJob" class="moka.basic.task.TaskJob"/>
+    <bean id="taskJob" class="moka.basic.task.TaskJob"/>
+
+    <task:scheduler id="taskScheduler" pool-size="100"/>
 
     <task:scheduled-tasks>
         <task:scheduled ref="taskJob" method="execute" cron="0 * * * * ?"/>
+        <task:scheduled ref="taskJob" method="deleteTmpPhoto" cron="0 5 18 * * ?"/>
     </task:scheduled-tasks>
 
 </beans>

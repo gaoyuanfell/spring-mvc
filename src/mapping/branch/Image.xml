@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moka.branch.dao.ImageDao">
+
+    <insert id="insert" parameterType="moka.branch.bo.Image" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO moka.image(
+        branchId, url, lng, lat, width, height, model, make, fileSize, fileName, scope, createDate, updateDate, state, time, path
+        ) VALUES (#{branchId}, #{url}, #{lng}, #{lat}, #{width}, #{height}, #{model}, #{make}, #{fileSize}, #{fileName}, #{scope}, #{createDate}, #{updateDate}, #{state}, #{time}, #{path});
+    </insert>
+
+    <resultMap id="map" type="moka.branch.to.ImageTo">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="findOne" parameterType="Integer" resultType="moka.branch.to.ImageTo">
+        SELECT * FROM moka.image WHERE id = #{id};
+    </select>
+
+    <select id="findList" parameterType="Integer" resultType="moka.branch.to.ImageTo">
+        SELECT * FROM moka.image WHERE branchId = #{branchId};
+    </select>
+
+    <select id="findOneAll" parameterType="Integer" resultMap="map">
+        SELECT * FROM moka.image WHERE id = #{id};
+    </select>
+
+    <select id="findCount" resultType="Integer">
+        SELECT COUNT(id) FROM moka.image;
+    </select>
+
+    <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
+        SELECT * FROM moka.image WHERE 1 = 1 LIMIT #{pageStart} , #{pageSize};
+    </select>
+
+</mapper>

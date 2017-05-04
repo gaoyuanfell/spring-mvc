@@ -28,6 +28,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Object handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         logger.info("400",e);
+        e.printStackTrace();
         return result(400,e);
     }
 
@@ -38,6 +39,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Object handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         logger.info("405",e);
+        e.printStackTrace();
         return result(405,e);
     }
 
@@ -48,6 +50,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public Object handleHttpMediaTypeNotSupportedException(Exception e) {
         logger.info("415",e);
+        e.printStackTrace();
         return result(415,e);
     }
 
@@ -58,6 +61,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e) {
         logger.debug("500",e);
+        e.printStackTrace();
         return result(500,e);
     }
 
