@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-05-03 23:12:28
+Date: 2017-05-04 18:58:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,12 +36,16 @@ CREATE TABLE `branch` (
   `privacy` int(11) DEFAULT NULL,
   `userId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='分支';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='分支';
 
 -- ----------------------------
 -- Records of branch
 -- ----------------------------
-INSERT INTO `branch` VALUES ('1', '1', '熊思思', '告白气球', 'http://127.0.0.1:8082/photo/2017-05-03/6dbcdfe2c8bb79e1f565f6e767962d92.jpg,http://127.0.0.1:8082/photo/2017-05-03/f95b1b246870798934113089d4119c39.jpg,http://127.0.0.1:8082/photo/2017-05-03/27e0e8ac64246a4fa728ed6071a17a47.jpg', null, null, '0', '2017-05-03 17:12:08', null, '0', '0', '0', '0', '1');
+INSERT INTO `branch` VALUES ('1', '1', '熊斯敏', '告白气球', 'http://127.0.0.1:8082/photo/2017-05-03/8558d464a83741550f903038cc1f777b.jpg,http://127.0.0.1:8082/photo/2017-05-03/c7c4c5ed27523840e50fe891be15581b.jpg,http://127.0.0.1:8082/photo/2017-05-03/f661a86262ee5a8d5b4e0dbbaaa114cb.jpg', null, null, '0', '2017-05-03 17:12:08', null, '0', '0', '0', '0', '1');
+INSERT INTO `branch` VALUES ('2', '1', '周杰伦', '周杰伦周杰伦', 'http://127.0.0.1:8082/photo/2017-05-04/371a00cf653bd8f42c1ad6734937b7f3.jpg,http://127.0.0.1:8082/photo/2017-05-04/ddda1a06bebabbac96e3e0deb92a33f0.jpg', null, null, '0', '2017-05-04 07:39:54', null, '0', '0', '0', '0', '1');
+INSERT INTO `branch` VALUES ('10', '1', '费玉清', '费玉清费玉清费玉清', 'http://127.0.0.1:8082/photo/2017-05-04/4beeef7d7e565809a21a504743a75ae4.jpg,http://127.0.0.1:8082/photo/2017-05-04/f9fe7952698178fc3e077cae6b3b14ce.jpg,http://127.0.0.1:8082/photo/2017-05-04/cc47f0b09ad9ff5102d6035248ab7d5.jpg', null, null, '0', '2017-05-04 07:58:31', null, '0', '0', '0', '0', '1');
+INSERT INTO `branch` VALUES ('17', '1', '周雨彤', '周雨彤', 'http://127.0.0.1:8082/photo/2017-05-04/a45bcaae7a2d324268247bfcf151ee1f.jpg', null, null, '0', '2017-05-04 09:56:47', null, '0', '1', '0', '0', '1');
+INSERT INTO `branch` VALUES ('18', '1', '告白气球', '亲爱的别任性 你的眼睛', 'http://127.0.0.1:8082/photo/2017-05-04/52f9782e9961e230313ed4b7370c189d.jpg,http://127.0.0.1:8082/photo/2017-05-04/d09e827d26fa696b42170cd00a8881b8.jpg,http://127.0.0.1:8082/photo/2017-05-04/9d37488ee96f1c48c5d53d8bb42491e2.jpg,http://127.0.0.1:8082/photo/2017-05-04/404299fac2f44c1a5a2c8b0e8e281698.jpg,http://127.0.0.1:8082/photo/2017-05-04/4b79c42a54cba349423546ace8cc463f.jpg,http://127.0.0.1:8082/photo/2017-05-04/69f4ca3b312f9e8fc5cdca93b022b736.jpg,http://127.0.0.1:8082/photo/2017-05-04/82a21eed99b3f5e7affce88e3f296212.jpg,http://127.0.0.1:8082/photo/2017-05-04/67b613e41db36a99fb664f89589f640a.jpg,http://127.0.0.1:8082/photo/2017-05-04/ff243e7d5ea21c606e79f110e4c7c922.jpg', null, null, '0', '2017-05-04 10:34:33', null, '0', '1', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for comment
@@ -85,11 +89,52 @@ CREATE TABLE `commentrelation` (
   `updateDate` datetime DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户线路评论';
 
 -- ----------------------------
 -- Records of commentrelation
 -- ----------------------------
+INSERT INTO `commentrelation` VALUES ('1', '5', '1', '0', '0', '17', '0', '0', '1', null, null, null);
+INSERT INTO `commentrelation` VALUES ('2', '5', '1', '0', '0', '18', '0', '0', '1', null, null, null);
+
+-- ----------------------------
+-- Table structure for image
+-- ----------------------------
+DROP TABLE IF EXISTS `image`;
+CREATE TABLE `image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `branchId` int(11) DEFAULT NULL COMMENT '分支id',
+  `url` varchar(1000) DEFAULT NULL COMMENT '线上地址',
+  `path` varchar(1000) DEFAULT NULL,
+  `lng` varchar(255) DEFAULT NULL COMMENT '经度',
+  `lat` varchar(255) DEFAULT NULL COMMENT '纬度',
+  `width` int(11) DEFAULT NULL COMMENT '图片宽',
+  `height` int(11) DEFAULT NULL COMMENT '图片高',
+  `model` varchar(255) DEFAULT NULL COMMENT '手机型号',
+  `make` varchar(255) DEFAULT NULL COMMENT '制造商',
+  `time` datetime DEFAULT NULL COMMENT '拍摄时间',
+  `fileSize` int(11) DEFAULT NULL COMMENT '文件大小',
+  `fileName` varchar(255) DEFAULT NULL COMMENT '文件名称',
+  `scope` int(11) DEFAULT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `updateDate` datetime DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of image
+-- ----------------------------
+INSERT INTO `image` VALUES ('6', '17', 'http://127.0.0.1:8082/photo/2017-05-04/a45bcaae7a2d324268247bfcf151ee1f.jpg', null, '121.25502', '31.11895', '4160', '3120', 'Smartisan T2', 'Smartisan', '2017-05-03 18:09:43', '6567157', 'a45bcaae7a2d324268247bfcf151ee1f.jpg', '0', '2017-05-04 09:56:47', null, '0');
+INSERT INTO `image` VALUES ('7', '18', 'http://127.0.0.1:8082/photo/2017-05-04/52f9782e9961e230313ed4b7370c189d.jpg', null, null, null, '700', '1243', null, null, null, '60153', '52f9782e9961e230313ed4b7370c189d.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('8', '18', 'http://127.0.0.1:8082/photo/2017-05-04/d09e827d26fa696b42170cd00a8881b8.jpg', null, null, null, '720', '1280', null, null, null, '126135', 'd09e827d26fa696b42170cd00a8881b8.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('9', '18', 'http://127.0.0.1:8082/photo/2017-05-04/9d37488ee96f1c48c5d53d8bb42491e2.jpg', null, null, null, '1080', '1920', null, null, null, '218814', '9d37488ee96f1c48c5d53d8bb42491e2.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('10', '18', 'http://127.0.0.1:8082/photo/2017-05-04/404299fac2f44c1a5a2c8b0e8e281698.jpg', null, null, null, '862', '1612', null, null, null, '125941', '404299fac2f44c1a5a2c8b0e8e281698.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('11', '18', 'http://127.0.0.1:8082/photo/2017-05-04/4b79c42a54cba349423546ace8cc463f.jpg', null, null, null, '700', '1244', null, null, null, '76113', '4b79c42a54cba349423546ace8cc463f.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('12', '18', 'http://127.0.0.1:8082/photo/2017-05-04/69f4ca3b312f9e8fc5cdca93b022b736.jpg', null, null, null, '700', '1167', null, null, null, '22746', '69f4ca3b312f9e8fc5cdca93b022b736.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('13', '18', 'http://127.0.0.1:8082/photo/2017-05-04/82a21eed99b3f5e7affce88e3f296212.jpg', null, null, null, '700', '1243', null, null, null, '61565', '82a21eed99b3f5e7affce88e3f296212.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('14', '18', 'http://127.0.0.1:8082/photo/2017-05-04/67b613e41db36a99fb664f89589f640a.jpg', null, null, null, '710', '1262', null, null, null, '42480', '67b613e41db36a99fb664f89589f640a.jpg', '0', '2017-05-04 10:34:33', null, '0');
+INSERT INTO `image` VALUES ('15', '18', 'http://127.0.0.1:8082/photo/2017-05-04/ff243e7d5ea21c606e79f110e4c7c922.jpg', null, null, null, '279', '419', null, null, null, '12722', 'ff243e7d5ea21c606e79f110e4c7c922.jpg', '0', '2017-05-04 10:34:33', null, '0');
 
 -- ----------------------------
 -- Table structure for line
