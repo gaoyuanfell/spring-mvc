@@ -29,7 +29,7 @@
 
     <task:scheduled-tasks>
         <task:scheduled ref="taskJob" method="execute" cron="0 * * * * ?"/>
-        <task:scheduled ref="taskJob" method="deleteTmpPhoto" cron="0 5 18 * * ?"/>
+        <task:scheduled ref="taskJob" method="deleteTmpPhoto" cron="59 59 23 * * ?"/>
     </task:scheduled-tasks>
 
 </beans>
