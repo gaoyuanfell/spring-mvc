@@ -2,6 +2,9 @@ package moka.line.service;
 
 import moka.basic.page.Page;
 import moka.basic.service.BasicServiceImpl;
+import moka.branch.dao.BranchDao;
+import moka.branch.to.BranchTo;
+import moka.branch.vo.BranchVo;
 import moka.comment.bo.CommentRelation;
 import moka.comment.dao.CommentDao;
 import moka.line.bo.Line;
@@ -23,6 +26,8 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     private LineDao lineDao;
     @Resource
     private CommentDao commentDao;
+    @Resource
+    private BranchDao branchDao;
 
     @Override
     public int insert(LineVo lineVo) {
@@ -45,6 +50,19 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     @Override
     public Page findPage(LineVo lineVo) {
         List<LineTo> list = lineDao.findPage(lineVo);
+        int totalCount = lineDao.findCount();
+        return new Page(totalCount, list);
+    }
+
+    @Override
+    public Page findPageAllDate(LineVo lineVo) {
+        List<LineTo> list = lineDao.findPage(lineVo);
+        for (LineTo l : list){
+            BranchVo branchVo = new BranchVo();
+            branchVo.setLineId(l.getId());
+            List<BranchTo> branchTo = branchDao.findPage(branchVo);
+            l.setBranch(branchTo);
+        }
         int totalCount = lineDao.findCount();
         return new Page(totalCount, list);
     }

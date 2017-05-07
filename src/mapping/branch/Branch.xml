@@ -21,13 +21,21 @@
     <select id="findOneAll" parameterType="Integer" resultMap="map">
         SELECT * FROM moka.branch WHERE id = #{id};
     </select>
-    
+
     <select id="findCount" resultType="Integer">
         SELECT COUNT(id) FROM moka.branch;
     </select>
 
     <select id="findPage" parameterType="moka.basic.page.Page" resultMap="map">
-        SELECT * FROM moka.branch WHERE 1 = 1 LIMIT #{pageStart} , #{pageSize};
+        SELECT * FROM moka.branch WHERE 1 = 1
+        <if test="lineId != 0">
+            AND lineId = #{lineId}
+        </if>
+        LIMIT #{pageStart} , #{pageSize};
+    </select>
+
+    <select id="findList" parameterType="moka.basic.page.Page" resultMap="map">
+        SELECT * FROM moka.branch WHERE lineId = #{lineId} LIMIT 0,10;
     </select>
 
     <select id="findPageOfLine" parameterType="moka.basic.page.Page" resultMap="map">

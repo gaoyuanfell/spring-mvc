@@ -1,5 +1,6 @@
 package moka.line.ctrl;
 
+import moka.basic.annotation.IgnoreSecurity;
 import moka.basic.ctrl.BasicController;
 import moka.basic.page.Page;
 import moka.line.service.LineService;
@@ -86,10 +87,26 @@ public class LineCtrl extends BasicController {
      */
     @RequestMapping(value = "findPage.htm")
     @ResponseBody
+    @IgnoreSecurity
     public Object findPage(@RequestBody LineVo lineVo) {
-        UserTo userTo = getUserSession();
-        lineVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        lineVo.setUserId(userId);
         Page list = lineService.findPage(lineVo);
+        return result(list);
+    }
+
+    /**
+     * 查 分页 包含分支、评论、等数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "findPageAllDate.htm")
+    @ResponseBody
+    @IgnoreSecurity
+    public Object findPageAllDate(@RequestBody LineVo lineVo) {
+        int userId = getUserSessionId();
+        lineVo.setUserId(userId);
+        Page list = lineService.findPageAllDate(lineVo);
         return result(list);
     }
 

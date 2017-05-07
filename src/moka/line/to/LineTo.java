@@ -1,9 +1,11 @@
 package moka.line.to;
 
+import moka.branch.to.BranchTo;
 import moka.user.to.UserTo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by moka on 2017/4/6 0006.
@@ -21,6 +23,7 @@ public class LineTo implements Serializable {
     private Date createDate;
     private Date updateDate;
     private int state;
+    private List<BranchTo> branch;
 
     private int isPraised;//指定用户是否点赞
     private int isForward;//指定用户是否分享
@@ -28,6 +31,14 @@ public class LineTo implements Serializable {
     //合并线路转发的字段
     private int lineId;
     private String context;
+
+    public List<BranchTo> getBranch() {
+        return branch;
+    }
+
+    public void setBranch(List<BranchTo> branch) {
+        this.branch = branch;
+    }
 
     public int getLineId() {
         return lineId;

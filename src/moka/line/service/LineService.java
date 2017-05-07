@@ -17,6 +17,8 @@ public interface LineService extends BasicService {
 
     Page findPage(LineVo lineVo);
 
+    Page findPageAllDate(LineVo lineVo);
+
     int addPraised(LineVo lineVo);
 
     int addReview(LineVo lineVo);
