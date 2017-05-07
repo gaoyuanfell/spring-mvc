@@ -2,10 +2,12 @@ package moka.branch.to;
 
 import moka.line.to.LineTo;
 import moka.user.to.UserTo;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by moka on 2017/4/6 0006.
@@ -25,10 +27,46 @@ public class BranchTo implements Serializable {
     private int praised;
     private int review;
     private String url;
+    private String wh;
     private String[] urls;
+    private String[] whs;
     private String lng;
     private String lat;
     private int scope;
+    private List<Img> imgs = new ArrayList<>();
+
+    public List<Img> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<Img> imgs) {
+        this.imgs = imgs;
+    }
+
+    public String[] getWhs() {
+        return whs;
+    }
+
+    public void setWhs(String[] whs) {
+        this.whs = whs;
+    }
+
+    public String getWh() {
+        return wh;
+    }
+
+    public void setWh(String wh) {
+        if(!StringUtils.isEmpty(wh) && !StringUtils.isEmpty(this.getUrl())){
+            String[] whs = wh.split(",");
+            String[] urls = this.getUrl().split(",");
+
+            for (int a = 0; a < urls.length; a++){
+                String[] w = whs[a].split("\\*");
+                imgs.add(new Img(urls[a],w[0],w[1]));
+            }
+        }
+        this.wh = wh;
+    }
 
     private int isPraised;//指定用户是否点赞
 
@@ -149,8 +187,17 @@ public class BranchTo implements Serializable {
     }
 
     public void setUrl(String url) {
-        if(!StringUtils.isEmpty(url)){
-            this.setUrls(url.split(","));
+//        if (!StringUtils.isEmpty(url)) {
+//            this.setUrls(url.split(","));
+//        }
+        if(!StringUtils.isEmpty(url) && !StringUtils.isEmpty(this.getWh())){
+            String[] whs = this.getWh().split(",");
+            String[] urls = url.split(",");
+
+            for (int a = 0; a < urls.length; a++){
+                String[] w = whs[a].split("\\*");
+                imgs.add(new Img(urls[a],w[0],w[1]));
+            }
         }
         this.url = url;
     }

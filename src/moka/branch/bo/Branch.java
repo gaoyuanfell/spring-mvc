@@ -20,9 +20,18 @@ public class Branch extends IdEntity {
     private int praised;
     private int review;
     private String url;
+    private String wh;
     private String lng;
     private String lat;
     private int scope;
+
+    public String getWh() {
+        return wh;
+    }
+
+    public void setWh(String wh) {
+        this.wh = wh;
+    }
 
     public int getLineId() {
         return lineId;

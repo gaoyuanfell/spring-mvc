@@ -12,7 +12,7 @@ import moka.branch.to.BranchTo;
 import moka.branch.vo.BranchVo;
 import moka.comment.bo.CommentRelation;
 import moka.comment.dao.CommentDao;
-import moka.comment.service.CommentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,19 +34,30 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
 
     @Override
     public int insert(BranchVo branchVo) {
-        Branch branch = this.convertBusinessValue(branchVo, Branch.class);
-        branch.setCreateDate(new Date());
-        branchDao.insert(branch);
+        List<Image> images = new ArrayList<>();
+        List<String> whs = new ArrayList<>();
         //将临时图片移动到对应路径
         ArrayList<Exif> photoPaths = this.movePhoto(branchVo.getUrls());
         for (Exif e : photoPaths) {
             //图片解析
             Exif exif = ExifInfo.analysisImg(e);
+
+            whs.add(exif.getWidth().toString() + "*" + exif.getHeight().toString());
+
             Image image = this.convertBusinessValue(exif, Image.class);
-            image.setBranchId(branch.getId());
             image.setCreateDate(new Date());
-            imageDao.insert(image);
+            images.add(image);
         }
+        Branch branch = this.convertBusinessValue(branchVo, Branch.class);
+        branch.setCreateDate(new Date());
+        branch.setWh(StringUtils.join(whs,","));
+        branchDao.insert(branch);
+
+        for (Image m : images){
+            m.setBranchId(branch.getId());
+            imageDao.insert(m);
+        }
+
         return branch.getId();
     }
 

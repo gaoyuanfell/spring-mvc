@@ -6,8 +6,8 @@
 
     <insert id="insert" parameterType="moka.branch.bo.Branch" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO moka.branch(
-        lineId, userId, title, introduce, url, lng, lat, scope, createDate, updateDate, state, praised, review, privacy
-        ) VALUES (#{lineId}, #{userId}, #{title}, #{introduce}, #{url}, #{lng}, #{lat}, #{scope}, #{createDate}, #{updateDate}, #{state}, #{praised}, #{review}, #{privacy});
+        lineId, userId, title, introduce, url, wh, lng, lat, scope, createDate, updateDate, state, praised, review, privacy
+        ) VALUES (#{lineId}, #{userId}, #{title}, #{introduce}, #{url}, #{wh}, #{lng}, #{lat}, #{scope}, #{createDate}, #{updateDate}, #{state}, #{praised}, #{review}, #{privacy});
     </insert>
 
     <resultMap id="map" type="moka.branch.to.BranchTo">
