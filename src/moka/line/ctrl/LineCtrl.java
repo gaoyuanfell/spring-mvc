@@ -24,8 +24,6 @@ import javax.annotation.Resource;
 public class LineCtrl extends BasicController {
     @Resource
     private LineService lineService;
-    @Resource
-    private LineSendService lineSendService;
 
     /**
      * 增
@@ -36,9 +34,9 @@ public class LineCtrl extends BasicController {
     @RequestMapping(value = "insert.htm")
     @ResponseBody
     public Object insert(@RequestBody LineVo lineVo) {
-        UserTo userTo = getUserSession();
-        if (userTo != null) {
-            lineVo.setUserId(userTo.getId());
+        int userId = getUserSessionId();
+        if (userId != 0) {
+            lineVo.setUserId(userId);
             int i = lineService.insert(lineVo);
             return result(i);
         } else {
