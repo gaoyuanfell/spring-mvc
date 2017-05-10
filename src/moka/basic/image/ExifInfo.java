@@ -6,9 +6,10 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
 import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 获取图片EXIF信息
@@ -24,82 +25,101 @@ public class ExifInfo {
         return s5.toString();
     }
 
-    public static Exif analysisImg(Exif exif) {
+    public static Exif getImgExif(Exif exif, Metadata metadata) throws ParseException {
         String reg = "°|'|\"";
-        try {
-            File file = new File(exif.getFilePath());
-            Metadata metadata = ImageMetadataReader.readMetadata(file);
-            for (Directory directory : metadata.getDirectories()) {
+        for (Directory directory : metadata.getDirectories()) {
 
-                if (directory.getName().equals("Exif IFD0")) {
-                    for (Tag tag : directory.getTags()) {
-                        String value = tag.getDescription();
-                        switch (tag.getTagName()) {
-                            case "Model":
-                                exif.setModel(value);
-                                break;
-                            case "Make":
-                                exif.setMake(value);
-                                break;
-                            case "Date/Time":
-                                exif.setTime(new SimpleDateFormat("yyyy:MM:dd HH:mm:ss").parse(value));
-                                break;
-                        }
-                    }
-                }
-
-                if (directory.getName().equals("GPS")) {
-                    for (Tag tag : directory.getTags()) {
-                        String value = tag.getDescription();
-                        switch (tag.getTagName()) {
-                            case "GPS Longitude":
-                                exif.setLongitude(value);
-                                value = value.replaceAll(reg, "");
-                                String[] s1 = value.split(" ");
-                                exif.setLng(getLngLat(s1));
-                                break;
-                            case "GPS Latitude":
-                                exif.setLatitude(value);
-                                value = value.replaceAll(reg, "");
-                                String[] s2 = value.split(" ");
-                                exif.setLat(getLngLat(s2));
-                                break;
-                        }
-                    }
-                }
-
-                if (directory.getName().equals("File")) {
-                    for (Tag tag : directory.getTags()) {
-                        String value = tag.getDescription();
-                        switch (tag.getTagName()) {
-                            case "File Name":
-                                exif.setFileName(value);
-                                break;
-                            case "File Size":
-                                exif.setFileSize(Integer.valueOf(value.split(" ")[0]));
-                                break;
-                        }
-                    }
-                }
-
-                if (directory.getName().equals("JPEG") || directory.getName().equals("PNG-IHDR")) {
-                    for (Tag tag : directory.getTags()) {
-                        String value = tag.getDescription();
-                        switch (tag.getTagName()) {
-                            case "Image Height":
-                                exif.setHeight(Integer.valueOf(value.split(" ")[0]));
-                                break;
-                            case "Image Width":
-                                exif.setWidth(Integer.valueOf(value.split(" ")[0]));
-                                break;
-                        }
+            if (directory.getName().equals("Exif IFD0")) {
+                for (Tag tag : directory.getTags()) {
+                    String value = tag.getDescription();
+                    switch (tag.getTagName()) {
+                        case "Model":
+                            exif.setModel(value);
+                            break;
+                        case "Make":
+                            exif.setMake(value);
+                            break;
+                        case "Date/Time":
+                            exif.setTime(new SimpleDateFormat("yyyy:MM:dd HH:mm:ss").parse(value));
+                            break;
                     }
                 }
             }
-            return exif;
+
+            if (directory.getName().equals("GPS")) {
+                for (Tag tag : directory.getTags()) {
+                    String value = tag.getDescription();
+                    switch (tag.getTagName()) {
+                        case "GPS Longitude":
+                            exif.setLongitude(value);
+                            value = value.replaceAll(reg, "");
+                            String[] s1 = value.split(" ");
+                            exif.setLng(getLngLat(s1));
+                            break;
+                        case "GPS Latitude":
+                            exif.setLatitude(value);
+                            value = value.replaceAll(reg, "");
+                            String[] s2 = value.split(" ");
+                            exif.setLat(getLngLat(s2));
+                            break;
+                    }
+                }
+            }
+
+            if (directory.getName().equals("File")) {
+                for (Tag tag : directory.getTags()) {
+                    String value = tag.getDescription();
+                    switch (tag.getTagName()) {
+                        case "File Name":
+                            exif.setFileName(value);
+                            break;
+                        case "File Size":
+                            exif.setFileSize(Integer.valueOf(value.split(" ")[0]));
+                            break;
+                    }
+                }
+            }
+
+            if (directory.getName().equals("JPEG") || directory.getName().equals("PNG-IHDR")) {
+                for (Tag tag : directory.getTags()) {
+                    String value = tag.getDescription();
+                    switch (tag.getTagName()) {
+                        case "Image Height":
+                            exif.setHeight(Integer.valueOf(value.split(" ")[0]));
+                            break;
+                        case "Image Width":
+                            exif.setWidth(Integer.valueOf(value.split(" ")[0]));
+                            break;
+                    }
+                }
+            }
+        }
+        return exif;
+    }
+
+
+    public static Exif readMetadata(Exif exif, File file) {
+        try {
+            Metadata metadata = ImageMetadataReader.readMetadata(file);
+            return ExifInfo.getImgExif(exif,metadata);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Exif readMetadata(Exif exif, InputStream inputStream) {
+        try {
+            Metadata metadata = ImageMetadataReader.readMetadata(inputStream);
+            return ExifInfo.getImgExif(exif,metadata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Exif analysisImg(Exif exif) {
+        File file = new File(exif.getFilePath());
+        return ExifInfo.readMetadata(exif, file);
     }
 }
