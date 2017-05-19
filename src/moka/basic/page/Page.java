@@ -20,8 +20,9 @@ public class Page<T> extends Basic {
     public Page() {
     }
 
-    public Page(int totalCount, List list) {
+    public Page(int pageSize,int totalCount, List list) {
         this.setList(list);
+        this.setPageSize(pageSize);
         this.setTotalCount(totalCount);
     }
 
@@ -85,7 +86,7 @@ public class Page<T> extends Basic {
         return list;
     }
 
-    public void setList(List list) {
+    public void setList(List<T> list) {
         this.list = list;
     }
 }

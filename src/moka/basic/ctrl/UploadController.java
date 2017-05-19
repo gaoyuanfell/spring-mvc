@@ -74,7 +74,7 @@ public class UploadController extends BasicController {
      * @param m
      * @return
      */
-    public String getFilePrefix(MultipartFile m) {
+    public static String getFilePrefix(MultipartFile m) {
         String fileName = m.getOriginalFilename();
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }

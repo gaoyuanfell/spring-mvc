@@ -77,7 +77,7 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
     public Page findPage(CommentVo commentVo) {
         List list = commentDao.findPage(commentVo);
         int totalCount = commentDao.findCount();
-        return new Page(totalCount, list);
+        return new Page(commentVo.getPageSize(),totalCount, list);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class CommentServiceImpl extends BasicServiceImpl implements CommentServi
             list = commentDao.findPageOfType(commentVo);
         }
         int totalCount = commentDao.findCount();
-        return new Page(totalCount, list);
+        return new Page(commentVo.getPageSize(),totalCount, list);
     }
 
     @Override

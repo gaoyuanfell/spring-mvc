@@ -45,7 +45,7 @@ public class ReplyServiceImpl extends BasicServiceImpl implements ReplyService {
     public Page findPage(ReplyVo replyVo) {
         List list = replyDao.findPage(replyVo);
         int totalCount = replyDao.findCount();
-        return new Page(totalCount,list);
+        return new Page(replyVo.getPageSize(),totalCount,list);
     }
     @Override
     public Page findOfComPage(ReplyVo replyVo) {
@@ -54,7 +54,7 @@ public class ReplyServiceImpl extends BasicServiceImpl implements ReplyService {
             list = replyDao.findPage(replyVo);
         }
         int totalCount = replyDao.findCount();
-        return new Page(totalCount,list);
+        return new Page(replyVo.getPageSize(),totalCount,list);
     }
 
     @Override

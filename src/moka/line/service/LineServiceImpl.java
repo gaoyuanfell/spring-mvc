@@ -51,7 +51,7 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
     public Page findPage(LineVo lineVo) {
         List<LineTo> list = lineDao.findPage(lineVo);
         int totalCount = lineDao.findCount();
-        return new Page(totalCount, list);
+        return new Page(lineVo.getPageSize(),totalCount, list);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class LineServiceImpl extends BasicServiceImpl implements LineService {
             l.setBranch(branchTo);
         }
         int totalCount = lineDao.findCount();
-        return new Page(totalCount, list);
+        return new Page(lineVo.getPageSize(),totalCount, list);
     }
 
     @Override

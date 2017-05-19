@@ -81,7 +81,7 @@ public class LineSendServiceImpl extends BasicServiceImpl implements LineSendSer
     public Page findPage(LineSendVo lineSendVo) {
         List list = lineSendDao.findPage(lineSendVo);
         int totalCount = lineSendDao.findCount();
-        return new Page(totalCount, list);
+        return new Page(lineSendVo.getPageSize(),totalCount, list);
     }
 
     @Override

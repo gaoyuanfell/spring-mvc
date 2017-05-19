@@ -70,7 +70,7 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
     public Page findPage(BranchVo branchVo) {
         List list = branchDao.findPage(branchVo);
         int totalCount = branchDao.findCount();
-        return new Page(totalCount, list);
+        return new Page(branchVo.getPageSize(),totalCount, list);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class BranchServiceImpl extends BasicServiceImpl implements BranchService
             list = branchDao.findPageOfLine(branchVo);
         }
         int totalCount = branchDao.findCount();
-        return new Page(totalCount, list);
+        return new Page(branchVo.getPageSize(),totalCount, list);
     }
 
     @Override
