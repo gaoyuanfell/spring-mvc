@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -47,13 +48,13 @@ public class LineCtrl extends BasicController {
     /**
      * 查one
      *
-     * @param lineVo
+     * @param id
      */
     @RequestMapping(value = "findOne.htm")
     @ResponseBody
-    public Object findOne(@RequestBody LineVo lineVo) {
-        if (!StringUtils.isEmpty(lineVo.getId())) {
-            LineTo lineTo = lineService.findOne(lineVo.getId());
+    public Object findOne(@RequestParam("id") int id) {
+        if (!StringUtils.isEmpty(id)) {
+            LineTo lineTo = lineService.findOne(id);
             return result(lineTo);
         } else {
             return result(CODE_PROMPT, "id不能为空");
@@ -63,13 +64,15 @@ public class LineCtrl extends BasicController {
     /**
      * 查one 带有用户操作情况
      *
-     * @param lineVo
+     * @param id
      */
     @RequestMapping(value = "findOneOfUser.htm")
     @ResponseBody
-    public Object findOneOfUser(@RequestBody LineVo lineVo) {
+    public Object findOneOfUser(@RequestParam("id") int id) {
         int userId = getUserSessionId();
-        if (lineVo.getId() != 0 && userId != 0) {
+        if (id != 0 && userId != 0) {
+            LineVo lineVo = new LineVo();
+            lineVo.setId(id);
             lineVo.setUserId(userId);
             LineTo lineTo = lineService.findOneOfUser(lineVo);
             return result(lineTo);
