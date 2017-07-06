@@ -23,7 +23,7 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <!--CORS-->
+    <!--CORS 不区分大小写-->
     <mvc:cors>
         <mvc:mapping path="/**/*.htm" exposed-headers="Content-Type, X-Token" allowed-origins="*" allowed-methods="GET, POST, PUT, DELETE" allowed-headers="Content-Type, X-Token" allow-credentials="true"/>
     </mvc:cors>

@@ -33,11 +33,14 @@ public class UserController extends BasicController {
 
     /**
      * 登录
-     *
-     * @param userVo
-     * @return
+     * Method:post
+     * Content-Type:application/json
+     * body:{
+     *     user:'',
+     *     password:''
+     * }
      */
-    @RequestMapping(value = "login.htm")
+    @RequestMapping(value = "login.htm",method = RequestMethod.POST)
     @ResponseBody
     @IgnoreSecurity
     public Object login(@RequestBody UserVo userVo, HttpServletResponse response) {
