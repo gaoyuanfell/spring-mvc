@@ -31,29 +31,29 @@ public class UserController extends BasicController {
     private UserService userService;
     private Logger logger = LoggerService.getLogger(this.getClass());
 
-    //test
-    @RequestMapping(value = "hello.htm")
+    /**
+     * 登录
+     *
+     * @param userVo
+     * @return
+     */
+    @RequestMapping(value = "login.htm")
     @ResponseBody
-    public String hello() {
-        return "{message:hello world 你好！}";
-    }
-
-    //多动作控制器
-    // @RequestBody application/json 接收参数
-
-
-    //方法名与 mapping值相同 .htm可以不写
-    @RequestMapping(value = "path.htm")
-    @ResponseBody
-    public Object getPath() {
-        return result();
-    }
-
-    //application/x-www-form-urlencoded 接收参数
-    @RequestMapping(value = "user.htm")
-    @ResponseBody
-    public Object getUser(UserVo user) {
-        return result();
+    @IgnoreSecurity
+    public Object login(@RequestBody UserVo userVo, HttpServletResponse response) {
+        UserTo u = userService.login(userVo);
+        boolean b = false;
+        Token t = null;
+        if (u != null) {
+            t = new Token(u, Integer.toString(u.getId()));
+            b = addUserSession(t);
+        }
+        if (b) {
+            response.setHeader("X-Token", t.getToken());
+            return result(u);
+        } else {
+            return result(CODE_PROMPT, "登录失败");
+        }
     }
 
 
@@ -109,31 +109,6 @@ public class UserController extends BasicController {
     public Object findPage(@RequestBody UserVo user) {
         Page list = userService.findPage(user);
         return result(list);
-    }
-
-    /**
-     * 登录
-     *
-     * @param userVo
-     * @return
-     */
-    @RequestMapping(value = "login.htm")
-    @ResponseBody
-    @IgnoreSecurity
-    public Object login(@RequestBody UserVo userVo, HttpServletResponse response) {
-        UserTo u = userService.login(userVo);
-        boolean b = false;
-        Token t = null;
-        if (u != null) {
-            t = new Token(u, Integer.toString(u.getId()));
-            b = addUserSession(t);
-        }
-        if (b) {
-            response.setHeader("X-Token", t.getToken());
-            return result(u);
-        } else {
-            return result(CODE_PROMPT, "登录失败");
-        }
     }
 
     /**
