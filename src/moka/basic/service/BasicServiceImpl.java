@@ -3,7 +3,7 @@ package moka.basic.service;
 import moka.basic.exception.ConvertValueException;
 import moka.basic.image.Exif;
 import moka.basic.log4j.LoggerService;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

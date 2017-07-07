@@ -2,7 +2,7 @@ package moka.basic.aspect;
 
 import com.alibaba.fastjson.JSONObject;
 import moka.basic.log4j.LoggerService;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -49,7 +49,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public Object handleHttpMediaTypeNotSupportedException(Exception e) {
-        logger.info("415",e);
+        logger.error("415",e);
         e.printStackTrace();
         return result(415,e);
     }

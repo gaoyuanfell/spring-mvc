@@ -8,7 +8,7 @@ import moka.basic.page.Page;
 import moka.user.service.UserService;
 import moka.user.to.UserTo;
 import moka.user.vo.UserVo;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +53,7 @@ public class UserController extends BasicController {
         }
         if (b) {
             response.setHeader("X-Token", t.getToken());
+            logger.info("登录成功！");
             return result(u);
         } else {
             return result(CODE_PROMPT, "登录失败");
